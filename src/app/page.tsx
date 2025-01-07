@@ -1,3 +1,9 @@
+import FirstView from "./components/FirstView";
+
 export default function Home() {
-  return <div>hello</div>;
+  return (
+    <div>
+      <FirstView />
+    </div>
+  );
 }

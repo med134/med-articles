@@ -3,8 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "@/public/images/logo.png";
 import { AiFillYoutube } from "react-icons/ai";
-import { GithubIcon, LinkedInIcon } from "./Icons";
-import { BsInstagram } from "react-icons/bs";
+import { BsGithub, BsInstagram, BsLinkedin } from "react-icons/bs";
 import { usePathname } from "next/navigation";
 const Footer = () => {
   const path = usePathname();
@@ -128,7 +127,7 @@ const Footer = () => {
                 aria-label="Visit our github profile"
                 className="w-auto mb-5 flex justify-start items-center dark:bg-dark sm:mx-1 focus:outline-none focus:ring  "
               >
-                <GithubIcon fontSize={28} className="" />
+                <BsGithub fontSize={28} className="" />
                 <span className="ml-1 font-semibold text-xs">Github</span>
               </a>
               <a
@@ -139,7 +138,7 @@ const Footer = () => {
                 aria-label="Visit our linkedin profile"
                 className="w-auto mx-3  flex justify-start items-center  dark:bg-dark sm:mx-1 focus:outline-none focus:ring "
               >
-                <LinkedInIcon fontSize={26} className="" />
+                <BsLinkedin fontSize={26} className="" />
                 <span className="ml-1 font-semibold text-xs">Linkedin</span>
               </a>
             </div>

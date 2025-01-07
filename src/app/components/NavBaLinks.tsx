@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { FiX } from "react-icons/fi";
-import useThemeSwitcher from "./hooks/useThemeSwitcher";
+import useThemeSwitcher from "./useThemeSwitcher";
 import med from "@/public/images/logo-med-removebg-preview.webp";
 import { usePathname } from "next/navigation";
 import { RiMenu5Fill } from "react-icons/ri";

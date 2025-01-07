@@ -1,9 +1,10 @@
 "use server";
-import { auth, signIn,signOut } from "@/auth";
+import { auth, signIn, signOut } from "@/auth";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { connect } from "./ConnectDB";
 import User from "../modalMongodb/User";
+import Category from "../modalMongodb/Category";
 
 export const handelLoginGithub = async () => {
   await signIn("github");
@@ -41,5 +42,15 @@ export const getUserByEmail = async (email: string) => {
       console.log(err);
       throw new Error("Failed to fetch users!");
     }
+  }
+};
+export const getAllCategories = async () => {
+  try {
+    connect();
+    const categories = await Category.find().sort({ slug: 1 });
+    return categories;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch categories!");
   }
 };

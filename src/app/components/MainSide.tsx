@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { AiOutlineRight } from "react-icons/ai";
-import { getAllCategories } from "@/src/utils/action";
+import { getAllCategories } from "@/src/utils/actions";
 import SearchTwo from "./SearchTwo";
 
 const Cat = async () => {

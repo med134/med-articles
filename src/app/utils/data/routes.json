@@ -1,0 +1,49 @@
+[
+    {
+      "name": "home",
+      "url": "/"
+    },
+    {
+      "name": "about",
+      "url": "/about"
+    },
+    {
+      "name": "projects",
+      "url": "/projects"
+    },
+    {
+      "name": "contact us",
+      "url": "/contact-us"
+    },
+    {
+      "name": "templates",
+      "url": "/templates"
+    },
+    {
+      "name": "dashboard",
+      "url": "/dashboard"
+    },
+    {
+      "name": "Login",
+      "url": "/login"
+    },
+    {
+      "name": "dashboard Blogs",
+      "url": "/dashboard/blogs"
+    },
+    {
+      "name": "dashboard add new blog",
+      "url": "/dashboard/add-articles"
+    },
+    {
+      "name": "Privacy Policy",
+      "url": "/privacy-policy"
+    },
+    {
+      "name": "Terms & Conditions",
+      "url": "/terms-and-conditions"
+    }
+  ]
+  
+  
+  

@@ -104,7 +104,7 @@ export const getArticleByCategories = async (category: string) => {
         : {};
       const articles = await Article.find(query).sort({ createdAt: -1 });
       const publicPosts = articles?.filter((item) => item.status === "publish");
-      return publicPosts;
+      return JSON.parse(JSON.stringify(publicPosts));
     }
   } catch (error) {
     console.log(error);

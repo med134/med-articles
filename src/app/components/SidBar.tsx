@@ -4,6 +4,7 @@ import Image from "next/image";
 import SideBarCategory from "./SideBarCategory";
 import { getArticleByCategories } from "@/src/utils/actions";
 import BlogImage from "@/public/images/postera.png";
+import { Blog } from "./Interfaces";
 
 const SidBar = async ({
   postSlug,
@@ -26,7 +27,7 @@ const SidBar = async ({
           Recent Related Posts
         </span>
         {dev?.map(
-          (item, index) =>
+          (item: Blog, index: number) =>
             index < 4 &&
             item.slug !== postSlug && (
               <div key={item._id} className="flex justify-start items-center">

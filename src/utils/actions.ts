@@ -143,3 +143,32 @@ export const getTemplates = async () => {
     throw new Error("Failed to fetch posts!");
   }
 };
+
+export const searchTemplates = async (query: string) => {
+  try {
+    await connect();
+    const filteredPosts = await Posts.find({
+      $or: [
+        { title: { $regex: query, $options: "i" } }, // Search in title
+        { description: { $regex: query, $options: "i" } }, // Search in description
+      ],
+    });
+    if (!filteredPosts.length) {
+      console.log("No posts found with the given query");
+      return [];
+    }
+    return filteredPosts;
+  } catch (err) {
+    console.error("Error during search operation:", err);
+  }
+};
+export const getTemplatesBySlug = async (slug: string) => {
+  try {
+    connect();
+    const posts = await Posts.findOne({ slug });
+    return posts;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch posts!");
+  }
+};

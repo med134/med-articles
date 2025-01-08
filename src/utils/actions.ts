@@ -6,6 +6,8 @@ import { connect } from "./ConnectDB";
 import User from "../modalMongodb/User";
 import Category from "../modalMongodb/Category";
 import Article from "../modalMongodb/Article";
+import Posts from "../modalMongodb/Post";
+
 
 export const handelLoginGithub = async () => {
   await signIn("github");
@@ -129,5 +131,15 @@ export const searchFunction = async (query: string) => {
     return filteredPosts;
   } catch (err) {
     console.error("Error during search operation:", err);
+  }
+};
+export const getTemplates = async () => {
+  try {
+    connect();
+    const posts = await Posts.find().sort({ createdAt: -1 });
+    return posts;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch posts!");
   }
 };

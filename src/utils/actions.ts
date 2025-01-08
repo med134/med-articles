@@ -10,6 +10,9 @@ import Article from "../modalMongodb/Article";
 export const handelLoginGithub = async () => {
   await signIn("github");
 };
+export const handelLoginGoogle = async () => {
+  await signIn("google");
+};
 export const handelLogOut = async () => {
   try {
     await signOut();
@@ -55,19 +58,6 @@ export const getAllCategories = async () => {
     throw new Error("Failed to fetch categories!");
   }
 };
-export const getFirstPost = async () => {
-  try {
-    connect();
-    const posts = await Article.find().sort({ createdAt: -1 });
-    const publicPosts = posts?.filter(
-      (item, index) => item.status === "publish" && index < 2
-    );
-    return publicPosts;
-  } catch (err) {
-    console.log(err);
-    throw new Error("Failed to fetch posts!");
-  }
-};
 
 export const FormatDate = async (dateString: Date) => {
   const options: Intl.DateTimeFormatOptions = {
@@ -109,5 +99,35 @@ export const getArticleByCategories = async (category: string) => {
   } catch (error) {
     console.log(error);
     throw new Error("Failed to fetch articles!");
+  }
+};
+
+export const getPosts = async () => {
+  try {
+    connect();
+    const posts = await Article.find().sort({ createdAt: -1 });
+    const publicPosts = posts?.filter((item) => item.status === "publish")
+    return publicPosts;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch posts!");
+  }
+};
+export const searchFunction = async (query: string) => {
+  try {
+    await connect();
+    const filteredPosts = await Article.find({
+      $or: [
+        { title: { $regex: query, $options: "i" } }, // Search in title
+        { description: { $regex: query, $options: "i" } }, // Search in description
+      ],
+    });
+    if (!filteredPosts.length) {
+      console.log("No posts found with the given query");
+      return [];
+    }
+    return filteredPosts;
+  } catch (err) {
+    console.error("Error during search operation:", err);
   }
 };

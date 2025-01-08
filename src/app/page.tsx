@@ -1,9 +1,13 @@
+import { getPosts } from "../utils/actions";
 import FirstView from "./components/FirstView";
+import HomePage from "./components/HomePage";
 
-export default function Home() {
+export default async function Home() {
+  const posts = await getPosts();
   return (
     <div>
-      <FirstView />
+      <FirstView posts={posts} />
+      <HomePage posts={posts} />
     </div>
   );
 }

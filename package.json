@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@monaco-editor/react": "^4.6.0",
+    "@monaco-editor/react": "^4.7.0",
     "bcryptjs": "^2.4.3",
     "jodit": "^4.2.47",
     "mongodb": "^6.8.0",

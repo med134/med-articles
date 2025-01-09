@@ -7,13 +7,29 @@ import "@/src/app/globals.css";
 import "jodit/examples/assets/app.css";
 import dynamic from "next/dynamic";
 import SideBarLoading from "../../components/SideBarLoading";
-import { getPostsBySlug, FormatDate } from "@/src/utils/actions";
+import {
+  getPostsBySlug,
+  FormatDate,
+  getLikes,
+  getComments,
+} from "@/src/utils/actions";
+import ReactionBlog from "../../components/ReactionBlog";
+import { auth } from "@/auth";
+import BlogLoginPage from "../../components/BlogLoginPage";
+import Loading from "../../components/Loading";
 const chivo = Chivo({
   variable: "--font-chivo",
   subsets: ["latin"],
 });
 const SidBar = dynamic(() => import("@/src/app/components/SidBar"), {
   loading: () => <SideBarLoading />,
+});
+const UserComments = dynamic(() => import("@/src/app/components/UserComment"), {
+  loading: () => <Loading />,
+});
+
+const Comments = dynamic(() => import("@/src/app/components/Comments"), {
+  loading: () => <Loading />,
 });
 type Props = {
   params: Promise<{ slug: string }>;
@@ -60,7 +76,10 @@ export async function generateMetadata(
 const BlogPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const slug = (await params).slug;
   const blog = await getPostsBySlug(slug);
+  const comments = await getComments(blog._id);
   const content = blog.content;
+  const likesPost = await getLikes(blog._id);
+  const session = await auth();
 
   return (
     <section
@@ -114,6 +133,18 @@ const BlogPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
             className="py-4 w-full xs:min-w-full"
             dangerouslySetInnerHTML={{ __html: content }}
           />
+          <ReactionBlog slug={slug} totalLikes={likesPost} BlogId={blog._id} />
+          {session ? (
+            <Comments
+              postId={blog._id}
+              user={
+                session.user as { name: string; email: string; image: string }
+              }
+            />
+          ) : (
+            <BlogLoginPage />
+          )}
+          <UserComments data={comments} />
         </div>
       </div>
       <div className="myLeftSide xl:w-72 col-span-2 sm:w-full xs:w-full sm:p-2 lg:h-[650px] sm:mb-8">

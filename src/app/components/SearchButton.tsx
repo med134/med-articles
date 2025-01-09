@@ -33,7 +33,7 @@ export function PostButton() {
       className="flex justify-around group dark:bg-dark dark:border dark:border-light dark:text-light px-6 xs:px-2 py-2 items-center hover:bg-cyan-500 bg-mainColor rounded-md text-light"
       type="submit"
     >
-      {status.pending ? "Posting..." : "Post"}
+      {status.pending ? "writing..." : "Write"}
     </button>
   );
 }

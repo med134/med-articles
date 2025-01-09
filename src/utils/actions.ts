@@ -261,3 +261,95 @@ export const sendMessage = async (prevState: unknown, formData: FormData) => {
   }
   revalidatePath("/contact-us");
 };
+
+export const getDashboardPosts = async (email: string) => {
+  if (email === process.env.ADMIN_EMAIL) {
+    try {
+      connect();
+      const posts = await Article.find().sort({ createdAt: -1 });
+      return JSON.parse(JSON.stringify(posts));
+    } catch (err) {
+      console.log(err);
+    }
+  } else {
+    try {
+      connect();
+      const query = email ? { email: { $regex: email, $options: "i" } } : {};
+      const posts = await Article.find(query).sort({
+        createdAt: -1,
+      });
+      return JSON.parse(JSON.stringify(posts));
+    } catch (err) {
+      console.log(err);
+    }
+  }
+};
+
+export const handelDeleteBlog = async (
+  prevState: unknown,
+  formData: FormData
+) => {
+  const _id = formData.get("id");
+  try {
+    connect();
+    await Article.findByIdAndDelete({ _id });
+    revalidatePath("/dashboard/blogs");
+    return "article has ben delete successfully";
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getEmailSession = async () => {
+  const session = await auth();
+  return session?.user?.email;
+};
+export const addArticle = async (prevState: unknown, formData: FormData) => {
+  const {
+    title,
+    tags,
+    description,
+    image,
+    status,
+    category,
+    slug,
+    job,
+    username,
+    userId,
+    email,
+    content,
+    userImage,
+  } = Object.fromEntries(formData);
+  try {
+    connect();
+    const newArticle = new Article({
+      title,
+      tags,
+      description,
+      image,
+      category,
+      status,
+      slug,
+      job,
+      content,
+      username,
+      userId,
+      userImage,
+      email,
+    });
+    await newArticle.save();
+    return "article is created successfully";
+  } catch (error) {
+    console.log(error);
+  }
+  revalidatePath("/dashboard/add-articles");
+};
+
+export const checkAdmin = async () => {
+  const session = await auth();
+  const emailAdmin = "mohamed7dakir@gmail.com";
+  if (session?.user?.email === emailAdmin) {
+    return true;
+  }
+  return false;
+};

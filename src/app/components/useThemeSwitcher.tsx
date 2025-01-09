@@ -1,14 +1,14 @@
+"use client";
 import { useEffect, useState } from "react";
 
 const useThemeSwitcher = (): [
   string,
   React.Dispatch<React.SetStateAction<string>>
 ] => {
-  const preferLightQuery = "light";
-  const [mode, setMode] = useState(preferLightQuery);
+  const [mode, setMode] = useState("light");
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia(preferLightQuery);
+    const mediaQuery = window.matchMedia("light");
     const userPref = window.localStorage.getItem("theme");
 
     const handleChange = () => {

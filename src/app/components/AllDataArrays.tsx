@@ -294,3 +294,16 @@ export const getProjects = async (slug: string) => {
 export const getProjectsMini = async (slug: string) => {
   return miniProject.find((project) => project.slug === slug);
 };
+
+export const FormatDate = async (dateString: Date) => {
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  const formattedDate = new Date(dateString).toLocaleDateString(
+    "en-US",
+    options
+  );
+  return formattedDate;
+};

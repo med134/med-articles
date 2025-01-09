@@ -4,7 +4,6 @@ import { BsArrowLeftCircleFill } from "react-icons/bs";
 import { VscPreview } from "react-icons/vsc";
 import { getTemplatesBySlug, getTemplates } from "@/src/utils/actions";
 import Image from "next/image";
-import CodeEditor from "@/src/app/components/CodeEditor";
 
 export async function generateMetadata({
   params,
@@ -116,7 +115,6 @@ const TemplateId = async ({
               </span>
             </Link>
           </div>
-          <CodeEditor codeSource={data.code} />
         </div>
         <div className="w-full p-6 mb-16 xs:p-2">
           <span className="text-2xl font-semibold text-mainColor py-4 underline px-2 xs:mb-10 dark:text-light">

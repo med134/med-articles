@@ -9,6 +9,7 @@ import Article from "../modalMongodb/Article";
 import Posts from "../modalMongodb/Post";
 import Likes from "../modalMongodb/Likes";
 import Comments from "../modalMongodb/Comments";
+import Email from "../modalMongodb/Email";
 
 export const handelLoginGithub = async () => {
   await signIn("github");
@@ -241,4 +242,22 @@ export const createComment = async (formData: FormData) => {
     console.log(error);
   }
   revalidatePath("/blogs");
+};
+export const sendMessage = async (prevState: unknown, formData: FormData) => {
+  const name = formData.get("name");
+  const email = formData.get("email");
+  const message = formData.get("message");
+  try {
+    connect();
+    const newMessage = new Email({
+      name,
+      email,
+      message,
+    });
+    await newMessage.save();
+    return "Your message is send successfully";
+  } catch (err) {
+    console.log(err);
+  }
+  revalidatePath("/contact-us");
 };

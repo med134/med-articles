@@ -60,7 +60,7 @@ const TemplateId = async ({
 
   return (
     <>
-      <div className="p-8 h-full py-28 xs:pt-6 dark:bg-dark xl:block md:p-4 xs:p-4">
+      <div className="p-8 h-full py-28 xs:pt-6 dark:bg-dark xl:block md:p-4 xs:p-4 bg-light">
         <div className="block justify-start information pt-24 px-10 md:px-3">
           <Link
             href="/templates"
@@ -127,20 +127,20 @@ const TemplateId = async ({
               item.slug != slug && index < 6 ? (
                 <div
                   key={item._id}
-                  className="w-auto rounded-md overflow-hidden shadow-md hover:shadow-lg xs:mb-4 dark:shadow-light"
+                  className="w-auto rounded-md bg-white overflow-hidden shadow-md hover:shadow-lg xs:mb-4 dark:shadow-light"
                 >
                   <div className="relative">
                     <Image
                       className="w-full h-44"
                       src={item.image}
                       alt={item.title}
-                      width={300}
-                      height={200}
+                      width={800}
+                      height={500}
                       quality={50}
                       loading="lazy"
                     />
                   </div>
-                  <div className="p-4">
+                  <div className="p-4 bg-white">
                     <Link
                       href={`/templates/${item.slug}`}
                       className="text-xl font-semibold hover:underline mb-2 text-mainColor dark:text-light"

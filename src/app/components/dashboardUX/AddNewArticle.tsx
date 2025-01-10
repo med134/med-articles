@@ -1,13 +1,12 @@
 "use client";
 import React, { useState, useRef, useMemo, useActionState } from "react";
 import SkeletonLoadingForm from "../dashboardUX/SkeltonLoadingForm";
-import dynamic from "next/dynamic";
 import imageCompression from "browser-image-compression";
 import "jodit/examples/assets/app.css";
 import { UserInfo } from "../Interfaces";
 import { addArticle } from "@/src/utils/actions";
 import IsUpdate from "../dashboardUX/IsUpdate";
-const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
+import JoditEditor from "jodit-pro-react";
 interface UserProps {
   user: UserInfo;
   name: string;
@@ -24,17 +23,23 @@ const AddNewArticle = ({ user }: { user: UserProps }) => {
   const editor = useRef(null);
   const config = useMemo(
     () => ({
+      readonly: false,
+      filebrowser: {
+        ajax: {
+          url: "https://xdsoft.net/jodit/finder/",
+        },
+        height: 580,
+      },
       uploader: {
         insertImageAsBase64URI: true,
         imagesExtensions: ["jpg", "png", "jpeg", "gif", "svg", "webp"],
+        url: "https://xdsoft.net/jodit/finder/?action=fileUpload",
       },
       height: "500px",
       width: "100%",
     }),
     []
   );
-
-  console.log(myContent);
 
   const readURL = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const input = event.target;

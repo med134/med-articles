@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@conform-to/react": "^1.2.2",
+    "@conform-to/zod": "^1.2.2",
     "bcryptjs": "^2.4.3",
     "browser-image-compression": "^2.0.2",
     "jodit": "^4.2.47",

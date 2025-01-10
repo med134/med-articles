@@ -10,6 +10,8 @@ import Posts from "../modalMongodb/Post";
 import Likes from "../modalMongodb/Likes";
 import Comments from "../modalMongodb/Comments";
 import Email from "../modalMongodb/Email";
+import { parseWithZod } from "@conform-to/zod";
+import { createAccountSchema } from "./ZodSchema";
 
 export const handelLoginGithub = async () => {
   await signIn("github");
@@ -352,4 +354,28 @@ export const checkAdmin = async () => {
     return true;
   }
   return false;
+};
+
+
+export const addUser = async (prevState: unknown, formData: FormData) => {
+  const submission = parseWithZod(formData, {
+    schema: createAccountSchema,
+  });
+  if (submission.status !== "success") {
+    return submission.reply();
+  }
+  try {
+    connect();
+    const newUser = new User({
+      name: submission.value.name,
+      email: submission.value.email,
+      password: submission.value.password,
+    });
+    await newUser.save();
+    console.log("user is save");
+  } catch (error) {
+    console.log(error);
+  }
+  revalidatePath("/create-account");
+  redirect("/login");
 };

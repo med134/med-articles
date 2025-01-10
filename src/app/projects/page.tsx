@@ -56,12 +56,12 @@ export const metadata: Metadata = {
 const page = () => {
   return (
     <>
-      <main className="w-full sm:mb-6 flex flex-col items-center justify-center bg-light py-24 md:py-10  dark:text-light dark:bg-dark">
+      <main className="w-full sm:mb-6 flex flex-col items-center justify-center bg-light py-24 md:py-10 dark:text-light dark:bg-dark">
         <div className="pt-16 md:pt-10 sm:pt-6 xs:pt-8 xs:p-8">
-          <h1 className="text-7xl text-dark font-sans px-8 md:text-5xl font-extrabold text-center py-10">
+          <h1 className="text-7xl text-dark font-sans px-8 md:px-2 md:text-3xl font-extrabold text-center py-10">
             <TitleAnimated title="Imagination Trumps Knowledge!" />
           </h1>
-          <div className="flex flex-col justify-center items-center p-16">
+          <div className="flex flex-col justify-center items-center p-16 md:p-1">
             <div className="mb-6">
               {ProjectFull.map((item, index) => {
                 if (index === 0)
@@ -79,7 +79,7 @@ const page = () => {
                   );
               })}
             </div>
-            <div className="flex justify-between items-center md:flex md:flex-col p-2 mb-6">
+            <div className="flex justify-between items-center md:flex md:flex-col p-2 md:p-0 mb-6">
               {miniProject.map((item, index) => {
                 if (index < 2)
                   return (

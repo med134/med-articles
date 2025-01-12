@@ -9,7 +9,6 @@ import { RxDashboard } from "react-icons/rx";
 import { PiUsersThree } from "react-icons/pi";
 import { RiArticleLine } from "react-icons/ri";
 import { MdPendingActions } from "react-icons/md";
-import { LuLayoutTemplate } from "react-icons/lu";
 import { MdOutlineMail } from "react-icons/md";
 import { CgFileAdd } from "react-icons/cg";
 import { FaYoutube, FaDev } from "react-icons/fa";
@@ -260,12 +259,6 @@ export const menuItems = [
     link: "/dashboard/add-articles",
     icon: CgFileAdd,
     isAdmin: false,
-  },
-  {
-    name: "Create Template",
-    link: `/dashboard/add-templates`,
-    icon: LuLayoutTemplate,
-    isAdmin: true,
   },
   {
     name: "Users",

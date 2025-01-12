@@ -287,19 +287,16 @@ export const getDashboardPosts = async (email: string) => {
   }
 };
 
-export const handelDeleteBlog = async (
-  prevState: unknown,
-  formData: FormData
-) => {
-  const _id = formData.get("id");
+export const handelDeleteBlog = async (id: string) => {
+  console.log(id);
   try {
     connect();
-    await Article.findByIdAndDelete({ _id });
-    revalidatePath("/dashboard/blogs");
-    return "article has ben delete successfully";
+    await Article.findByIdAndDelete(id);
+    console.log("article has ben delete successfully");
   } catch (err) {
     console.log(err);
   }
+  revalidatePath("/dashboard/blogs");
 };
 
 export const getEmailSession = async () => {
@@ -355,7 +352,6 @@ export const checkAdmin = async () => {
   }
   return false;
 };
-
 
 export const addUser = async (prevState: unknown, formData: FormData) => {
   const submission = parseWithZod(formData, {

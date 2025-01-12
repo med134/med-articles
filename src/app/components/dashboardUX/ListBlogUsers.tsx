@@ -1,27 +1,30 @@
 "use client";
-import React, { useState, useActionState } from "react";
+import React, { useState } from "react";
 import { BiSolidEdit } from "react-icons/bi";
 import Link from "next/link";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { CgFileAdd } from "react-icons/cg";
 import { Blog } from "../Interfaces";
 import Pagination from "../Pagination";
-import { handelDeleteBlog } from "@/src/utils/actions";
-import IsUpdate from "./IsUpdate";
-import LoadingSpinner from "../Loading";
+import ConfirmationModal from "./ConfirmationModal";
 
 interface ArticleProps {
   posts: Blog[];
   isAdmin: boolean;
 }
 const ListBlogUsers = ({ posts, isAdmin }: ArticleProps) => {
-  const [success, action, isPending] = useActionState(
-    handelDeleteBlog,
-    undefined
-  );
+  const [openModal, setOpenModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const handleMovePages = (page: number) => {
     setCurrentPage(page);
+  };
+  const [deleteBlogId, setDeleteBlogId] = useState("");
+  const handelDelete = (id: string) => {
+    setDeleteBlogId(id);
+    setOpenModal(!openModal);
+  };
+  const closeModal = () => {
+    setOpenModal(!openModal);
   };
   const perPage = 3;
   const indexOfLastBlog = currentPage * perPage;
@@ -36,7 +39,6 @@ const ListBlogUsers = ({ posts, isAdmin }: ArticleProps) => {
           <h1 className="text-2xl font-bold mb-10 sm:mb-6">
             Your Blogs & Articles
           </h1>
-          {success && <IsUpdate success={success} />}
           <table className="w-full">
             <thead>
               <tr className="font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-gray-600">
@@ -79,27 +81,18 @@ const ListBlogUsers = ({ posts, isAdmin }: ArticleProps) => {
                       <BiSolidEdit className="ml-2 w-5 h-5" />
                     </Link>
                     {isAdmin && (
-                      <form
-                        action={action}
-                        className="px-3 py-2 bg-gray-100 xs:px-2 hover:text-red-500 sm:mb-2 rounded-md text-dark"
+                      <button
+                        className="flex justify-center items-center"
+                        onClick={() => handelDelete(post._id)}
                       >
-                        <input type="hidden" name="id" value={post._id} />
-                        <button
-                          className="flex justify-center items-center"
-                          type="submit"
-                        >
-                          {isPending ? (
-                            <>
-                              <LoadingSpinner />
-                              <span className="ml-2 text-sm text-gray-500">
-                                Deleting...
-                              </span>
-                            </>
-                          ) : (
-                            <RiDeleteBin5Line className="ml-1 w-5 h-5" />
-                          )}
-                        </button>
-                      </form>
+                        <RiDeleteBin5Line className="ml-1 w-5 h-5 hover:fill-red-600" />
+                      </button>
+                    )}
+                    {openModal && (
+                      <ConfirmationModal
+                        blogId={deleteBlogId}
+                        onClose={closeModal}
+                      />
                     )}
                   </td>
                 </tr>

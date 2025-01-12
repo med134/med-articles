@@ -47,12 +47,6 @@ const MainLink = ({ user }: Props) => {
           className="mx-4 uppercase dark:text-light"
         />
         <CustomLink
-          key="templates"
-          href="/templates"
-          title="Templates"
-          className="mx-4 uppercase dark:text-light"
-        />
-        <CustomLink
           key="about"
           href="/about"
           title="About Us"

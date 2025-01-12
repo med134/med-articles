@@ -165,13 +165,6 @@ bg-dark/90 dark:bg-light/75 rounded-lg backdrop-blur-md py-8
                 title="Projects"
                 className="projects"
               />
-
-              <CustomMobileLink
-                key="templates"
-                href="/templates"
-                title="Templates"
-                className="templates"
-              />
               {user ? (
                 <CustomMobileLink
                   key="dashboard"

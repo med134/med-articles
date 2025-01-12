@@ -7,23 +7,12 @@ import { CgFileAdd } from "react-icons/cg";
 import { Blog } from "../Interfaces";
 import Pagination from "../Pagination";
 import ConfirmationModal from "./ConfirmationModal";
+import { FormatDate } from "../AllDataArrays";
 
 interface ArticleProps {
   posts: Blog[];
   isAdmin: boolean;
 }
-const FormatDate = async (dateString: Date) => {
-  const options: Intl.DateTimeFormatOptions = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  };
-  const formattedDate = new Date(dateString).toLocaleDateString(
-    "en-US",
-    options
-  );
-  return formattedDate;
-};
 const ListBlogUsers = ({ posts, isAdmin }: ArticleProps) => {
   const [openModal, setOpenModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);

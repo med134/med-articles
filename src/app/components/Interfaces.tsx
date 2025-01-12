@@ -29,6 +29,7 @@ export interface Blog {
   description: string;
   slug: string;
   category: string;
+  content:string;
   job: string;
   status: string;
   username: string;

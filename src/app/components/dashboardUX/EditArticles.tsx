@@ -6,39 +6,28 @@ import JoditEditor from "jodit-pro-react";
 import imageCompression from "browser-image-compression";
 import { editArticles } from "@/src/utils/actions";
 import Image from "next/image";
-import SkeletonLoadingForm from "./SkeltonLoadingForm";
-import { useSession } from "next-auth/react";
 import { Blog } from "../Interfaces";
 
 interface ArticleProps {
-  article: Blog[];
-  _id: string;
-  title: string;
-  tags: string;
-  image: string;
-  description: string;
-  slug: string;
-  category: string;
-  job: string;
-  content: string;
-  status: string;
-  username: string;
-  userId: string;
-  email: string;
-  userImage: string;
-  createdAt: Date;
+  article: Blog;
+  isAdmin: boolean;
 }
-export default function EditArticles({ article }: { article: ArticleProps }) {
+export default function EditArticles({ article, isAdmin }: ArticleProps) {
   const [success, action, isPending] = useActionState(editArticles, undefined);
-  const session = useSession();
   const [dataUrl, setDataUrl] = useState(article.image || null);
   const config = useMemo(
     () => ({
+      readonly: false,
+      filebrowser: {
+        ajax: {
+          url: "https://xdsoft.net/jodit/finder/",
+        },
+      },
       uploader: {
         insertImageAsBase64URI: true,
         imagesExtensions: ["jpg", "png", "jpeg", "gif", "svg", "webp"],
+        url: "https://xdsoft.net/jodit/finder/?action=fileUpload",
       },
-      readonly: false,
       height: "500px",
       width: "100%",
     }),
@@ -231,13 +220,7 @@ export default function EditArticles({ article }: { article: ArticleProps }) {
               </select>
             </div>
           </div>
-          <div
-            className={`p-3 ${
-              session?.data?.user?.email === "mohamed7dakir@gmail.com"
-                ? "block"
-                : "hidden"
-            }`}
-          >
+          <div className={`p-3 ${isAdmin ? "block" : "hidden"}`}>
             <label className="text-gray-600 font-bold mb-2 dark:text-light">
               Status
             </label>
@@ -271,7 +254,6 @@ export default function EditArticles({ article }: { article: ArticleProps }) {
           onChange={handleEditorChange}
         />
       </div>
-      {isPending && <SkeletonLoadingForm />}
       <div className="flex justify-start items-center mt-2">
         <button
           type="submit"

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { deleteDraftBlog } from "@/src/utils/actions";
 import { Blog } from "../Interfaces";
 import { DeleteButton } from "../SearchButton";
+import { FormatDate } from "../AllDataArrays";
 
 interface ArticleProps {
   draftBlog: Blog[];
@@ -47,7 +48,9 @@ const EditPending = ({ draftBlog }: ArticleProps) => {
                   {post?.status}
                 </span>
               </td>
-              <td className="px-4 py-3 text-sm border sm:hidden">h hhejbc</td>
+              <td className="px-4 py-3 text-sm border sm:hidden">
+                {FormatDate(post.createdAt)}
+              </td>
               <td className="flex py-5 md:py-2 text-sm border font-semibold justify-evenly md:flex md:flex-col md:justify-center md:items-center">
                 <Link
                   href={`/dashboard/blogs/edit-articles/${post.slug}`}

@@ -375,3 +375,115 @@ export const addUser = async (prevState: unknown, formData: FormData) => {
   revalidatePath("/create-account");
   redirect("/login");
 };
+export const deleteUser = async (prevState: unknown, formData: FormData) => {
+  const _id = formData.get("id");
+  try {
+    connect();
+    await User.findByIdAndDelete({ _id });
+    return { error: "user delete successfully" };
+  } catch (err) {
+    console.log(err);
+  }
+  revalidatePath("/dashboard/users");
+};
+export const getAllUsers = async () => {
+  try {
+    connect();
+    const users = await User.find().sort({ createdAt: -1 });
+    return JSON.parse(JSON.stringify(users));
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch users!");
+  }
+};
+export const getDraftBlog = async () => {
+  try {
+    connect();
+    const posts = await Article.find();
+    const draftBlog = posts.filter((draft) => draft.status === "draft");
+    return JSON.parse(JSON.stringify(draftBlog));
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch draft posts!");
+  }
+};
+
+export const deleteDraftBlog = async (formData: FormData) => {
+  const id = formData.get("id");
+  try {
+    connect();
+    await Article.findByIdAndDelete(id);
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch draft posts!");
+  }
+  revalidatePath("dashboard/pending");
+};
+export const deleteMessage = async (formData: FormData) => {
+  const _id = formData.get("id");
+  try {
+    connect();
+    await Email.findByIdAndDelete({ _id });
+    console.log("deleted message from db");
+  } catch (err) {
+    console.log(err);
+  }
+  revalidatePath("/dashboard/messages");
+};
+export const getMessages = async () => {
+  try {
+    connect();
+    const messages = await Email.find();
+    return messages;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch messages!");
+  }
+};
+export const editArticles = async (
+  prevSettings: unknown,
+  formData: FormData
+) => {
+  const _id = formData.get("id");
+  const title = formData.get("title");
+  const tags = formData.get("tags");
+  const job = formData.get("job");
+  const description = formData.get("description");
+  const image = formData.get("image");
+  const status = formData.get("status");
+  const content = formData.get("content");
+  const category = formData.get("category");
+  const userId = formData.get("userId");
+  const username = formData.get("username");
+  const email = formData.get("email");
+  const slug = formData.get("slug");
+  const userImage = formData.get("userImage");
+  try {
+    connect();
+    await Article.findByIdAndUpdate(
+      _id,
+      {
+        title,
+        tags,
+        image,
+        description,
+        slug,
+        category,
+        job,
+        status,
+        content,
+        username,
+        userId,
+        email,
+        userImage,
+      },
+
+      { new: true }
+    );
+    return "article is updated successfully";
+  } catch (err) {
+    console.log(err);
+  }
+  revalidatePath(`/dashboard/blogs/edit-articles/${slug}`);
+  redirect(`/dashboard/blogs`);
+};

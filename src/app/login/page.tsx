@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
 };
 const Login = async () => {
-/*   const session = await auth();
+  /*   const session = await auth();
   if (session) {
     redirect("/dashboard");
   } */
@@ -98,7 +98,7 @@ const Login = async () => {
             </form>
             <div className="mt-4 text-center">
               <Link
-                href="/create-account"
+                href="/sign-up"
                 className="font-bold text-blue-600 no-underline hover:text-blue-400"
               >
                 <span className="text-sm text-gray-600 dark:text-light">

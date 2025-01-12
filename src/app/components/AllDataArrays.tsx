@@ -288,7 +288,7 @@ export const getProjectsMini = async (slug: string) => {
   return miniProject.find((project) => project.slug === slug);
 };
 
-export const FormatDate = async (dateString: Date) => {
+export const FormatDate =  (dateString: Date) => {
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "long",

@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import imageBlog from "@/public/images/postera.png";
 import dynamic from "next/dynamic";
+import { FormatDate } from "./AllDataArrays";
 const Pagination = dynamic(() => import("./Pagination"), { ssr: false });
 
 interface Article {
@@ -24,18 +25,7 @@ interface Article {
 interface CategoryParams {
   post: Article[];
 }
-export const FormatDat = (dateString: Date) => {
-  const options: Intl.DateTimeFormatOptions = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  };
-  const formattedDate = new Date(dateString).toLocaleDateString(
-    "en-US",
-    options
-  );
-  return formattedDate;
-};
+
 const ListAllBlogs: React.FC<CategoryParams> = ({ post }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -104,7 +94,7 @@ const ListAllBlogs: React.FC<CategoryParams> = ({ post }) => {
                   <div className="flex justify-start items-center py-2 dark:text-light">
                     <FaRegCalendarAlt className="w-3 h-3 text-gray-800 dark:text-light" />
                     <span className="ml-2 text-xs font-semibold dark:text-light">
-                      {FormatDat(item?.createdAt)}
+                      {FormatDate(item?.createdAt)}
                     </span>
                   </div>
                 </div>

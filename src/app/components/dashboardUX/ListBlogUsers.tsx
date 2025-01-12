@@ -12,6 +12,18 @@ interface ArticleProps {
   posts: Blog[];
   isAdmin: boolean;
 }
+const FormatDate = async (dateString: Date) => {
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  const formattedDate = new Date(dateString).toLocaleDateString(
+    "en-US",
+    options
+  );
+  return formattedDate;
+};
 const ListBlogUsers = ({ posts, isAdmin }: ArticleProps) => {
   const [openModal, setOpenModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -72,7 +84,9 @@ const ListBlogUsers = ({ posts, isAdmin }: ArticleProps) => {
                       {post?.status}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-sm border sm:hidden">thth</td>
+                  <td className="px-4 py-3 text-sm border sm:hidden">
+                    {FormatDate(post.createdAt)}
+                  </td>
                   <td className="flex py-5 md:py-2 text-sm border font-semibold justify-evenly md:flex md:flex-col md:justify-center md:items-center">
                     <Link
                       href={`/dashboard/blogs/edit-articles/${post.slug}`}

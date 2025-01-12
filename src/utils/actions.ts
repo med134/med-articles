@@ -40,6 +40,16 @@ export const getUserId = async () => {
     return null;
   }
 };
+export const getUserById = async (_id: string) => {
+  try {
+    connect();
+    const user = await User.findOne({ _id });
+    return JSON.parse(JSON.stringify(user));
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch users!");
+  }
+};
 
 export const getUserByEmail = async (email: string) => {
   if (email) {
@@ -486,4 +496,63 @@ export const editArticles = async (
   }
   revalidatePath(`/dashboard/blogs/edit-articles/${slug}`);
   redirect(`/dashboard/blogs`);
+};
+export const getNumberOfArticle = async (email: string) => {
+  try {
+    connect();
+    const query = email ? { email: { $regex: email, $options: "i" } } : {};
+    const count = await Article.find(query).countDocuments();
+    return count;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Failed to fetch articles!");
+  }
+};
+
+export const editUserProfile = async (
+  prevSettings: unknown,
+  formData: FormData
+) => {
+  const _id = formData.get("id");
+  const name = formData.get("name");
+  const email = formData.get("email");
+  const job = formData.get("job");
+  const about = formData.get("about");
+  const imageUrl = formData.get("imageUrl");
+  const homeAddress = formData.get("homeAddress");
+  const twitterUrl = formData.get("twitterUrl");
+  const linkedInUrl = formData.get("linkedInUrl");
+  const githubUrl = formData.get("githubUrl");
+  const youtubeUrl = formData.get("youtubeUrl");
+  const dribbleUrl = formData.get("dribbleUrl");
+  const instagramUrl = formData.get("instagramUrl");
+  /*   const password = formData.get("password");
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt); */
+
+  try {
+    connect();
+    await User.findByIdAndUpdate(
+      _id,
+      {
+        name,
+        email,
+        job,
+        imageUrl,
+        homeAddress,
+        about,
+        twitterUrl,
+        linkedInUrl,
+        githubUrl,
+        youtubeUrl,
+        dribbleUrl,
+        instagramUrl,
+      }, 
+      { new: true }
+    );
+    return "user information is updated successfully";
+  } catch (err) {
+    console.log(err);
+  }
+  redirect(`/dashboard/users/${_id}`);
 };

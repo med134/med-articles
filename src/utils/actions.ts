@@ -430,7 +430,7 @@ export const deleteUser = async (prevState: unknown, formData: FormData) => {
 export const getAllUsers = async () => {
   try {
     connect();
-    const users = await User.find().sort({ createdAt: -1 });
+    const users = await User.find().sort({ createdAt: 1 });
     return JSON.parse(JSON.stringify(users));
   } catch (err) {
     console.log(err);
@@ -527,14 +527,13 @@ export const editArticles = async (
   }
   redirect(`/dashboard/blogs`);
 };
-export const getNumberOfArticle = async (email: string) => {
+export const getNumberOfArticle = async (id: string) => {
   try {
     connect();
-    const query = email ? { email: { $regex: email, $options: "i" } } : {};
-    const count = await Article.find(query).countDocuments();
-    return count;
-  } catch (error) {
-    console.log(error);
+    const articles = await Article.find({ userId: id });
+    return articles.length;
+  } catch (err) {
+    console.log(err);
     throw new Error("Failed to fetch articles!");
   }
 };

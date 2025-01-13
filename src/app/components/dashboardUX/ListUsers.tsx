@@ -42,15 +42,18 @@ const TableUsers = ({ users, isAdmin }: UserProps) => {
             {isAdmin && <th className="px-4 py-3 sm:text-sm">Action</th>}
           </tr>
         </thead>
-        <tbody className="bg-white">
-          {currentBlog?.map((user: UserInfo) => (
-            <tr key={user._id} className="text-gray-700">
+        <tbody className="bg-white">  
+          {currentBlog?.map((user: UserInfo, index: number) => (
+            <tr
+              key={user._id}
+              className={`text-gray-700 ${index === 0 ? "bg-gray-100" : ""}`}
+            >
               <td className="px-4 py-3 border">
-                <div className="flex items-center text-sm">
-                  <Link
-                    href={`/dashboard/users/${user._id}`}
-                    className="relative w-8 h-8 mr-3 rounded-full md:block"
-                  >
+                <Link
+                  href={`/dashboard/users/${user._id}`}
+                  className="flex items-center text-sm"
+                >
+                  <div className="relative w-8 h-8 mr-3 rounded-full md:block">
                     <Image
                       className="object-cover w-full h-full rounded-full"
                       src={user.imageUrl}
@@ -63,12 +66,12 @@ const TableUsers = ({ users, isAdmin }: UserProps) => {
                       className="absolute inset-0 rounded-full shadow-inner"
                       aria-hidden="true"
                     />
-                  </Link>
+                  </div>
                   <div>
                     <p className="font-semibold text-dark">{user.name}</p>
                     <p className="text-xs text-gray-600">{user?.job}</p>
                   </div>
-                </div>
+                </Link>
               </td>
               <td className="px-4 py-3 text-ms font-semibold border">
                 {user?.homeAddress || "unknown"}

@@ -3,6 +3,10 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+import NextTopLoader from "nextjs-toploader";
+import { Suspense } from "react";
+import GoogleAnalytics from "./components/jsx componenets/GoogleAnalytics";
+import CookieBanner from "./components/CookieBanner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -67,12 +71,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Suspense fallback={null}>
+        <GoogleAnalytics GA_MEASUREMENT_ID="G-J4KQVRLWEN" />
+      </Suspense>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <NavBar/>
+        <NavBar />
         {children}
-        <Footer/>
+        <NextTopLoader zIndex={99} showSpinner={false} />
+        <Footer />
+        <CookieBanner/>
       </body>
     </html>
   );

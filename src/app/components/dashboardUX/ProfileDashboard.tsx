@@ -3,9 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaUserAlt } from "react-icons/fa";
 import { FaRegEdit } from "react-icons/fa";
+import { getNumberOfArticle } from "@/src/utils/actions";
 
 interface ProfileProps {
-  numberOfArticle: number;
   isOwner: boolean;
   user: {
     _id: string;
@@ -14,6 +14,7 @@ interface ProfileProps {
     imageUrl: string;
     job: string;
     homeAddress: string;
+    numberOfArticles: number;
     about: string;
     youtubeUrl: string;
     githubUrl: string;
@@ -25,7 +26,8 @@ interface ProfileProps {
     createdAt: Date;
   };
 }
-const ProfileDashboard = ({ user, numberOfArticle, isOwner }: ProfileProps) => {
+const ProfileDashboard = async ({ user, isOwner }: ProfileProps) => {
+  const numberOfArticle = getNumberOfArticle(user._id);
   return (
     <div className="max-w-4xl flex items-center mx-auto my-16">
       {/*Main Col*/}

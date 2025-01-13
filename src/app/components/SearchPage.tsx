@@ -4,7 +4,7 @@ import CardHomePage from "./CardHomePage";
 import { IoSearchOutline } from "react-icons/io5";
 import Image from "next/image";
 import { searchFunction } from "@/src/utils/actions";
-import Loading from "./Loading";
+import { SkeltonSearch } from "./SkeltonCard";
 
 interface Category {
   _id: string;
@@ -82,7 +82,7 @@ const SearchPage: React.FC<SearchPageProps> = ({
             #{query}, {selectedCategories}
           </h1>
           {loading ? (
-            <Loading />
+            <SkeltonSearch />
           ) : (
             <div className="flex flex-col justify-center p-4 xl:p-1 gap-6 bg-light dark:bg-dark">
               {suggestions.map((item) => (

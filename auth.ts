@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import GitHub from "next-auth/providers/github";
-import Google from "next-auth/providers/google"
+import Google from "next-auth/providers/google";
 import User from "@/src/modalMongodb/User";
 import bcrypt from "bcryptjs";
 import Credentials from "next-auth/providers/credentials";
@@ -19,7 +19,7 @@ interface User {
 
 const login = async (credentials: Credentials): Promise<User> => {
   try {
-    connect()
+    connect();
     const user = await User.findOne({ email: credentials.email });
 
     if (!user) throw new Error("Wrong credentials!");

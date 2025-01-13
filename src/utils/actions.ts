@@ -12,6 +12,7 @@ import Comments from "../modalMongodb/Comments";
 import Email from "../modalMongodb/Email";
 import { parseWithZod } from "@conform-to/zod";
 import { createAccountSchema } from "./ZodSchema";
+import { AuthError } from "next-auth";
 
 export const handelLoginGithub = async () => {
   await signIn("github");
@@ -27,6 +28,25 @@ export const handelLogOut = async () => {
   }
   revalidatePath("/dashboard");
   redirect("/login");
+};
+export const credentialLogin = async (
+  prevState: unknown,
+  formData: FormData
+) => {
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
+  try {
+    await signIn("credentials", { email, password });
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case "CredentialsSignin":
+          return "email or password is invalid";
+        default:
+          return "Something went wrong.";
+      }
+    }
+  }
 };
 export const getUserId = async () => {
   const session = await auth();

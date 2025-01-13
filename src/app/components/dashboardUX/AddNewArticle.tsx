@@ -40,7 +40,6 @@ const AddNewArticle = ({ user }: { user: UserProps }) => {
     }),
     []
   );
-  console.log(myContent);
   const readURL = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const input = event.target;
     if (input.files && input.files[0]) {
@@ -203,9 +202,6 @@ const AddNewArticle = ({ user }: { user: UserProps }) => {
           )}
         </div>
       )}
-      <div>
-        <div dangerouslySetInnerHTML={{ __html: myContent }} />
-      </div>
     </>
   );
 };

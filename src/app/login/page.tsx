@@ -4,6 +4,9 @@ import { FcGoogle } from "react-icons/fc";
 import Image from "next/image";
 import { Metadata } from "next";
 import { handelLoginGithub } from "@/src/utils/actions";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
+import LoginForm from "../components/LoginForm";
 
 export const metadata: Metadata = {
   title: "medcode | Login",
@@ -37,10 +40,10 @@ export const metadata: Metadata = {
   },
 };
 const Login = async () => {
-  /*   const session = await auth();
+  const session = await auth();
   if (session) {
     redirect("/dashboard");
-  } */
+  }
   return (
     <>
       <div className="flex w-full bg-white items-center justify-center dark:bg-dark py-32 p-16 lg:flex lg:flex-col-reverse sm:p-8">
@@ -69,6 +72,7 @@ const Login = async () => {
               to publish blogs.
             </p>
             <div className="bg-gray-400 h-[1px] w-full mt-5 mb-5"></div>
+            <LoginForm />
             <h4 className="flex justify-center underline text-gray-500">
               Login with Google or Github
             </h4>

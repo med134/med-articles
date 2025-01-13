@@ -40,6 +40,12 @@ const MainLink = ({ user }: Props) => {
         </span>
       </Link>
       <div className="flex items-center justify-evenly xl:ml-6 bg-transparent z-50">
+      <CustomLink
+          key="templates"
+          href="/templates"
+          title="templates"
+          className="mx-4 uppercase dark:text-light"
+        />
         <CustomLink
           key="projects"
           href="/projects"

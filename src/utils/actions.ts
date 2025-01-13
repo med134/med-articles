@@ -88,7 +88,7 @@ export const getAllCategories = async () => {
   try {
     connect();
     const categories = await Category.find().sort({ slug: 1 });
-    return categories;
+    return JSON.parse(JSON.stringify(categories));
   } catch (err) {
     console.log(err);
     throw new Error("Failed to fetch categories!");
@@ -123,7 +123,8 @@ export const getArticleByCategories = async (category: string) => {
     connect();
     if (category === "all") {
       const articles = await Article.find().sort({ createdAt: -1 });
-      return JSON.parse(JSON.stringify(articles));
+      const publicPosts = articles?.filter((item) => item.status === "publish");
+      return JSON.parse(JSON.stringify(publicPosts));
     } else {
       const query = category
         ? { category: { $regex: category, $options: "i" } }
@@ -143,7 +144,7 @@ export const getPosts = async () => {
     connect();
     const posts = await Article.find().sort({ createdAt: -1 });
     const publicPosts = posts?.filter((item) => item.status === "publish");
-    return publicPosts;
+    return JSON.parse(JSON.stringify(publicPosts));
   } catch (err) {
     console.log(err);
     throw new Error("Failed to fetch posts!");
@@ -162,7 +163,7 @@ export const searchFunction = async (query: string) => {
       console.log("No posts found with the given query");
       return [];
     }
-    return filteredPosts;
+    return JSON.parse(JSON.stringify(filteredPosts));
   } catch (err) {
     console.error("Error during search operation:", err);
   }

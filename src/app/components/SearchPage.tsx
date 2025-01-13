@@ -1,10 +1,18 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CardHomePage from "./CardHomePage";
 import { IoSearchOutline } from "react-icons/io5";
 import Image from "next/image";
 import { searchFunction } from "@/src/utils/actions";
+import Loading from "./Loading";
 
+interface Category {
+  _id: string;
+  slug: string;
+  image: string;
+  value: string;
+  label: string;
+}
 interface Article {
   _id: string;
   title: string;
@@ -21,22 +29,13 @@ interface Article {
   userImage: string;
   createdAt: Date;
 }
-interface Category {
-  _id: string;
-  slug: string;
-  image: string;
-  value: string;
-  label: string;
-}
 
 interface SearchPageProps {
-  posts: Article[];
   firstSearch: Article[];
   cat: Category[];
   queryOne: string;
 }
 const SearchPage: React.FC<SearchPageProps> = ({
-  posts,
   firstSearch,
   cat,
   queryOne,
@@ -44,6 +43,9 @@ const SearchPage: React.FC<SearchPageProps> = ({
   const [suggestions, setSuggestions] = useState(firstSearch);
   const [query, setQuery] = useState(queryOne);
   const [selectedCategories, setSelectCategory] = useState("");
+  const [posts, setPosts] = useState(firstSearch);
+  const [loading, setLoading] = useState(false);
+  console.log(posts);
 
   //input onChange handler
   const onChangeHandle = (searchQuery: string) => {
@@ -62,6 +64,16 @@ const SearchPage: React.FC<SearchPageProps> = ({
     setSelectCategory(cat);
   };
 
+  useEffect(() => {
+    setLoading(true);
+    fetch("/api/articles")
+      .then((res) => res.json())
+      .then((data) => {
+        setPosts(data);
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <div className="grid grid-cols-6 gap-6 xl:gap-2 lg:flex lg:flex-col-reverse dark:bg-dark sm:p-2 w-[100%]">
       <div className="right-sideT top-96 col-span-4 w-full px-10 xl:px-2 mb-6">
@@ -69,7 +81,9 @@ const SearchPage: React.FC<SearchPageProps> = ({
           <h1 className=" text-mainColor text-left sm:mt-3 sm:text-sm px-5 dark:text-light text-xl font-outFit font-semibold uppercase">
             #{query}, {selectedCategories}
           </h1>
-          {suggestions && (
+          {loading ? (
+            <Loading />
+          ) : (
             <div className="flex flex-col justify-center p-4 xl:p-1 gap-6 bg-light dark:bg-dark">
               {suggestions.map((item) => (
                 <CardHomePage key={item._id} item={item} />

@@ -3,13 +3,17 @@ import Link from "next/link";
 import { AiOutlineRight } from "react-icons/ai";
 import { getAllCategories } from "@/src/utils/actions";
 import SearchTwo from "./SearchTwo";
-
+interface Category {
+  _id: string;
+  label: string;
+  value: string;
+}
 const Cat = async () => {
   const cat = await getAllCategories();
   return (
     <>
       <SearchTwo />
-      {cat?.map((item) => (
+      {cat?.map((item: Category) => (
         <div key={item._id}>
           <div className="group flex justify-between items-center py-1 mt-3 sm:mt-0">
             <Link

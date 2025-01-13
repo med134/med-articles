@@ -47,8 +47,8 @@ const ListAllBlogs: React.FC<CategoryParams> = ({ post }) => {
           >
             <div className="hover:no-underline focus:no-underline dark:bg-gray-900">
               <Image
-                width={300}
-                height={300}
+                width={800}
+                height={500}
                 className="object-fill w-full rounded h-44 dark:bg-gray-500 md:object-fill"
                 src={item.image ? item.image.trimEnd() : imageBlog}
                 alt={item.title}

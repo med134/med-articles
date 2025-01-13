@@ -121,7 +121,7 @@ const ListBlogUsers = ({ posts, isAdmin }: ArticleProps) => {
           </Link>
         </div>
       )}
-      {posts && (
+      {posts.length > 0 && (
         <Pagination
           totalPages={totalPages}
           handleMovePages={handleMovePages}

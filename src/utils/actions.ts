@@ -11,7 +11,7 @@ import Likes from "../modalMongodb/Likes";
 import Comments from "../modalMongodb/Comments";
 import Email from "../modalMongodb/Email";
 import { parseWithZod } from "@conform-to/zod";
-import { createAccountSchema } from "./ZodSchema";
+import { blogSchema, createAccountSchema } from "./ZodSchema";
 import { AuthError } from "next-auth";
 
 export const handelLoginGithub = async () => {
@@ -353,6 +353,13 @@ export const addArticle = async (prevState: unknown, formData: FormData) => {
     content,
     userImage,
   } = Object.fromEntries(formData);
+
+  const submission = parseWithZod(formData, {
+    schema: blogSchema,
+  });
+  if (submission.status !== "success") {
+    return submission.reply();
+  }
   try {
     connect();
     const newArticle = new Article({

@@ -7,6 +7,10 @@ import { UserInfo } from "../Interfaces";
 import { addArticle } from "@/src/utils/actions";
 import IsUpdate from "../dashboardUX/IsUpdate";
 import JoditEditor from "jodit-pro-react";
+import { useForm } from "@conform-to/react";
+import { parseWithZod } from "@conform-to/zod";
+import { blogSchema } from "@/src/utils/ZodSchema";
+
 interface UserProps {
   user: UserInfo;
   name: string;
@@ -19,6 +23,16 @@ const AddNewArticle = ({ user }: { user: UserProps }) => {
   const [myContent, setMyContent] = useState("");
   const [dataUrl, setDataUrl] = useState("");
   const [success, action, isPending] = useActionState(addArticle, undefined);
+
+  const [form, fields] = useForm({
+    onValidate({ formData }) {
+      return parseWithZod(formData, {
+        schema: blogSchema,
+      });
+    },
+    shouldValidate: "onBlur",
+    shouldRevalidate: "onInput",
+  });
   /* joditEditor */
   const editor = useRef(null);
   const config = useMemo(
@@ -80,22 +94,41 @@ const AddNewArticle = ({ user }: { user: UserProps }) => {
             <SkeletonLoadingForm />
           ) : (
             <div className="sm:items-center py-3">
-              {success && <IsUpdate success={success} />}
-              <form action={action} className="p-4 text-left text-gray-700">
+              {typeof success === 'string' && <IsUpdate success={success} />}
+              <form
+                id={form.id}
+                onSubmit={form.onSubmit}
+                action={action}
+                noValidate
+                className="p-4 text-left text-gray-700"
+              >
                 <div className="grid grid-cols-2 gap-4 md:block">
-                  <input
-                    required
-                    name="title"
-                    placeholder="Title"
-                    className="h-12 w-full sm:mb-2 rounded-md border m-1 bg-white px-2 text-sm outline-none focus:ring sm:px-2"
-                  />
-                  <input
-                    required
-                    type="text"
-                    name="tags"
-                    placeholder="tags"
-                    className="h-12 w-full rounded-md border m-1 bg-white px-5 outline-none focus:ring"
-                  />
+                  <div>
+                    <input
+                      name={fields.title.name}
+                      key={fields.title.key}
+                      defaultValue={fields.title.initialValue as string}
+                      placeholder="Title"
+                      className="h-12 w-full sm:mb-2 rounded-md border m-1 bg-white px-2 text-sm outline-none focus:ring sm:px-2"
+                    />
+                    <p className="text-red-600 text-sm px-4">
+                      {fields.title.errors}
+                    </p>
+                  </div>
+                  <div>
+                    <input
+                      required
+                      type="text"
+                      name={fields.tags.name}
+                      key={fields.tags.key}
+                      defaultValue={fields.tags.initialValue as string}
+                      placeholder="tags"
+                      className="h-12 w-full rounded-md border m-1 bg-white px-5 outline-none focus:ring"
+                    />
+                    <p className="text-red-600 text-sm px-4">
+                      {fields.tags.errors}
+                    </p>
+                  </div>
                   <div className="max-w-md mx-auto border border-gray-200 px-10 p-2 rounded-md">
                     <label className="text-base text-gray-500 font-semibold mb-2 block">
                       Upload Image
@@ -120,20 +153,33 @@ const AddNewArticle = ({ user }: { user: UserProps }) => {
                       value={user.imageUrl}
                     />
                   </div>
-
-                  <textarea
-                    required
-                    name="description"
-                    placeholder="description"
-                    className="h-24 w-full p-3 rows-3 rounded-md border m-1 bg-white px-5 text-sm outline-none focus:ring"
-                  />
-                  <input
-                    required
-                    type="text"
-                    placeholder="example-title-slug"
-                    name="slug"
-                    className="h-12 w-full rounded-md border m-1 bg-white px-5 text-sm outline-none focus:ring"
-                  />
+                  <div>
+                    <textarea
+                      required
+                      name={fields.description.name}
+                      key={fields.description.key}
+                      defaultValue={fields.description.initialValue as string}
+                      placeholder="description"
+                      className="h-24 w-full p-3 rows-3 rounded-md border m-1 bg-white px-5 text-sm outline-none focus:ring"
+                    />
+                    <p className="text-red-600 text-sm px-4">
+                      {fields.description.errors}
+                    </p>
+                  </div>
+                  <div>
+                    <input
+                      required
+                      type="text"
+                      placeholder="example-title-slug"
+                      name={fields.slug.name}
+                      key={fields.slug.key}
+                      defaultValue={fields.slug.initialValue as string}
+                      className="h-12 w-full rounded-md border m-1 bg-white px-5 text-sm outline-none focus:ring"
+                    />
+                    <p className="text-red-600 text-sm px-4">
+                      {fields.slug.errors}
+                    </p>
+                  </div>
                   <div className="">
                     <select
                       id="selectChoice"

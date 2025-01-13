@@ -3,7 +3,7 @@ import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import Image from "next/image";
 import { Metadata } from "next";
-import { handelLoginGithub } from "@/src/utils/actions";
+import { handelLoginGithub, handelLoginGoogle } from "@/src/utils/actions";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import LoginForm from "../components/LoginForm";
@@ -76,7 +76,7 @@ const Login = async () => {
             <h4 className="flex justify-center underline text-gray-500">
               Login with Google or Github
             </h4>
-            <form>
+            <form action={handelLoginGoogle}>
               <button className="w-full mt-4 text-center px-6 py-2 border flex justify-center items-center gap-2 border-slate-200 rounded-lg text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow transition duration-150">
                 <FcGoogle className="h-6 w-6 " />
                 <span className="dark:text-light">Login with Google</span>

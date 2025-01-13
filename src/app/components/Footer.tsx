@@ -138,7 +138,7 @@ const Footer = () => {
                 aria-label="Visit our linkedin profile"
                 className="w-auto mx-3  flex justify-start items-center  dark:bg-dark sm:mx-1 focus:outline-none focus:ring "
               >
-                <BsLinkedin fontSize={26} className="" />
+                <BsLinkedin fontSize={26} className="fill-blue-800" />
                 <span className="ml-1 font-semibold text-xs">Linkedin</span>
               </a>
             </div>

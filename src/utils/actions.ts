@@ -123,7 +123,7 @@ export const getArticleByCategories = async (category: string) => {
     connect();
     if (category === "all") {
       const articles = await Article.find().sort({ createdAt: -1 });
-      return articles;
+      return JSON.parse(JSON.stringify(articles));
     } else {
       const query = category
         ? { category: { $regex: category, $options: "i" } }

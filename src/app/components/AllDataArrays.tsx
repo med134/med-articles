@@ -261,7 +261,7 @@ export const menuItems = [
     isAdmin: false,
   },
   {
-    name: "Users",
+    name: "Users & Admin",
     link: "/dashboard/users",
     icon: PiUsersThree,
     isAdmin: false,

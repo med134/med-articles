@@ -4,12 +4,12 @@ import ListUsers from "../../components/dashboardUX/ListUsers";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "medCode|Users",
+  title: "medCode | Users & Admin",
   description: `Discover the latest web app projects created by MedCode, free and premium code source projects for beginners, React.js Next.js,javascript,HTML CSS`,
   keywords: [
     "Web Development",
     "projects beginners",
-    "projects ideas",   
+    "projects ideas",
     "projects github",
     "free projects",
     "projects for resume",

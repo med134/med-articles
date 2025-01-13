@@ -56,6 +56,12 @@ export async function generateMetadata({ params }: { params: Params }) {
     },
   };
 }
+interface Category {
+  _id: string;
+  label: string;
+  value: string;
+  image: string;
+}
 const Card = async ({ params }: { params: Params }) => {
   const { category } = await params;
   const [categoryHeader, post] = await Promise.all([
@@ -72,7 +78,7 @@ const Card = async ({ params }: { params: Params }) => {
         #{myTitle}
       </h1>
       <div className="flex justify-around items-center px-16 pt-14 lg:px-4 md:flex-wrap sm:px-4">
-        {categoryHeader?.map((item) => (
+        {categoryHeader?.map((item: Category) => (
           <Link
             className={`text-sm md:mb-3 w-24 flex flex-col justify-center items-center h-16 xl:h-10 sm:ml-2 dark:text-light sm:px-20 sm:rounded-md xs:w-24 sm:h-6 xs:bg-mainColor xs:text-light `}
             key={item._id}

@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 import { Suspense } from "react";
 import ListAllBlogs from "../components/ListAllBlogs";
-import { SkeltonCard } from "../components/SkeltonCard";
+import SkeltonCard  from "../components/SkeltonCard";
 interface Category {
   _id: string;
   label: string;

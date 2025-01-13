@@ -36,7 +36,7 @@ function Card() {
     </div>
   );
 }
-export const SkeltonCard = () => {
+const SkeltonCard = () => {
   return (
     <div className="grid grid-cols-3 gap-4 md:block p-16">
       <Card />
@@ -45,3 +45,5 @@ export const SkeltonCard = () => {
     </div>
   );
 };
+
+export default SkeltonCard;

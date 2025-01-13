@@ -4,7 +4,7 @@ import CardHomePage from "./CardHomePage";
 import { IoSearchOutline } from "react-icons/io5";
 import Image from "next/image";
 import { searchFunction } from "@/src/utils/actions";
-import { SkeltonSearch } from "./SkeltonCard";
+import { SkeltonSearch } from "./SearchSkelton";
 
 interface Category {
   _id: string;

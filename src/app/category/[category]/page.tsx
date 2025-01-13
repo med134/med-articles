@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import Image from "next/image";
 import ListAllBlogs from "../../components/ListAllBlogs";
 import { getAllCategories, getArticleByCategories } from "@/src/utils/actions";
-import {SkeltonCard} from "@/src/app/components/SkeltonCard";
+import { SkeltonCard } from "../../components/SkeltonCard";
 
 type Params = Promise<{ category: string }>;
 export async function generateMetadata({ params }: { params: Params }) {

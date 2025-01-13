@@ -3,8 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Suspense } from "react";
-import {SkeltonCard} from "../components/SkeltonCard";
 import ListAllBlogs from "../components/ListAllBlogs";
+import { SkeltonCard } from "../components/SkeltonCard";
 interface Category {
   _id: string;
   label: string;

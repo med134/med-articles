@@ -14,7 +14,11 @@ interface UserCommentsProps {
 const UserComments = ({ data }: UserCommentsProps) => {
   return (
     <div className="bg-light p-4">
-      <span className="py-2">Recent comments..</span>
+      {data ? (
+        <span className="py-2">Recent comments..</span>
+      ) : (
+        <span className="py-2">no comments to show</span>
+      )}
       {data?.map((item) => (
         <div
           key={item._id}

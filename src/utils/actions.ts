@@ -191,7 +191,11 @@ export const getLikes = async (_id: string) => {
   try {
     connect();
     const likesPost = await Likes.findOne({ blogId: _id });
-    return likesPost.numberOfLikes;
+    if (likesPost) {
+      return likesPost.numberOfLikes;
+    } else {
+      return [];
+    }
   } catch (error) {
     console.log(error);
     throw new Error("Failed to fetch likes!");
@@ -494,7 +498,6 @@ export const editArticles = async (
   } catch (err) {
     console.log(err);
   }
-  revalidatePath(`/dashboard/blogs/edit-articles/${slug}`);
   redirect(`/dashboard/blogs`);
 };
 export const getNumberOfArticle = async (email: string) => {
@@ -547,7 +550,7 @@ export const editUserProfile = async (
         youtubeUrl,
         dribbleUrl,
         instagramUrl,
-      }, 
+      },
       { new: true }
     );
     return "user information is updated successfully";

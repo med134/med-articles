@@ -40,12 +40,11 @@ const AddNewArticle = ({ user }: { user: UserProps }) => {
     }),
     []
   );
-
+  console.log(myContent);
   const readURL = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const input = event.target;
     if (input.files && input.files[0]) {
       const file = input.files[0];
-      // Compression options
       const options = {
         maxSizeMB: 1, // Maximum file size in MB
         maxWidthOrHeight: 800, // Maximum width or height
@@ -204,6 +203,9 @@ const AddNewArticle = ({ user }: { user: UserProps }) => {
           )}
         </div>
       )}
+      <div>
+        <div dangerouslySetInnerHTML={{ __html: myContent }} />
+      </div>
     </>
   );
 };

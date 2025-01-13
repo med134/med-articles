@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import GitHub from "next-auth/providers/github";
-import Google from "next-auth/providers/google";
+import Google from "next-auth/providers/google"
 import User from "@/src/modalMongodb/User";
 import bcrypt from "bcryptjs";
 import Credentials from "next-auth/providers/credentials";

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Chivo } from "next/font/google";
 import type { Metadata, ResolvingMetadata } from "next";
 import "@/src/app/globals.css";
-import "jodit/examples/assets/app.css";
 import dynamic from "next/dynamic";
 import SideBarLoading from "../../components/SideBarLoading";
 import {
@@ -13,6 +12,7 @@ import {
   getLikes,
   getComments,
 } from "@/src/utils/actions";
+import "jodit/examples/assets/app.css";
 import ReactionBlog from "../../components/ReactionBlog";
 import { auth } from "@/auth";
 import BlogLoginPage from "../../components/BlogLoginPage";
@@ -78,8 +78,8 @@ const BlogPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const blog = await getPostsBySlug(slug);
   const comments = await getComments(blog._id);
   const content = blog.content;
-  const likesPost = await getLikes(blog._id);
   const session = await auth();
+  const likesPost = await getLikes(blog._id);
 
   return (
     <section

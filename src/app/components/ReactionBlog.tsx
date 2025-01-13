@@ -12,7 +12,7 @@ const ReactionBlog = ({
   totalLikes: number;
   BlogId: string;
 }) => {
-  const [likes, setLikes] = useState(totalLikes);
+  const [likes, setLikes] = useState(totalLikes || 0);
   const [isClicked, setIsClicked] = useState(false);
   return (
     <>

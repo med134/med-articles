@@ -22,7 +22,7 @@ const UserComments = ({ data }: UserCommentsProps) => {
       {data?.map((item) => (
         <div
           key={item._id}
-          className="bg-white p-4 rounded-lg shadow dark:bg-dark"
+          className="bg-white p-4 mb-2 rounded-lg shadow dark:bg-dark"
         >
           <div className="flex items-center mb-2">
             <Image

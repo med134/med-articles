@@ -56,11 +56,11 @@ const DashboardLayout = async ({
           {children}
           {!user && (
             <Link
-              href="/dashboard/complete-profile"
+              href="/dashboard/users/complete-profile"
               className="fixed  top-20 right-0 text-light bg-red-500 py-2 w-1/2 lg:w-full flex justify-center items-center text-center"
             >
               <AiFillAlert className="text-light mr-3 w-5 h-5" />
-              <span>please !complete your account to full access</span>
+              <p>you are not user yet ! click to complete profile...</p>
             </Link>
           )}
         </div>

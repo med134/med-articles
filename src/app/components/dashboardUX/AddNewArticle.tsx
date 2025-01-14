@@ -10,6 +10,7 @@ import JoditEditor from "jodit-pro-react";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { blogSchema } from "@/src/utils/ZodSchema";
+import Link from "next/link";
 
 interface UserProps {
   user: UserInfo;
@@ -85,7 +86,7 @@ const AddNewArticle = ({ user }: { user: UserProps }) => {
   };
   return (
     <>
-      {user && (
+      {user ? (
         <div className="inline-block max-h-full p-8 py-8 sm:p-2 sm:py-2 w-full">
           <h1 className="text-gray-700 text-2xl lg:text-2xl font-bold">
             Start to Create Your Article
@@ -94,7 +95,7 @@ const AddNewArticle = ({ user }: { user: UserProps }) => {
             <SkeletonLoadingForm />
           ) : (
             <div className="sm:items-center py-3">
-              {typeof success === 'string' && <IsUpdate success={success} />}
+              {typeof success === "string" && <IsUpdate success={success} />}
               <form
                 id={form.id}
                 onSubmit={form.onSubmit}
@@ -246,6 +247,28 @@ const AddNewArticle = ({ user }: { user: UserProps }) => {
               </form>
             </div>
           )}
+        </div>
+      ) : (
+        <div className="flex justify-center items-center py-24">
+          <Link
+            href="/dashboard/users/complete-profile"
+            className="flex flex-row items-center text-light justify-center w-1/2 px-4 py-4 mb-4 text-sm font-bold bg-mainColor leading-6 capitalize duration-100 transform rounded-sm shadow cursor-pointer focus:ring-4 focus:ring-yellow-300 focus:ring-opacity-50 focus:outline-none sm:mb-0 sm:w-auto sm:mr-4 md:pl-8 md:pr-6 xl:pl-12 xl:pr-10   hover:shadow-lg hover:-translate-y-1"
+          >
+            Complete Account to publish blogs
+            <span className="ml-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                data-name="Layer 1"
+                viewBox="0 0 24 24"
+                className="w-5 h-5 fill-current"
+              >
+                <path
+                  fill="currentColor"
+                  d="M17.92,11.62a1,1,0,0,0-.21-.33l-5-5a1,1,0,0,0-1.42,1.42L14.59,11H7a1,1,0,0,0,0,2h7.59l-3.3,3.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l5-5a1,1,0,0,0,.21-.33A1,1,0,0,0,17.92,11.62Z"
+                ></path>
+              </svg>
+            </span>
+          </Link>
         </div>
       )}
     </>

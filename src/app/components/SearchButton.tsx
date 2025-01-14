@@ -88,3 +88,17 @@ export function CreateButton() {
     </button>
   );
 }
+
+export function CompleteAccount() {
+  const status = useFormStatus();
+  return (
+    <button
+      type="submit"
+      className="text-center"
+    >
+      <span className="text-light">
+        {status.pending ? "Completing..." : "Complete Account"}
+      </span>
+    </button>
+  );
+}

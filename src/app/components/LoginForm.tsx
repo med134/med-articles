@@ -17,7 +17,7 @@ const LoginForm = () => {
             required
           />
           <input
-            className="w-full px-8 py-3 ml-3 rounded-lg font-medium bg-gray-100 border border-gray-200 sm:mb-2 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+            className="w-full px-8 py-3 ml-3 sm:ml-0 rounded-lg font-medium bg-gray-100 border border-gray-200 sm:mb-2 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
             name="password"
             type="password"
             placeholder="Password"

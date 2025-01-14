@@ -1,5 +1,6 @@
 "use server";
 import { auth, signIn, signOut } from "@/auth";
+import bcrypt from "bcryptjs";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { connect } from "./ConnectDB";
@@ -585,4 +586,27 @@ export const editUserProfile = async (
     console.log(err);
   }
   redirect(`/dashboard/users/${_id}`);
+};
+export const completeAccount = async (formData: FormData) => {
+  const { id, name, email, password, homeAddress, about } =
+    Object.fromEntries(formData);
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password as string, salt);
+  try {
+    connect();
+    const newUser = new User({
+      id,
+      name,
+      email,
+      password: hashedPassword,
+      homeAddress,
+      about,
+    });
+    await newUser.save();
+    console.log("use is save");
+  } catch (error) {
+    console.log(error);
+  }
+  revalidatePath("/dashboard/users/complete-profile");
+  redirect("/dashboard/add-articles");
 };

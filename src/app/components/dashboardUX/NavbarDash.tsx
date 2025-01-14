@@ -21,6 +21,13 @@ const NavbarDash = ({ user, session }: Props) => {
   const handelOpen = () => {
     setIsOpen(!isOpen);
   };
+    const filteredMenuItems = menuItems.filter((item) => {
+      if (session.email === "mohamed7dakir@gmail.com") {
+        return true;
+      } else {
+        return !item.isAdmin;
+      }
+    });
   return (
     <div className="h-20 flex sticky top-0 w-full justify-between z-50 items-center bg-gradient-to-r from-[#f0f0f0] to-gray-50 md:w-[100%]">
       {/* hidden navbar responsive */}
@@ -75,10 +82,9 @@ const NavbarDash = ({ user, session }: Props) => {
         <div
           className={`absolute top-16 right-0 mt-2 w-full p-6 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 `}
         >
-          {menuItems.map((link, index) => {
+          {filteredMenuItems.map((link) => {
             const LinkIcon = link.icon;
             const isActive = path === link.link;
-            if (index < 5)
               return (
                 <div
                   key={link.name}

@@ -29,12 +29,21 @@ export interface Blog {
   description: string;
   slug: string;
   category: string;
-  content:string;
+  content: string;
   job: string;
   status: string;
   username: string;
   userId: string;
   email: string;
   userImage: string;
+  createdAt: Date;
+}
+
+export interface Comment {
+  _id: string;
+  comment: string;
+  blogId: string;
+  imageUser: string;
+  username: string;
   createdAt: Date;
 }

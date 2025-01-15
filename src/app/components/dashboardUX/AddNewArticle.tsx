@@ -222,9 +222,11 @@ const AddNewArticle = ({ user }: { user: UserProps }) => {
                     id="selectStatus"
                     name="status"
                     defaultValue={"draft"}
-                    className="h-12 w-full max-w-full rounded-md border m-1 bg-white px-5 text-sm outline-none focus:ring"
+                    className="h-12 w-full rounded-md border m-1 bg-white px-5 text-sm outline-none focus:ring"
                   >
-                    <option value="draft">Draft</option>
+                    <option className="py-2 h-8 px-4" value="draft">
+                      Draft
+                    </option>
                   </select>
                 </div>
                 <JoditEditor

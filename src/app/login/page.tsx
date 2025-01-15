@@ -73,7 +73,7 @@ const Login = async () => {
             </p>
             <div className="bg-gray-400 h-[1px] w-full mt-5 mb-5"></div>
             <LoginForm />
-            <h4 className="flex justify-center underline text-gray-500">
+            <h4 className="flex justify-center underline pt-2 text-gray-500">
               Login with Google or Github
             </h4>
             <form action={handelLoginGoogle}>

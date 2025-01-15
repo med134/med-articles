@@ -250,7 +250,6 @@ export const incrementLike = async (_id: string) => {
   }
   revalidatePath("/blogs");
 };
-
 export const getComments = async (blogId: string) => {
   try {
     connect();

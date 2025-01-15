@@ -22,10 +22,10 @@ const Comments = async ({ postId, user }: Props) => {
       <div>
         <div className="flex items-center px-4">
           <Image
-            width={40}
-            height={40}
+            width={200}
+            height={200}
             loading="lazy"
-            quality={40}
+            quality={60}
             src={user.image}
             alt="photo_profile"
             className="w-10 h-10 rounded-[50%] cursor-pointer"

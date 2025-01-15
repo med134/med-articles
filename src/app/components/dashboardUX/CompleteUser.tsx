@@ -27,17 +27,17 @@ const CompleteUser = ({ session }: Session) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-white shadow-[0_2px_13px_-6px_rgba(0,0,0,0.4)] sm:p-8 p-4 rounded-md">
+    <div className="max-w-4xl mx-auto bg-white shadow-[0_2px_13px_-6px_rgba(0,0,0,0.4)] sm:p-2 p-4 rounded-md">
       <div className="my-8 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
-        <h4 className="mx-4 text-center font-mono text-mainColor font-semibold text-2xl">
+        <h4 className="mx-4 text-center sm:text-xl font-mono text-mainColor font-semibold text-2xl">
           Complete Create your account
         </h4>
       </div>
       <form action={completeAccount} className="">
-        <div className="grid grid-cols-2 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-2 gap-8 sm:flex sm:flex-col sm:gap-0 sm:px-2">
           <input hidden readOnly value={session?.email || ""} name="email" />
           <div>
-            <label className="text-gray-800 text-sm mb-2 block">username</label>
+            <label className="text-gray-800 text-sm mb-2 block sm:px-2 ">username</label>
             <input
               name="name"
               type="text"
@@ -47,7 +47,7 @@ const CompleteUser = ({ session }: Session) => {
             />
           </div>
           <div>
-            <label className="text-gray-800 text-sm mb-2 block">
+            <label className="text-gray-800 text-sm mb-2 block sm:px-2 sm:pt:1">
               Home Address (optional)
             </label>
             <input
@@ -59,7 +59,7 @@ const CompleteUser = ({ session }: Session) => {
           </div>
 
           <div>
-            <label className="text-gray-800 text-sm mb-2 block">Password</label>
+            <label className="text-gray-800 text-sm mb-2 block sm:px-2 sm:pt:1">Password</label>
             <input
               type="password"
               className="bg-gray-100 focus:bg-transparent w-full text-sm text-gray-800 px-4 py-3 rounded-md outline-mainColor transition-all"
@@ -71,7 +71,7 @@ const CompleteUser = ({ session }: Session) => {
             />
           </div>
           <div>
-            <label className="text-gray-800 text-sm mb-2 block">
+            <label className="text-gray-800 text-sm mb-2 block sm:px-2 sm:pt:1">
               Confirm Password
             </label>
             <input
@@ -86,7 +86,7 @@ const CompleteUser = ({ session }: Session) => {
             />
           </div>
           <div className="">
-            <label className="text-gray-800 text-sm mb-2 block">
+            <label className="text-gray-800 text-sm mb-2 block sm:px-2 sm:pt:1">
               Enter somethings about you (optional)
             </label>
             <textarea

@@ -1,22 +1,18 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { incrementLike } from "@/src/utils/actions";
 
-const ReactionBlog = ({ BlogId }: { BlogId: string }) => {
-  const [likes, setLikes] = useState([]);
+const ReactionBlog = ({
+  BlogId,
+  likesBlog,
+}: {
+  BlogId: string;
+  likesBlog: number;
+}) => {
+  const [likes, setLikes] = useState(likesBlog || 0);
   const [isClicked, setIsClicked] = useState(false);
-  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setLoading(true);
-    fetch(`/api/comments/${BlogId}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setLikes(data.numberOfLikes);
-        setLoading(false);
-      });
-  }, [BlogId]);
   return (
     <>
       <div className="flex justify-start items-center p-2 mb-1 rounded-md sm:flex-col">
@@ -36,11 +32,9 @@ const ReactionBlog = ({ BlogId }: { BlogId: string }) => {
             ) : (
               <FaRegHeart className="w-6 h-6 fill-dark" />
             )}
-            <div className="text-dark ml-2">
-              {loading
-                ? "loading..."
-                : <span>{likes} personas likes this post...</span>}
-            </div>
+            <span className="text-dark ml-2">
+              {likes} personas likes this post...
+            </span>
           </button>
         </div>
       </div>

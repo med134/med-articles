@@ -7,7 +7,7 @@ import { Suspense } from "react";
 import "@/src/app/globals.css";
 import dynamic from "next/dynamic";
 import SideBarLoading from "../../components/SideBarLoading";
-import { getPostsBySlug, FormatDate } from "@/src/utils/actions";
+import { getPostsBySlug, FormatDate, getLikes } from "@/src/utils/actions";
 import "jodit/examples/assets/app.css";
 import ReactionBlog from "../../components/ReactionBlog";
 import { auth } from "@/auth";
@@ -73,6 +73,7 @@ const BlogPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const blog = await getPostsBySlug(slug);
   const session = await auth();
   const content = blog.content;
+  const likesBlog = await getLikes(blog._id)
 
   return (
     <section
@@ -126,7 +127,9 @@ const BlogPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
             className="py-4 w-full xs:min-w-full"
             dangerouslySetInnerHTML={{ __html: content }}
           />
-          <ReactionBlog BlogId={blog._id} />
+          <Suspense fallback={<div>Loading...</div>}>
+            <ReactionBlog BlogId={blog._id} likesBlog={likesBlog} />
+          </Suspense>
           {session ? (
             <Comments
               postId={blog._id}

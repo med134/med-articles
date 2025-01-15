@@ -4,7 +4,7 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { incrementLike } from "@/src/utils/actions";
 
 const ReactionBlog = ({ BlogId }: { BlogId: string }) => {
-  const [likes, setLikes] = useState(null);
+  const [likes, setLikes] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -13,7 +13,7 @@ const ReactionBlog = ({ BlogId }: { BlogId: string }) => {
     fetch(`/api/comments/${BlogId}`)
       .then((res) => res.json())
       .then((data) => {
-        setLikes(data);
+        setLikes(data.numberOfLikes);
         setLoading(false);
       });
   }, [BlogId]);

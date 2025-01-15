@@ -4,9 +4,9 @@ import { FcGoogle } from "react-icons/fc";
 
 const BlogLoginPage = () => {
   return (
-    <div className="flex flex-col justify-center shadow-md p-4 bg-light">
-      <h4 className="px-6">Login to write a comment</h4>
-      <div className="flex justify-center items-center">
+    <div className="flex justify-start items-center shadow-md p-2 bg-light">
+      <h4 className="px-2">Login to write a comment</h4>
+      <div className="flex justify-center items-center px-8">
         <form action={handelLoginGoogle}>
           <button className="w-full text-center px-6 py-2 border flex justify-center items-center gap-2 border-slate-200 rounded-lg text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow transition duration-150">
             <FcGoogle className="h-6 w-6 " />

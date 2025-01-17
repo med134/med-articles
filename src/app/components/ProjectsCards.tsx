@@ -21,7 +21,7 @@ export const Project = ({
   index: number;
 }) => {
   return (
-    <div className="m-6">
+    <div className="m-2 sm:m-0 sm:mb-2">
       <motion.div
         initial={{
           opacity: 0,
@@ -111,22 +111,22 @@ export const FeaturedProject = ({
 }) => {
   return (
     <article
-      className="flex ml-8 items-center justify-between relative rounded-br-2xl
-          rounded-3xl border border-solid border-dark bg-light shadow-2xl p-16 dark:bg-dark dark:border-light
-          lg:flex-col lg:p-8 xs:rounded-2xl xs:rounded-br-3xl xs:p-4 sm:ml-2"
+      className="ml-8 grid grid-cols-2 gap-x-6 lg:flex lg:flex-col items-center justify-between relative rounded-br-2xl
+          rounded-3xl border border-solid border-dark bg-light shadow-2xl p-10  xl:p-6 sm:p-6 dark:bg-dark dark:border-light
+          lg:p-8 xs:rounded-2xl xs:rounded-br-3xl xs:p-4 sm:ml-0"
     >
       <div
         className="absolute top-0 -right-3 -z-10 w-[101%] h-[103%] rounded-[2.5rem] bg-dark dark:bg-light
       rounded-br-3xl xs:-right-2 sm:h-[102%] xs:w-full xs:rounded-[1.5rem]
       "
       />
-      <div className="w-1/2 cursor-pointer overflow-hidden rounded-lg lg:w-full">
+      <div className="w-full cursor-pointer overflow-hidden rounded-lg lg:w-full">
         <FramerImage
           src={img}
           alt={title}
           className="w-full h-auto"
           width={500}
-          height={300}
+          height={500}
           loading="lazy"
           sizes="(max-width: 768px) 100vw,
                 (max-width: 1200px) 50vw,
@@ -134,7 +134,7 @@ export const FeaturedProject = ({
         />
       </div>
 
-      <div className="w-1/2 flex flex-col items-start justify-between pl-6 lg:w-full lg:pl-0 lg:pt-6">
+      <div className="w-full flex flex-col items-start justify-between pl-6 lg:w-full lg:pl-0 lg:pt-6">
         <span className="text-mainColor font-medium text-xl dark:text-primaryDark xs:text-base">
           {type}
         </span>
@@ -142,7 +142,7 @@ export const FeaturedProject = ({
           href={`/projects/${slug}`}
           className="hover:underline underline-offset-2"
         >
-          <h2 className="my-2 w-full text-left text-4xl font-bold dark:text-light lg:text-3xl xs:text-2xl">
+          <h2 className="my-2 w-full text-left text-3xl font-bold dark:text-light lg:text-3xl xs:text-2xl">
             {title}
           </h2>
         </Link>

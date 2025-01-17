@@ -5,7 +5,7 @@ import { Metadata } from "next";
 import { TitleAnimated } from "../components/TitleAnimated";
 import AnimatedCard from "../components/AnimatedCard";
 export const metadata: Metadata = {
-  title: "medCode-Web Development Projects |medCode",
+  title: "medCode | Projects",
   description: `Discover the latest web app projects created by MedCode, free and premium code source projects for beginners, React.js Next.js,javascript,HTML CSS`,
   keywords: [
     "Web Development",

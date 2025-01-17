@@ -6,9 +6,11 @@ import { handelLogOut } from "@/src/utils/actions";
 import Link from "next/link";
 import { IoSettingsOutline } from "react-icons/io5";
 import { UserInfo } from "./Interfaces";
+import { AnimatePresence } from "framer-motion";
+import * as motion from "motion/react-client";
 
 interface Props {
-  user: UserInfo; 
+  user: UserInfo;
 }
 const ProfileDown = ({ user }: Props) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -36,10 +38,15 @@ const ProfileDown = ({ user }: Props) => {
           className="w-10 h-10 rounded-[50%] cursor-pointer"
         />
       </button>
-
-      {isDropdownOpen && (
-        <div className="origin-top-right w-56 bg-light dark:bg-dark dark:shadow-light p-6 absolute right-2 mt-4 rounded-md shadow-lg z-50">
-          {user && (
+      <AnimatePresence>
+        {isDropdownOpen && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.4 }}
+            className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 ring-1 ring-black ring-opacity-5"
+          >
             <div className="py-1 rounded-md shadow-xs">
               <ul className="block py-2 z-[1000] min-w-full w-max rounded-lg max-h-96 overflow-auto dark:text-light">
                 <Link
@@ -104,9 +111,9 @@ const ProfileDown = ({ user }: Props) => {
                 </button>
               </form>
             </div>
-          )}
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

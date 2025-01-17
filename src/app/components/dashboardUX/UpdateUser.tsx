@@ -11,7 +11,6 @@ import {
 } from "react-icons/bs";
 import { FaRegUser } from "react-icons/fa6";
 import { FaRegEdit } from "react-icons/fa";
-import { BiX } from "react-icons/bi";
 import { useActionState } from "react";
 import imageCompression from "browser-image-compression";
 import { MdOutlineWorkOutline, MdOutlineLocalLibrary } from "react-icons/md";
@@ -21,19 +20,21 @@ interface UserProps {
   user: UserInfo;
 }
 const UpdateUser = ({ user }: UserProps) => {
-  const [success, action, isPending] = useActionState(editUserProfile, null);
+  const [success, action, isPending] = useActionState(
+    editUserProfile,
+    undefined
+  );
   const [dataUrl, setDataUrl] = useState(user?.imageUrl);
   const [formData, setFormData] = useState({
     name: user.name || "",
     job: user.job || "",
     homeAddress: user.homeAddress || "",
     about: user.about || "",
-    youtubeUrl: user.youtubeUrl || "",
-    githubUrl: user.githubUrl || "",
-    instagramUrl: user.instagramUrl || "",
+    youtubeUrl: user.youtubeUrl || " ",
+    githubUrl: user.githubUrl || " ",
+    instagramUrl: user.instagramUrl || " ",
     linkedInUrl: user.linkedInUrl || "",
     dribbleUrl: user.dribbleUrl || "",
-    twitterUrl: user.twitterUrl || "",
   });
 
   //onchange function
@@ -163,21 +164,11 @@ const UpdateUser = ({ user }: UserProps) => {
           </label>
           <div className="flex justify-evenly flex-wrap mx-auto gap-4 max-w-lg p-4">
             <div className="relative w-full">
-              <BiX className="absolute left-3 rounded-full w-5 h-5 top-1/2 transform -translate-y-1/2 text-gray-500" />
-              <input
-                type="url"
-                name="twitterUrl"
-                placeholder="X URL..."
-                value={formData?.twitterUrl}
-                onChange={(e) => handelChange(e.target.name, e.target.value)}
-                className="w-full px-12 rounded-lg p-2 outline-mainColor bg-gray-100 border-2 border-solid border-black/10 font-mono font-medium text-sm"
-              />
-            </div>
-            <div className="relative w-full">
               <BsLinkedin className="absolute left-3 fill-slate-600 rounded-full w-5 h-5 top-1/2 transform -translate-y-1/2 text-gray-500" />
               <input
                 type="url"
                 name="linkedInUrl"
+                required={false}
                 value={formData?.linkedInUrl}
                 onChange={(e) => handelChange(e.target.name, e.target.value)}
                 placeholder="linkedIn URL..."
@@ -189,6 +180,7 @@ const UpdateUser = ({ user }: UserProps) => {
               <input
                 type="url"
                 name="githubUrl"
+                required={false}
                 value={formData?.githubUrl}
                 onChange={(e) => handelChange(e.target.name, e.target.value)}
                 placeholder="github URL..."
@@ -200,6 +192,7 @@ const UpdateUser = ({ user }: UserProps) => {
               <input
                 type="url"
                 name="youtubeUrl"
+                required={false}
                 value={formData?.youtubeUrl}
                 onChange={(e) => handelChange(e.target.name, e.target.value)}
                 placeholder="youtube channel URL..."
@@ -210,6 +203,7 @@ const UpdateUser = ({ user }: UserProps) => {
               <BsDribbble className="absolute left-3 rounded-full w-5 h-5 top-1/2 transform -translate-y-1/2 text-gray-500" />
               <input
                 type="url"
+                required={false}
                 name="dribbleUrl"
                 value={formData?.dribbleUrl}
                 onChange={(e) => handelChange(e.target.name, e.target.value)}
@@ -221,6 +215,7 @@ const UpdateUser = ({ user }: UserProps) => {
               <BsInstagram className="absolute left-3 rounded-full w-5 h-5 top-1/2 transform -translate-y-1/2 text-gray-500" />
               <input
                 type="url"
+                required={false}
                 value={formData?.instagramUrl}
                 onChange={(e) => handelChange(e.target.name, e.target.value)}
                 name="instagramUrl"

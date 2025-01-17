@@ -38,7 +38,7 @@ const ProfileDashboard = async ({ user, isOwner }: ProfileProps) => {
         {isOwner && (
           <Link
             href={`/dashboard/users/settings/${user?._id}`}
-            className="bg-mainColor hover:bg-cyan-900 absolute right-4 top-2 text-white p-4 rounded-full"
+            className="bg-mainColor hover:bg-cyan-900 absolute sm:hidden right-4 top-2 text-white p-4 rounded-full"
           >
             <FaRegEdit className="text-light w-5 h-5 text-center" />
           </Link>

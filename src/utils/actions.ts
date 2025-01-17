@@ -550,15 +550,11 @@ export const editUserProfile = async (
   const about = formData.get("about");
   const imageUrl = formData.get("imageUrl");
   const homeAddress = formData.get("homeAddress");
-  const twitterUrl = formData.get("twitterUrl");
   const linkedInUrl = formData.get("linkedInUrl");
   const githubUrl = formData.get("githubUrl");
   const youtubeUrl = formData.get("youtubeUrl");
   const dribbleUrl = formData.get("dribbleUrl");
   const instagramUrl = formData.get("instagramUrl");
-  /*   const password = formData.get("password");
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(password, salt); */
 
   try {
     connect();
@@ -571,7 +567,6 @@ export const editUserProfile = async (
         imageUrl,
         homeAddress,
         about,
-        twitterUrl,
         linkedInUrl,
         githubUrl,
         youtubeUrl,
@@ -580,10 +575,10 @@ export const editUserProfile = async (
       },
       { new: true }
     );
-    return "user information is updated successfully";
   } catch (err) {
     console.log(err);
   }
+  revalidatePath(`dashboard/users/settings/${_id}`);
   redirect(`/dashboard/users/${_id}`);
 };
 export const completeAccount = async (formData: FormData) => {

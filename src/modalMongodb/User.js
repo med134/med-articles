@@ -41,32 +41,22 @@ const userSchema = new Schema(
     youtubeUrl: {
       type: String,
       required: false,
-      default: "#",
     },
     githubUrl: {
       type: String,
       required: false,
-      default: "#",
     },
     linkedInUrl: {
       type: String,
       required: false,
-      default: "#",
     },
     dribbleUrl: {
       type: String,
       required: false,
-      default: "#",
     },
     instagramUrl: {
       type: String,
       required: false,
-      default: "#",
-    },
-    twitterUrl: {
-      type: String,
-      required: false,
-      default: "#",
     },
     isAdmin: {
       type: Boolean,

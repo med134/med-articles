@@ -66,7 +66,7 @@ const SearchPage: React.FC<SearchPageProps> = ({
 
   useEffect(() => {
     setLoading(true);
-    fetch("/api/articles")
+    fetch("/api/articles", { cache: "force-cache" })
       .then((res) => res.json())
       .then((data) => {
         setPosts(data);

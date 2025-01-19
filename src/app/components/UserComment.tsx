@@ -39,7 +39,7 @@ const UserComments = async ({ articleId }: { articleId: string }) => {
                 </p>
               </div>
             </div>
-            <p className="text-gray-700 dark:text-light text-xs">
+            <p className="text-gray-700 dark:text-light text-sm">
               {item.comment}
             </p>
             <div className="flex items-center mt-2">

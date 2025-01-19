@@ -5,9 +5,16 @@ import Link from "next/link";
 import icon from "@/public/images/development-amico.webp";
 import { FormatDate } from "@/src/utils/actions";
 import { Blog } from "./Interfaces";
+import { Chivo } from "next/font/google";
+
 interface BlogProps {
   posts: Blog[];
 }
+
+const chivo = Chivo({
+  variable: "--font-chivo",
+  subsets: ["latin"],
+});
 const FirstView: React.FC<BlogProps> = ({ posts }) => {
   return (
     <div
@@ -44,7 +51,7 @@ const FirstView: React.FC<BlogProps> = ({ posts }) => {
                     {item.title}
                   </h1>
                 </Link>
-                <p className="mt-2 text-xl text-gray-850 py-4 xs:text-sm xs:mt-1 xs:py-2 dark:text-light">
+                <p className={`${chivo.variable} mt-2 font-semibold text-gray-800 text-xl text-gray-850 py-4 xs:text-sm xs:mt-1 xs:py-2 dark:text-light`}>
                   {item?.description.slice(0, 130)}...
                 </p>
                 <Link

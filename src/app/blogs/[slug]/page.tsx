@@ -73,7 +73,7 @@ const BlogPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const blog = await getPostsBySlug(slug);
   const session = await auth();
   const content = blog.content;
-  const likesBlog = await getLikes(blog._id)
+  const likesBlog = await getLikes(blog._id);
 
   return (
     <section
@@ -123,10 +123,7 @@ const BlogPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
           <h2 className="flex underline font-bold justify-start items-start py-6 xs:py-2 ml-2 mt-1 font-bolder">
             {blog.tags}
           </h2>
-          <div
-            className="py-4 w-full xs:min-w-full"
-            dangerouslySetInnerHTML={{ __html: content }}
-          />
+          <div dangerouslySetInnerHTML={{ __html: content }}></div>
           <Suspense fallback={<div>Loading...</div>}>
             <ReactionBlog BlogId={blog._id} likesBlog={likesBlog} />
           </Suspense>

@@ -2,7 +2,7 @@
 import { useState, useMemo, useActionState, useRef } from "react";
 import Link from "next/link";
 import "jodit/examples/assets/app.css";
-import JoditEditor from "jodit-pro-react";
+import JoditEditor from "jodit-react";
 import imageCompression from "browser-image-compression";
 import { editArticles } from "@/src/utils/actions";
 import Image from "next/image";

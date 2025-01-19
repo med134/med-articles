@@ -6,7 +6,7 @@ import "jodit/examples/assets/app.css";
 import { UserInfo } from "../Interfaces";
 import { addArticle } from "@/src/utils/actions";
 import IsUpdate from "../dashboardUX/IsUpdate";
-import JoditEditor from "jodit-pro-react";
+import JoditEditor from "jodit-react";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { blogSchema } from "@/src/utils/ZodSchema";
@@ -84,6 +84,7 @@ const AddNewArticle = ({ user }: { user: UserProps }) => {
   const changeContent = (newContent: string) => {
     setMyContent(newContent);
   };
+  console.log(myContent)
   return (
     <>
       {user ? (

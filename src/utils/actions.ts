@@ -14,6 +14,7 @@ import Email from "../modalMongodb/Email";
 import { parseWithZod } from "@conform-to/zod";
 import { blogSchema, createAccountSchema } from "./ZodSchema";
 import { AuthError } from "next-auth";
+import { revalidateTag } from "next/cache";
 
 export const handelLoginGithub = async () => {
   await signIn("github");
@@ -120,6 +121,7 @@ export const getPostsBySlug = async (slug: string) => {
 };
 
 export const getArticleByCategories = async (category: string) => {
+  "use cache";
   try {
     connect();
     if (category === "all") {
@@ -275,6 +277,7 @@ export const createComment = async (formData: FormData) => {
       comment,
     });
     await newComment.save();
+    revalidateTag("update-data");
   } catch (error) {
     console.log(error);
   }

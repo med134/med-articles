@@ -10,10 +10,10 @@ export default async function Home() {
   return (
     <div>
       <FirstView posts={posts} />
-      <HomePage posts={posts} />
       <Suspense fallback={<Loading />}>
-        <TemplateSection />
+        <HomePage posts={posts} />
       </Suspense>
+      <TemplateSection />
     </div>
   );
 }

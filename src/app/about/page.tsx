@@ -1,3 +1,4 @@
+
 import React from "react";
 import { AnimatedNumbers } from "../components/AnimatedNumbers";
 import Image from "next/image";

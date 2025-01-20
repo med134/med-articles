@@ -24,6 +24,7 @@ interface Template {
   createdAt: Date;
 }
 const TemplateSection = async () => {
+  "use cache";
   const templates = await getTemplates();
   return (
     <section

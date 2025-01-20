@@ -1,4 +1,3 @@
-"use cache"
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -124,7 +123,10 @@ const BlogPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
           <h2 className="flex underline font-bold justify-start items-start py-6 xs:py-2 ml-2 mt-1 font-bolder">
             {blog.tags}
           </h2>
-          <div className="bg-light p-6 sm:p-0" dangerouslySetInnerHTML={{ __html: content }}></div>
+          <div
+            className="bg-light p-6 sm:p-0"
+            dangerouslySetInnerHTML={{ __html: content }}
+          ></div>
           <Suspense fallback={<div>Loading...</div>}>
             <ReactionBlog BlogId={blog._id} likesBlog={likesBlog} />
           </Suspense>

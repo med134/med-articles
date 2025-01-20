@@ -5,6 +5,7 @@ import { VscPreview } from "react-icons/vsc";
 import { getTemplatesBySlug, getTemplates } from "@/src/utils/actions";
 import Image from "next/image";
 import CodeEditor from "@/src/app/components/CodeEditor";
+import { Template } from "../../components/Interfaces";
 
 export async function generateMetadata({
   params,
@@ -123,40 +124,40 @@ const TemplateId = async ({
             Related components:
           </span>
           <div className="grid grid-cols-3 gap-8 px-8 pt-10 p-8 md:block xs:px-2 xs:p-2">
-            {templates?.map((item, index) =>
+            {templates?.map((item: Template, index: number) =>
               item.slug != slug && index < 6 ? (
-                <div
-                  key={item._id}
-                  className="w-auto rounded-md bg-white overflow-hidden shadow-md hover:shadow-lg xs:mb-4 dark:shadow-light"
-                >
-                  <div className="relative">
-                    <Image
-                      className="w-full h-44"
-                      src={item.image}
-                      alt={item.title}
-                      width={800}
-                      height={500}
-                      quality={50}
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="p-4 bg-white">
-                    <Link
-                      href={`/templates/${item.slug}`}
-                      className="text-xl font-semibold hover:underline mb-2 text-mainColor dark:text-light"
-                    >
-                      <h2>{item.title}</h2>
-                    </Link>
-                    <p className="text-gray-600 text-sm mb-4 dark:text-light">
-                      {item.description.slice(0, 70)}...
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-light px-2 py-1 bg-cyan-600 rounded-lg">
-                        {item.category}
-                      </span>
-                    </div>
-                  </div>
+              <div
+                key={item._id}
+                className="w-auto rounded-md bg-white overflow-hidden shadow-md hover:shadow-lg xs:mb-4 dark:shadow-light"
+              >
+                <div className="relative">
+                <Image
+                  className="w-full h-44"
+                  src={item.image}
+                  alt={item.title}
+                  width={800}
+                  height={500}
+                  quality={50}
+                  loading="lazy"
+                />
                 </div>
+                <div className="p-4 bg-white">
+                <Link
+                  href={`/templates/${item.slug}`}
+                  className="text-xl font-semibold hover:underline mb-2 text-mainColor dark:text-light"
+                >
+                  <h2>{item.title}</h2>
+                </Link>
+                <p className="text-gray-600 text-sm mb-4 dark:text-light">
+                  {item.description.slice(0, 70)}...
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-light px-2 py-1 bg-cyan-600 rounded-lg">
+                  {item.category}
+                  </span>
+                </div>
+                </div>
+              </div>
               ) : null
             )}
           </div>

@@ -38,6 +38,21 @@ export interface Blog {
   userImage: string;
   createdAt: Date;
 }
+export interface Template {
+  _id: string;
+  title: string;
+  tags: string;
+  image: string;
+  description: string;
+  slug: string;
+  category: string;
+  link: string;
+  job: string;
+  status: string;
+  username: string;
+  code: string;
+  createdAt: Date;
+}
 
 export interface Comment {
   _id: string;

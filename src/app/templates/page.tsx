@@ -44,8 +44,7 @@ export const metadata: Metadata = {
 };
 const page = async () => {
   const posts = await getTemplates();
-  /*   const data = JSON.parse(JSON.stringify(posts));
-   */ return (
+  return (
     <>
       <div className="bg-white dark:bg-dark dark:text-light pt-[80px] xl:pt-[60px] lg:pt-[40px]">
         <div className="grid grid-cols-2 p-16 mx-auto overflow-x-hidden xs:text-left xs:p-4 lg:block lg:text-center xl:mt-5 sm:p-8">
@@ -89,7 +88,7 @@ const page = async () => {
           </h3>
         </div>
         <Suspense fallback={<SkeltonCard />}>
-          <TemplatesPreview data={posts}/>
+          <TemplatesPreview data={posts} />
         </Suspense>
       </div>
     </>

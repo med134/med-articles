@@ -1,4 +1,3 @@
-
 import React from "react";
 import { AnimatedNumbers } from "../components/AnimatedNumbers";
 import Image from "next/image";
@@ -10,9 +9,12 @@ import Loading from "@/src/app/components/Loading";
 const Skills = dynamic(() => import("../components/jsx componenets/Skills"), {
   loading: () => <Loading />,
 });
-const Experience = dynamic(() => import("../components/jsx componenets/Experience"), {
-  loading: () => <Loading />,
-});
+const Experience = dynamic(
+  () => import("../components/jsx componenets/Experience"),
+  {
+    loading: () => <Loading />,
+  }
+);
 const Education = dynamic(() => import("../components/Education"), {
   loading: () => <Loading />,
 });

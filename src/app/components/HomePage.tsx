@@ -4,10 +4,10 @@ import "@/src/app/globals.css";
 import CategoryCard from "./CategoryCard";
 import dynamic from "next/dynamic";
 import CardHomePage from "./CardHomePage";
-import Loading from "./Loading";
 import Link from "next/link";
+import SideBarLoading from "./SideBarLoading";
 const Cat = dynamic(() => import("@/src/app/components/MainSide"), {
-  loading: () => <Loading />,
+  loading: () => <SideBarLoading />,
 });
 interface Article {
   _id: string;
@@ -66,7 +66,7 @@ const HomePage: React.FC<BlogProps> = ({ posts }) => {
           </h3>
           <CategoryCard />
           <div className="h-[1px] mb-4 bg-slate-400 w-auto"></div>
-          <Suspense fallback={<Loading />}>
+          <Suspense fallback={<SideBarLoading />}>
             <Cat />
           </Suspense>
         </div>

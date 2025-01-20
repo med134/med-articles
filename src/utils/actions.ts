@@ -87,6 +87,7 @@ export const getUserByEmail = async (email: string) => {
   }
 };
 export const getAllCategories = async () => {
+  "use cache";
   try {
     connect();
     const categories = await Category.find().sort({ slug: 1 });
@@ -175,7 +176,7 @@ export const getTemplates = async () => {
   try {
     connect();
     const posts = await Posts.find().sort({ createdAt: -1 });
-    return posts;
+    return JSON.parse(JSON.stringify(posts));
   } catch (err) {
     console.log(err);
     throw new Error("Failed to fetch posts!");

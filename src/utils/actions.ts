@@ -183,7 +183,6 @@ export const searchFunction = async (query: string) => {
   }
 };
 export const getTemplates = async () => {
-  "use cache";
   try {
     connect();
     const posts = await Posts.find().sort({ createdAt: -1 });

@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import BlogImage from "@/public/images/postera.png";
+import { FormatDate } from "./AllDataArrays";
 
 interface Article {
   _id: string;
@@ -45,7 +46,7 @@ const CardHomePage: React.FC<BlogProps> = ({ item }) => {
               />
             </svg>
             <span className="ml-2 font-semibold dark:text-light">
-              455
+              {FormatDate(item?.createdAt)}
             </span>
           </span>
           <Link href={`/blogs/${item.slug}`}>

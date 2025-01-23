@@ -45,7 +45,7 @@ const CardHomePage: React.FC<BlogProps> = ({ item }) => {
               />
             </svg>
             <span className="ml-2 font-semibold dark:text-light">
-              {item.createdAt.toString()}
+              455
             </span>
           </span>
           <Link href={`/blogs/${item.slug}`}>

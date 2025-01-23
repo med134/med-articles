@@ -87,7 +87,6 @@ export const getUserByEmail = async (email: string) => {
   }
 };
 export const getAllCategories = async () => {
-  "use cache";
   try {
     connect();
     const categories = await Category.find().sort({ slug: 1 });
@@ -142,7 +141,18 @@ export const getArticleByCategories = async (category: string) => {
     throw new Error("Failed to fetch articles!");
   }
 };
-
+export const getFirstBlog = async () => {
+  try {
+    connect();
+    const firstBlog = await Article.find().sort({ createdAt: -1 });
+    const post = firstBlog.filter(
+      (item, index) => item.status === "publish" && index < 1
+    );
+    return post;
+  } catch (error) {
+    console.log(error);
+  }
+};
 export const getPosts = async () => {
   try {
     connect();
@@ -173,6 +183,7 @@ export const searchFunction = async (query: string) => {
   }
 };
 export const getTemplates = async () => {
+  "use cache";
   try {
     connect();
     const posts = await Posts.find().sort({ createdAt: -1 });

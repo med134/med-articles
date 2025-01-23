@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import CardHomePage from "./CardHomePage";
 import Link from "next/link";
 import SideBarLoading from "./SideBarLoading";
+import { getPosts } from "@/src/utils/actions";
 const Cat = dynamic(() => import("@/src/app/components/MainSide"), {
   loading: () => <SideBarLoading />,
 });
@@ -25,10 +26,10 @@ interface Article {
   userImage: string;
   createdAt: Date;
 }
-interface BlogProps {
-  posts: Article[];
-}
-const HomePage: React.FC<BlogProps> = ({ posts }) => {
+
+const HomePage = async () => {
+  const posts = await getPosts();
+
   return (
     <div
       style={{
@@ -42,7 +43,7 @@ const HomePage: React.FC<BlogProps> = ({ posts }) => {
           <span className="sm:text-xl">Recent Articles</span>
         </div>
         <div className="div01 section" id="chapter1">
-          {posts?.map((item, index: number) => {
+          {posts?.map((item: Article, index: number) => {
             if (index < 7 && index > 1) {
               return <CardHomePage key={index} item={item} />;
             }

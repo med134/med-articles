@@ -3,6 +3,11 @@ export interface User {
   email: string;
   image: string;
 }
+export interface Category {
+  _id: string;
+  label: string;
+  value: string;
+}
 
 export interface UserInfo {
   _id: string;

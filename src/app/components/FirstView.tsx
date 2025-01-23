@@ -6,6 +6,7 @@ import icon from "@/public/images/development-amico.webp";
 import { Blog } from "./Interfaces";
 import { Chivo } from "next/font/google";
 import { getFirstBlog } from "@/src/utils/actions";
+import { FormatDate } from "./AllDataArrays";
 
 const chivo = Chivo({
   variable: "--font-chivo",
@@ -30,7 +31,7 @@ const FirstView = async () => {
             <span className="flex justify-start items-center py-2 dark:text-light">
               <FaRegCalendarAlt className="w-5 h-5 text-gray-800 dark:text-light" />
               <span className="ml-2 font-semibold dark:text-light xs:text-sm">
-                12-12-55
+                {FormatDate(item.createdAt)}
               </span>
             </span>
             <Link href={`/blogs/${item.slug}`} aria-current="page">

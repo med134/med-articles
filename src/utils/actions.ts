@@ -121,7 +121,6 @@ export const getPostsBySlug = async (slug: string) => {
 };
 
 export const getArticleByCategories = async (category: string) => {
-  "use cache";
   try {
     connect();
     if (category === "all") {

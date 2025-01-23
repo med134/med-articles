@@ -5,8 +5,8 @@ import TemplateSection from "./components/TemplateSection";
 export default async function Home() {
   return (
     <div>
-      <FirstView />
-      <HomePage />
+       <FirstView /> 
+      <HomePage/> 
       <TemplateSection />
     </div>
   );

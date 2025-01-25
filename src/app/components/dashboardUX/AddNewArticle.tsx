@@ -2,7 +2,6 @@
 import React, { useState, useActionState } from "react";
 import SkeletonLoadingForm from "../dashboardUX/SkeltonLoadingForm";
 import imageCompression from "browser-image-compression";
-import "jodit/examples/assets/app.css";
 import { UserInfo } from "../Interfaces";
 import { addArticle } from "@/src/utils/actions";
 import IsUpdate from "../dashboardUX/IsUpdate";

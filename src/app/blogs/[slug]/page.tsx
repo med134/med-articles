@@ -8,7 +8,8 @@ import "@/src/app/globals.css";
 import dynamic from "next/dynamic";
 import SideBarLoading from "../../components/SideBarLoading";
 import { getPostsBySlug, FormatDate, getLikes } from "@/src/utils/actions";
-import "jodit/examples/assets/app.css";
+import "froala-editor/css/froala_style.min.css";
+import "froala-editor/css/froala_editor.pkgd.min.css";
 import ReactionBlog from "../../components/ReactionBlog";
 import { auth } from "@/auth";
 import BlogLoginPage from "../../components/BlogLoginPage";
@@ -123,10 +124,7 @@ const BlogPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
           <h2 className="flex underline font-bold justify-start items-start py-6 xs:py-2 ml-2 mt-1 font-bolder">
             {blog.tags}
           </h2>
-          <div
-            className="bg-light p-6 sm:p-0"
-            dangerouslySetInnerHTML={{ __html: content }}
-          ></div>
+          <div className="" dangerouslySetInnerHTML={{ __html: content }}></div>
           <Suspense fallback={<div>Loading...</div>}>
             <ReactionBlog BlogId={blog._id} likesBlog={likesBlog} />
           </Suspense>

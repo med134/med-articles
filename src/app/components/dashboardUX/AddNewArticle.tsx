@@ -1,16 +1,21 @@
 "use client";
-import React, { useState, useRef, useMemo, useActionState } from "react";
+import React, { useState, useActionState } from "react";
 import SkeletonLoadingForm from "../dashboardUX/SkeltonLoadingForm";
 import imageCompression from "browser-image-compression";
 import "jodit/examples/assets/app.css";
 import { UserInfo } from "../Interfaces";
 import { addArticle } from "@/src/utils/actions";
 import IsUpdate from "../dashboardUX/IsUpdate";
-import JoditEditor from "jodit-react";
+import FroalaEditor from "react-froala-wysiwyg";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { blogSchema } from "@/src/utils/ZodSchema";
 import Link from "next/link";
+import "froala-editor/js/plugins.pkgd.min.js";
+import "froala-editor/js/plugins/code_view.min.js";
+import "froala-editor/css/froala_style.min.css";
+import "froala-editor/css/froala_editor.pkgd.min.css";
+import { froalaOptions } from "./FroalaEditor";
 
 interface UserProps {
   user: UserInfo;
@@ -34,27 +39,7 @@ const AddNewArticle = ({ user }: { user: UserProps }) => {
     shouldValidate: "onBlur",
     shouldRevalidate: "onInput",
   });
-  /* joditEditor */
-  const editor = useRef(null);
-  const config = useMemo(
-    () => ({
-      readonly: false,
-      filebrowser: {
-        ajax: {
-          url: "https://xdsoft.net/jodit/finder/",
-        },
-        height: 580,
-      },
-      uploader: {
-        insertImageAsBase64URI: true,
-        imagesExtensions: ["jpg", "png", "jpeg", "gif", "svg", "webp"],
-        url: "https://xdsoft.net/jodit/finder/?action=fileUpload",
-      },
-      height: "500px",
-      width: "100%",
-    }),
-    []
-  );
+
   const readURL = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const input = event.target;
     if (input.files && input.files[0]) {
@@ -81,14 +66,12 @@ const AddNewArticle = ({ user }: { user: UserProps }) => {
       }
     }
   };
-  const changeContent = (newContent: string) => {
-    setMyContent(newContent);
-  };
-  console.log(myContent)
+
+  console.log(myContent);
   return (
     <>
       {user ? (
-        <div className="inline-block max-h-full p-8 py-8 sm:p-2 sm:py-2 w-full">
+        <div className="inline-block max-h-full p-8 py-8 sm:p-2 sm:py-2">
           <h1 className="text-gray-700 text-2xl lg:text-2xl font-bold">
             Start to Create Your Article
           </h1>
@@ -230,11 +213,11 @@ const AddNewArticle = ({ user }: { user: UserProps }) => {
                     </option>
                   </select>
                 </div>
-                <JoditEditor
-                  ref={editor}
-                  config={config}
-                  value={myContent}
-                  onChange={changeContent}
+                <FroalaEditor
+                  tag="textarea"
+                  model={myContent}
+                  config={froalaOptions}
+                  onModelChange={setMyContent}
                 />
                 <input type="hidden" name="content" value={myContent} />
 

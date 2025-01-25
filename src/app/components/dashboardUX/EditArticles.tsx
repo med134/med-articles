@@ -1,12 +1,18 @@
 "use client";
-import { useState, useMemo, useActionState, useRef } from "react";
+import { useState, useActionState } from "react";
 import Link from "next/link";
-import "jodit/examples/assets/app.css";
-import JoditEditor from "jodit-react";
 import imageCompression from "browser-image-compression";
 import { editArticles } from "@/src/utils/actions";
 import Image from "next/image";
 import { Blog } from "../Interfaces";
+import "froala-editor/js/plugins.pkgd.min.js";
+import "froala-editor/js/plugins/code_view.min.js";
+import "froala-editor/css/froala_style.min.css";
+import "froala-editor/css/froala_editor.pkgd.min.css";
+import FroalaEditor from "react-froala-wysiwyg";
+import "froala-editor/js/plugins/code_view.min.js";
+import DOMPurify from "dompurify";
+import { froalaOptions } from "./FroalaEditor";
 
 interface ArticleProps {
   article: Blog;
@@ -15,29 +21,9 @@ interface ArticleProps {
 export default function EditArticles({ article, isAdmin }: ArticleProps) {
   const [success, action, isPending] = useActionState(editArticles, undefined);
   const [dataUrl, setDataUrl] = useState(article.image || null);
-  const config = useMemo(
-    () => ({
-      readonly: false,
-      filebrowser: {
-        ajax: {
-          url: "https://xdsoft.net/jodit/finder/",
-        },
-      },
-      uploader: {
-        insertImageAsBase64URI: true,
-        imagesExtensions: ["jpg", "png", "jpeg", "gif", "svg", "webp"],
-        url: "https://xdsoft.net/jodit/finder/?action=fileUpload",
-      },
-      height: "500px",
-      width: "100%",
-    }),
-    []
-  );
+
   const [content, setContent] = useState(article.content);
-  const handleEditorChange = (newContent: string) => {
-    setContent(newContent);
-  };
-  const editor = useRef(null);
+
   const [formArticle, setFormData] = useState({
     title: article.title,
     description: article.description,
@@ -247,11 +233,11 @@ export default function EditArticles({ article, isAdmin }: ArticleProps) {
         >
           content
         </label>
-        <JoditEditor
-          ref={editor}
-          config={config}
-          value={content}
-          onChange={handleEditorChange}
+        <FroalaEditor
+          tag="textarea"
+          model={content}
+          onModelChange={setContent}
+          config={froalaOptions}
         />
       </div>
       <div className="flex justify-start items-center mt-2">
@@ -268,6 +254,11 @@ export default function EditArticles({ article, isAdmin }: ArticleProps) {
           Cancel
         </Link>
       </div>
+      <div
+        dangerouslySetInnerHTML={{
+          __html: DOMPurify.sanitize(content),
+        }}
+      ></div>
     </form>
   );
 }

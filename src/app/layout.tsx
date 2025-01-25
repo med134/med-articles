@@ -20,7 +20,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.medcode.dev"),
-  title: "medcode | Best Programming Blog & free components",
+  title: "medcode | Best Programming Blog",
   description: `Welcome to medcode Blog! Explore Programming Made Easy for Beginners and Experts. Discover Free Components from medcode for React.js, Next.js, Vue.js, and More. Join Our Community Today!`,
   keywords: [
     "medcode",

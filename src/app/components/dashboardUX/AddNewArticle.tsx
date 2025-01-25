@@ -15,7 +15,6 @@ import "froala-editor/js/plugins.pkgd.min.js";
 import "froala-editor/js/plugins/code_view.min.js";
 import "froala-editor/css/froala_style.min.css";
 import "froala-editor/css/froala_editor.pkgd.min.css";
-import { froalaOptions } from "./FroalaEditor";
 
 interface UserProps {
   user: UserInfo;
@@ -216,7 +215,7 @@ const AddNewArticle = ({ user }: { user: UserProps }) => {
                 <FroalaEditor
                   tag="textarea"
                   model={myContent}
-                  config={froalaOptions}
+                  config={{ height: 300, maxHeight: 800 }}
                   onModelChange={setMyContent}
                 />
                 <input type="hidden" name="content" value={myContent} />

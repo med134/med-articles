@@ -10,6 +10,7 @@ import SideBarLoading from "../../components/SideBarLoading";
 import { getPostsBySlug, FormatDate, getLikes } from "@/src/utils/actions";
 import "froala-editor/css/froala_style.min.css";
 import "froala-editor/css/froala_editor.pkgd.min.css";
+import "froala-editor/css/froala_style.min.css";
 import ReactionBlog from "../../components/ReactionBlog";
 import { auth } from "@/auth";
 import BlogLoginPage from "../../components/BlogLoginPage";
@@ -26,6 +27,12 @@ const Comments = dynamic(() => import("@/src/app/components/Comments"), {
   loading: () => <Loading />,
 });
 import UserComment from "../../components/UserComment";
+const FroalaEditorComponent = dynamic(
+  () => import("../../components/FroalaEditorView"),
+  {
+    loading: () => <Loading />,
+  }
+);
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -124,7 +131,9 @@ const BlogPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
           <h2 className="flex underline font-bold justify-start items-start py-6 xs:py-2 ml-2 mt-1 font-bolder">
             {blog.tags}
           </h2>
-          <div className="" dangerouslySetInnerHTML={{ __html: content }}></div>
+          <div>
+            <FroalaEditorComponent content={content} />
+          </div>
           <Suspense fallback={<div>Loading...</div>}>
             <ReactionBlog BlogId={blog._id} likesBlog={likesBlog} />
           </Suspense>

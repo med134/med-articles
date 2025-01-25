@@ -11,8 +11,6 @@ import "froala-editor/css/froala_style.min.css";
 import "froala-editor/css/froala_editor.pkgd.min.css";
 import FroalaEditor from "react-froala-wysiwyg";
 import "froala-editor/js/plugins/code_view.min.js";
-import DOMPurify from "dompurify";
-import { froalaOptions } from "./FroalaEditor";
 
 interface ArticleProps {
   article: Blog;
@@ -237,7 +235,7 @@ export default function EditArticles({ article, isAdmin }: ArticleProps) {
           tag="textarea"
           model={content}
           onModelChange={setContent}
-          config={froalaOptions}
+          config={{ height: 300, maxWidth: 800 }}
         />
       </div>
       <div className="flex justify-start items-center mt-2">
@@ -254,11 +252,6 @@ export default function EditArticles({ article, isAdmin }: ArticleProps) {
           Cancel
         </Link>
       </div>
-      <div
-        dangerouslySetInnerHTML={{
-          __html: DOMPurify.sanitize(content),
-        }}
-      ></div>
     </form>
   );
 }

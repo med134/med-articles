@@ -11,6 +11,7 @@ import "froala-editor/css/froala_style.min.css";
 import "froala-editor/css/froala_editor.pkgd.min.css";
 import FroalaEditor from "react-froala-wysiwyg";
 import "froala-editor/js/plugins/code_view.min.js";
+import "froala-editor/js/plugins/save.min.js";
 
 interface ArticleProps {
   article: Blog;
@@ -20,7 +21,9 @@ export default function EditArticles({ article, isAdmin }: ArticleProps) {
   const [success, action, isPending] = useActionState(editArticles, undefined);
   const [dataUrl, setDataUrl] = useState(article.image || null);
 
-  const [content, setContent] = useState(article.content);
+  const [content, setContent] = useState(
+    article.content || localStorage.getItem("content") || ""
+  );
 
   const [formArticle, setFormData] = useState({
     title: article.title,
@@ -235,7 +238,16 @@ export default function EditArticles({ article, isAdmin }: ArticleProps) {
           tag="textarea"
           model={content}
           onModelChange={setContent}
-          config={{ height: 300, maxWidth: 800 }}
+          config={{
+            height: 300,
+            maxWidth: 800,
+            saveInterval: 2000,
+            events: {
+              "save.before": function (html: string) {
+                localStorage.setItem("content", html);
+              },
+            },
+          }}
         />
       </div>
       <div className="flex justify-start items-center mt-2">

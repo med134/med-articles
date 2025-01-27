@@ -10,7 +10,6 @@ import SideBarLoading from "../../components/SideBarLoading";
 import { getPostsBySlug, FormatDate, getLikes } from "@/src/utils/actions";
 import "froala-editor/css/froala_style.min.css";
 import "froala-editor/css/froala_editor.pkgd.min.css";
-import "froala-editor/css/froala_style.min.css";
 import ReactionBlog from "../../components/ReactionBlog";
 import { auth } from "@/auth";
 import BlogLoginPage from "../../components/BlogLoginPage";

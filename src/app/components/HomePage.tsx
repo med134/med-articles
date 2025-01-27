@@ -44,7 +44,7 @@ const HomePage = async () => {
         </div>
         <div className="div01 section" id="chapter1">
           {posts?.map((item: Article, index: number) => {
-            if (index < 7 && index > 1) {
+            if (index < 7 && index > 0) {
               return <CardHomePage key={index} item={item} />;
             }
             return null;

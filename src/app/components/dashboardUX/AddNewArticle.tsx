@@ -10,10 +10,12 @@ import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { blogSchema } from "@/src/utils/ZodSchema";
 import Link from "next/link";
-import "froala-editor/js/plugins/code_view.min.js";
+import "froala-editor/js/plugins.pkgd.min.js";
 import "froala-editor/css/froala_style.min.css";
 import "froala-editor/css/froala_editor.pkgd.min.css";
 import "froala-editor/js/plugins/save.min.js";
+import "froala-editor/css/plugins/code_view.min.css";
+import FroalaEditorView from "react-froala-wysiwyg/FroalaEditorView";
 
 interface UserProps {
   user: UserInfo;
@@ -39,6 +41,7 @@ const AddNewArticle = ({ user }: { user: UserProps }) => {
     shouldValidate: "onBlur",
     shouldRevalidate: "onInput",
   });
+
 
   const readURL = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const input = event.target;
@@ -214,10 +217,13 @@ const AddNewArticle = ({ user }: { user: UserProps }) => {
                   </select>
                 </div>
                 <FroalaEditor
+                  tag="textarea"
                   model={myContent}
                   config={{
                     height: 300,
                     maxWidth: 800,
+                    codeMirror: true,
+                    code_beautifier: true,
                     saveInterval: 2000,
                     events: {
                       "save.before": function (html: string) {
@@ -239,6 +245,7 @@ const AddNewArticle = ({ user }: { user: UserProps }) => {
                   {isPending ? "Creating..." : "Create Article"}
                 </button>
               </form>
+              <FroalaEditorView model={myContent} />
             </div>
           )}
         </div>

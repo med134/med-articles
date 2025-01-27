@@ -176,7 +176,7 @@ const AddNewArticle = ({ user }: { user: UserProps }) => {
                       className="h-12 w-full rounded-md border m-1 bg-white px-5 text-sm outline-none focus:ring"
                     >
                       <option value="">Select category</option>
-                      <option value="react">React.js</option>
+                      <option value="react.js">React.js</option>
                       <option value="next.js">Next.js</option>
                       <option value="career">Career</option>
                       <option value="solution">Solution</option>

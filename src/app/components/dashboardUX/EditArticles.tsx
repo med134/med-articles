@@ -170,15 +170,14 @@ export default function EditArticles({ article, isAdmin }: ArticleProps) {
               Category
             </label>
             <select
-              id="newCategory"
               value={formArticle.category}
               name="category"
               onChange={(e) => handelChange(e.target.name, e.target.value)}
               className="h-12 w-full max-w-full py-2 rounded-md border px-8 bg-white text-sm outline-none focus:ring"
             >
               <option value="">Select category</option>
-              <option value="react">React.js</option>
-              <option value="nextjs">Next.js</option>
+              <option value="react.js">React.js</option>
+              <option value="next.js">Next.js</option>
               <option value="career">Career</option>
               <option value="solution">Solution</option>
               <option value="productivity">Productivity</option>

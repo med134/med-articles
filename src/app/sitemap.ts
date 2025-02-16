@@ -1,18 +1,12 @@
 import type { MetadataRoute } from "next";
-import {
-  getAllUsers,
-  getPosts,
-  getAllCategories,
-  getTemplates,
-} from "../utils/actions";
+
 import routes from "@/src/utils/data/routes.json";
 import { miniProject } from "./components/AllDataArrays";
-import { Blog, Template, Category, UserInfo } from "./components/Interfaces";
+import { Blog, UserInfo } from "./components/Interfaces";
+import { getAllUsers, getData } from "../utils/strapiSever";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const posts = await getTemplates();
-  const blogs = await getPosts();
-  const categories = await getAllCategories();
+  const blogs = await getData();
   const users = await getAllUsers();
   const baseUrl = "https://medcode.dev";
   const staticUrls = routes.map((route) => {
@@ -23,14 +17,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
     };
   });
-  const AllPosts = posts.map((item: Template) => {
-    return {
-      url: `${baseUrl}/templates/${item.slug}`,
-      lastModified: new Date().toISOString(),
-      priority: 0.5,
-      changeFrequency: "weakly",
-    };
-  });
+
   const AllBlogs = blogs.map((item: Blog) => {
     return {
       url: `${baseUrl}/blogs/${item.slug}`,
@@ -39,15 +26,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "daily",
     };
   });
-  const allCategories = categories.map((cat: Category) => {
-    return {
-      url: `${baseUrl}/category/${cat.value}`,
-      lastModified: new Date().toISOString(),
-    };
-  });
+
   const allProfile = users.map((cat: UserInfo) => {
     return {
-      url: `${baseUrl}/dashboard/users/${cat._id}`,
+      url: `${baseUrl}/dashboard/users/${cat.id}`,
       lastModified: new Date().toISOString(),
     };
   });
@@ -58,12 +40,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     };
   });
 
-  return [
-    ...staticUrls,
-    ...AllPosts,
-    ...AllBlogs,
-    ...allCategories,
-    ...allProfile,
-    ...allProjects,
-  ];
+  return [...staticUrls, ...AllBlogs, ...allProfile, ...allProjects];
 }

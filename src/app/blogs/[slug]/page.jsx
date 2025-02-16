@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Chivo } from "next/font/google";
 import "@/src/app/globals.css";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -9,20 +8,14 @@ import { CodeBlock } from "../../components/CopyButton";
 import { getPostBySlug } from "@/src/utils/strapiSever";
 import SidBar from "../../components/SidBar";
 
-const chivo = Chivo({
-  variable: "--font-chivo",
-  subsets: ["latin"],
-});
-
 const BlogPage = async ({ params }) => {
   const slug = (await params).slug;
   const item = await getPostBySlug(slug);
   const { image } = item?.data;
 
-  
   return (
     <section
-      className={`${chivo.variable} p-16 py-40 w-full grid grid-cols-7 gap-10 xl:gap-8 lg:flex lg:flex-col sm:p-3 sm:py-28 dark:bg-dark`}
+      className={` p-16 py-40 w-full grid grid-cols-7 gap-10 xl:gap-8 lg:flex lg:flex-col sm:p-3 sm:py-28 dark:bg-dark`}
     >
       <div className="myRightSide col-span-5 flex flex-col justify-around dark:bg-dark">
         <div

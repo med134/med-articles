@@ -50,7 +50,7 @@ const ProfileDown = ({ user }: Props) => {
             <div className="py-1 rounded-md shadow-xs">
               <ul className="block py-2 z-[1000] min-w-full w-max rounded-lg max-h-96 overflow-auto dark:text-light">
                 <Link
-                  href={`/dashboard/users/${user?.documentId}`}
+                  href={`/dashboard/users/${user?.id}`}
                   className="py-2.5 px-5 flex items-center hover:bg-gray-100 text-[#333] text-sm cursor-pointer  dark:text-light"
                 >
                   <svg
@@ -84,7 +84,7 @@ const ProfileDown = ({ user }: Props) => {
                   Dashboard
                 </Link>
                 <Link
-                  href={`/dashboard/users/settings/${user?.documentId}`}
+                  href={`/dashboard/users/settings/${user?.id}`}
                   className="py-2.5 px-5 flex items-center hover:bg-gray-100 text-[#333] text-sm cursor-pointer  dark:text-light"
                 >
                   <IoSettingsOutline className="fill-dark w-6 h-6 mr-3" />

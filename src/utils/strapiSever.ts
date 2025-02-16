@@ -6,16 +6,15 @@ import bcrypt from "bcryptjs";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
+const baseUrl = `https://www.medcode.dev`;
 export const getPostBySlug = async (slug: string) => {
-  const response = await fetch(`http://localhost:1337/api/articles/${slug}`);
+  const response = await fetch(`/api/articles/${slug}`);
   const posts = await response.json();
   return posts;
 };
 
 export const getData = async () => {
-  const response = await fetch(
-    "http://localhost:1337/api/articles?populate=%2A"
-  );
+  const response = await fetch(`${baseUrl}/api/articles?populate=%2A`);
   const posts = await response.json();
   return posts.data.sort(
     (a: { createdAt: Date }, b: { createdAt: Date }) =>
@@ -24,9 +23,7 @@ export const getData = async () => {
 };
 
 export const getArticleByCategories = async (category: string) => {
-  const response = await fetch(
-    "http://localhost:1337/api/articles?populate=%2A"
-  );
+  const response = await fetch(`${baseUrl}/api/articles?populate=%2A`);
   const posts = await response.json();
   const articles = posts.data.filter(
     (item: Blog) => item.category === category
@@ -35,9 +32,7 @@ export const getArticleByCategories = async (category: string) => {
 };
 
 export const searchFunction = async (query: string) => {
-  const response = await fetch(
-    "http://localhost:1337/api/articles?populate=%2A"
-  );
+  const response = await fetch(`${baseUrl}/api/articles?populate=%2A`);
   const posts = await response.json();
   try {
     const filteredPosts = posts.data?.filter(
@@ -56,9 +51,7 @@ export const searchFunction = async (query: string) => {
   }
 };
 export const getAllUsers = async () => {
-  const response = await fetch(
-    "http://localhost:1337/api/authors?populate=%2A"
-  );
+  const response = await fetch(`${baseUrl}/api/authors?populate=%2A`);
   const users = await response.json();
   return users.data;
 };
@@ -75,16 +68,12 @@ export const getUserId = async () => {
   }
 };
 export const getUserById = async (id: number) => {
-  const response = await fetch(
-    `http://localhost:1337/api/authors/${id}/?populate=%2A`
-  );
+  const response = await fetch(`/api/authors/${id}/?populate=%2A`);
   const user = await response.json();
   return user;
 };
 export const getUserByEmail = async (email: string) => {
-  const response = await fetch(
-    "http://localhost:1337/api/authors?populate=%2A"
-  );
+  const response = await fetch(`${baseUrl}/api/authors?populate=%2A`);
   const users = await response.json();
   const user = users.data.find((user: UserInfo) => user.email === email);
   return user;
@@ -98,7 +87,7 @@ export const createUser = async (prevState: unknown, formData: FormData) => {
   const hashedPassword = await bcrypt.hash(password as string, salt);
 
   try {
-    await fetch("http://localhost:1337/api/authors", {
+    await fetch(`${baseUrl}/api/authors`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -120,7 +109,7 @@ export const createUser = async (prevState: unknown, formData: FormData) => {
 };
 export const deleteUser = async (id: number) => {
   try {
-    const response = await fetch(`http://localhost:1337/api/authors/${id}`, {
+    const response = await fetch(`${baseUrl}/api/authors/${id}`, {
       method: "DELETE",
     });
 
@@ -158,7 +147,7 @@ export const getAdminArticles = async (email: string) => {
 export async function updateProfileAction(formData: FormData) {
   const { id, name, address, job, about } = Object.fromEntries(formData);
   try {
-    await fetch(`http://localhost:1337/api/authors/${id}`, {
+    await fetch(`${baseUrl}/api/authors/${id}`, {
       method: "POST",
 
       body: JSON.stringify({

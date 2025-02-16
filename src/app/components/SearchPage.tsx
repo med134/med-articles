@@ -5,47 +5,19 @@ import { IoSearchOutline } from "react-icons/io5";
 import Image from "next/image";
 import { searchFunction } from "@/src/utils/actions";
 import { SkeltonSearch } from "./SearchSkelton";
-
-interface Category {
-  _id: string;
-  slug: string;
-  image: string;
-  value: string;
-  label: string;
-}
-interface Article {
-  _id: string;
-  title: string;
-  category: string;
-  description: string;
-  image: string;
-  slug: string;
-  job: string;
-  status: string;
-  username: string;
-  tags: string[];
-  userId: string;
-  email: string;
-  userImage: string;
-  createdAt: Date;
-}
+import { categories } from "./AllDataArrays";
+import { Blog } from "./Interfaces";
 
 interface SearchPageProps {
-  firstSearch: Article[];
-  cat: Category[];
+  firstSearch: Blog[];
   queryOne: string;
 }
-const SearchPage: React.FC<SearchPageProps> = ({
-  firstSearch,
-  cat,
-  queryOne,
-}) => {
+const SearchPage: React.FC<SearchPageProps> = ({ firstSearch, queryOne }) => {
   const [suggestions, setSuggestions] = useState(firstSearch);
   const [query, setQuery] = useState(queryOne);
   const [selectedCategories, setSelectCategory] = useState("");
   const [posts, setPosts] = useState(firstSearch);
   const [loading, setLoading] = useState(false);
-  console.log(posts);
 
   //input onChange handler
   const onChangeHandle = (searchQuery: string) => {
@@ -66,10 +38,10 @@ const SearchPage: React.FC<SearchPageProps> = ({
 
   useEffect(() => {
     setLoading(true);
-    fetch("/api/articles", { cache: "force-cache" })
+    fetch("http://localhost:1337/api/articles?populate=%2A")
       .then((res) => res.json())
-      .then((data) => {
-        setPosts(data);
+      .then((posts) => {
+        setPosts(posts.data);
         setLoading(false);
       });
   }, []);
@@ -86,7 +58,7 @@ const SearchPage: React.FC<SearchPageProps> = ({
           ) : (
             <div className="flex flex-col justify-center p-4 xl:p-1 gap-6 bg-light dark:bg-dark">
               {suggestions.map((item) => (
-                <CardHomePage key={item._id} item={item} />
+                <CardHomePage key={item.id} item={item} />
               ))}
             </div>
           )}
@@ -119,7 +91,7 @@ const SearchPage: React.FC<SearchPageProps> = ({
         <div className="px-5 flex flex-col justify-start items-start lg:px-1 lg:mb-4 w-full">
           <span className="dark:text-light py-2">filter by categories</span>
           <div className="w-full lg:grid lg:grid-cols-3 lg:gap-x-36 xs:grid-cols-2">
-            {cat.map((item, index) => {
+            {categories.map((item, index) => {
               if (index > 0) {
                 return (
                   <div key={index} className="w-full h-4 py-6 cursor-pointer">
@@ -136,7 +108,7 @@ const SearchPage: React.FC<SearchPageProps> = ({
                       className="flex items-center justify-start dark:bg-dark lg:w-[125px] p-2 px-2 lg:px-1 w-full text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-mainColor hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-700"
                     >
                       <Image
-                        src={item.image}
+                        src={item.icon}
                         alt={item.label}
                         width={100}
                         height={100}

@@ -312,28 +312,7 @@ export const sendMessage = async (prevState: unknown, formData: FormData) => {
   revalidatePath("/contact-us");
 };
 
-export const getDashboardPosts = async (email: string) => {
-  if (email === process.env.ADMIN_EMAIL) {
-    try {
-      connect();
-      const posts = await Article.find().sort({ createdAt: -1 });
-      return JSON.parse(JSON.stringify(posts));
-    } catch (err) {
-      console.log(err);
-    }
-  } else {
-    try {
-      connect();
-      const query = email ? { email: { $regex: email, $options: "i" } } : {};
-      const posts = await Article.find(query).sort({
-        createdAt: -1,
-      });
-      return JSON.parse(JSON.stringify(posts));
-    } catch (err) {
-      console.log(err);
-    }
-  }
-};
+
 
 export const handelDeleteBlog = async (id: string) => {
   console.log(id);
@@ -552,48 +531,7 @@ export const getNumberOfArticle = async (id: string) => {
   }
 };
 
-export const editUserProfile = async (
-  prevSettings: unknown,
-  formData: FormData
-) => {
-  const _id = formData.get("id");
-  const name = formData.get("name");
-  const email = formData.get("email");
-  const job = formData.get("job");
-  const about = formData.get("about");
-  const imageUrl = formData.get("imageUrl");
-  const homeAddress = formData.get("homeAddress");
-  const linkedInUrl = formData.get("linkedInUrl");
-  const githubUrl = formData.get("githubUrl");
-  const youtubeUrl = formData.get("youtubeUrl");
-  const dribbleUrl = formData.get("dribbleUrl");
-  const instagramUrl = formData.get("instagramUrl");
 
-  try {
-    connect();
-    await User.findByIdAndUpdate(
-      _id,
-      {
-        name,
-        email,
-        job,
-        imageUrl,
-        homeAddress,
-        about,
-        linkedInUrl,
-        githubUrl,
-        youtubeUrl,
-        dribbleUrl,
-        instagramUrl,
-      },
-      { new: true }
-    );
-  } catch (err) {
-    console.log(err);
-  }
-  revalidatePath(`dashboard/users/settings/${_id}`);
-  redirect(`/dashboard/users/${_id}`);
-};
 export const completeAccount = async (formData: FormData) => {
   const { id, name, email, password, homeAddress, about } =
     Object.fromEntries(formData);

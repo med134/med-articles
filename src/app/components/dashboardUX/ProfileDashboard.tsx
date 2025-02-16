@@ -3,31 +3,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaUserAlt } from "react-icons/fa";
 import { FaRegEdit } from "react-icons/fa";
-import { getNumberOfArticle } from "@/src/utils/actions";
+import { UserInfo } from "../Interfaces";
+import { MdWork } from "react-icons/md";
 
-interface ProfileProps {
+const ProfileDashboard = async ({
+  user,
+  isOwner,
+}: {
+  user: UserInfo;
   isOwner: boolean;
-  user: {
-    _id: string;
-    name: string;
-    email: string;
-    imageUrl: string;
-    job: string;
-    homeAddress: string;
-    numberOfArticles: number;
-    about: string;
-    youtubeUrl: string;
-    githubUrl: string;
-    twitterUrl: string;
-    isAdmin: string;
-    instagramUrl: string;
-    dribbleUrl: string;
-    linkedInUrl: string;
-    createdAt: Date;
-  };
-}
-const ProfileDashboard = async ({ user, isOwner }: ProfileProps) => {
-  const numberOfArticle = getNumberOfArticle(user._id);
+}) => {
   return (
     <div className="max-w-4xl flex items-center mx-auto my-16">
       {/*Main Col*/}
@@ -37,7 +22,7 @@ const ProfileDashboard = async ({ user, isOwner }: ProfileProps) => {
       >
         {isOwner && (
           <Link
-            href={`/dashboard/users/settings/${user?._id}`}
+            href={`/dashboard/users/settings/${user?.id}`}
             className="bg-mainColor hover:bg-cyan-900 absolute sm:hidden right-4 top-2 text-white p-4 rounded-full"
           >
             <FaRegEdit className="text-light w-5 h-5 text-center" />
@@ -48,7 +33,7 @@ const ProfileDashboard = async ({ user, isOwner }: ProfileProps) => {
           <Image
             className="block rounded-full shadow-xl mx-auto -mt-16 h-48 w-48 bg-cover lg:mb-3 bg-center"
             src={
-              user?.imageUrl ||
+              user?.avatar?.url ||
               "https://res.cloudinary.com/djcnq7nmj/image/upload/v1730411682/profile_qjehzj.png"
             }
             width={300}
@@ -68,7 +53,7 @@ const ProfileDashboard = async ({ user, isOwner }: ProfileProps) => {
             |
             <div className="flex items-center ml-4 text-gray-600">
               NB Articles:
-              <span className="ml-2 font-semibold">{numberOfArticle}</span>
+              <span className="ml-2 font-semibold">5</span>
             </div>
           </div>
           <div className="mx-auto  w-4/5 pt-3 border-b-2 border-mainColor opacity-25" />
@@ -92,7 +77,7 @@ const ProfileDashboard = async ({ user, isOwner }: ProfileProps) => {
             </svg>{" "}
             Your Location{" "}
             <span className="text-gray-900 ml-2">
-              {user?.homeAddress || "Unknown"}
+              {user?.address || "Unknown"}
             </span>
           </div>
           <p className="pt-8 text-sm text-center px-10 md:px-4">
@@ -102,7 +87,7 @@ const ProfileDashboard = async ({ user, isOwner }: ProfileProps) => {
           <div className="pt-12 pb-8 text-center">
             {isOwner ? (
               <Link
-                href={`/dashboard/users/settings/${user?._id}`}
+                href={`/dashboard/users/settings/${user?.id}`}
                 className="bg-mainColor hover:bg-cyan-900 inline-flex items-center justify-center text-white font-bold py-2 px-4 rounded-full"
               >
                 <span>Edit your profile</span>
@@ -119,25 +104,9 @@ const ProfileDashboard = async ({ user, isOwner }: ProfileProps) => {
           </div>
           {/* social media icon */}
           <div className="mt-6 pb-16 lg:pb-0 w-4/5 lg:w-full mx-auto flex flex-wrap items-center justify-between">
-            <Link
-              className=""
-              href={`${user?.twitterUrl || "#"}`}
-              data-tippy-content="@twitter_icon"
-              target="_blank"
-            >
-              <svg
-                className="h-6 fill-current text-gray-600 hover:text-mainColor"
-                role="img"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <title>Twitter</title>
-                <path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z" />
-              </svg>
-            </Link>
             <a
               className="link"
-              href={`${user?.githubUrl || "#"}`}
+              href={`${user?.github_link}` || `/dashboard/users/${user.id}`}
               data-tippy-content="@github_icon"
               target="_blank"
             >
@@ -154,23 +123,15 @@ const ProfileDashboard = async ({ user, isOwner }: ProfileProps) => {
 
             <a
               className="link"
-              href={`${user?.dribbleUrl || "#"}`}
-              data-tippy-content="@dribble_icon"
+              href={`${user?.portfolio}` || `/dashboard/users/${user.id}`}
+              data-tippy-content="@portfolio_icon"
               target="_blank"
             >
-              <svg
-                className="h-6 fill-current text-gray-600 hover:text-mainColor"
-                role="img"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <title>Dribble</title>
-                <path d="M12 24C5.385 24 0 18.615 0 12S5.385 0 12 0s12 5.385 12 12-5.385 12-12 12zm10.12-10.358c-.35-.11-3.17-.953-6.384-.438 1.34 3.684 1.887 6.684 1.992 7.308 2.3-1.555 3.936-4.02 4.395-6.87zm-6.115 7.808c-.153-.9-.75-4.032-2.19-7.77l-.066.02c-5.79 2.015-7.86 6.025-8.04 6.4 1.73 1.358 3.92 2.166 6.29 2.166 1.42 0 2.77-.29 4-.814zm-11.62-2.58c.232-.4 3.045-5.055 8.332-6.765.135-.045.27-.084.405-.12-.26-.585-.54-1.167-.832-1.74C7.17 11.775 2.206 11.71 1.756 11.7l-.004.312c0 2.633.998 5.037 2.634 6.855zm-2.42-8.955c.46.008 4.683.026 9.477-1.248-1.698-3.018-3.53-5.558-3.8-5.928-2.868 1.35-5.01 3.99-5.676 7.17zM9.6 2.052c.282.38 2.145 2.914 3.822 6 3.645-1.365 5.19-3.44 5.373-3.702-1.81-1.61-4.19-2.586-6.795-2.586-.825 0-1.63.1-2.4.285zm10.335 3.483c-.218.29-1.935 2.493-5.724 4.04.24.49.47.985.68 1.486.08.18.15.36.22.53 3.41-.43 6.8.26 7.14.33-.02-2.42-.88-4.64-2.31-6.38z" />
-              </svg>
+              <MdWork className="h-6 w-6 text-gray-600" />
             </a>
             <a
               className="link"
-              href={`${user.instagramUrl}`}
+              href={`${user?.instagram_link}` || `/dashboard/users/${user.id}`}
               data-tippy-content="@instagram_icon"
               target="_blank"
             >
@@ -186,7 +147,7 @@ const ProfileDashboard = async ({ user, isOwner }: ProfileProps) => {
             </a>
             <a
               className="link"
-              href={`${user?.youtubeUrl || "#"}`}
+              href={`${user?.youtube_link}` || `/dashboard/users/${user.id}`}
               data-tippy-content="@youtube_icon"
               target="_blank"
             >

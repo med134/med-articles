@@ -1,20 +1,15 @@
 import React from "react";
 import Link from "next/link";
 import { AiOutlineRight } from "react-icons/ai";
-import { getAllCategories } from "@/src/utils/actions";
 import SearchTwo from "./SearchTwo";
-interface Category {
-  _id: string;
-  label: string;
-  value: string;
-}
+import { categories } from "./AllDataArrays";
+
 const Cat = async () => {
-  const cat = await getAllCategories();
   return (
     <>
       <SearchTwo />
-      {cat?.map((item: Category) => (
-        <div key={item._id}>
+      {categories?.map((item) => (
+        <div key={item.value}>
           <div className="group flex justify-between items-center py-1 mt-3 sm:mt-0">
             <Link
               className="px-4 xs:px-0 font-semibold text-gray-700 dark:text-light group-hover:text-mainColor group-hover:font-bold"

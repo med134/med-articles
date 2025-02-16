@@ -6,30 +6,14 @@ import dynamic from "next/dynamic";
 import CardHomePage from "./CardHomePage";
 import Link from "next/link";
 import SideBarLoading from "./SideBarLoading";
-import { getPosts } from "@/src/utils/actions";
+import { getData } from "@/src/utils/strapiSever";
+import { Blog } from "./Interfaces";
 const Cat = dynamic(() => import("@/src/app/components/MainSide"), {
   loading: () => <SideBarLoading />,
 });
-interface Article {
-  _id: string;
-  title: string;
-  category: string;
-  description: string;
-  image: string;
-  slug: string;
-  job: string;
-  status: string;
-  username: string;
-  tags: string[];
-  userId: string;
-  email: string;
-  userImage: string;
-  createdAt: Date;
-}
 
 const HomePage = async () => {
-  const posts = await getPosts();
-
+  const posts = await getData();
   return (
     <div
       style={{
@@ -43,7 +27,7 @@ const HomePage = async () => {
           <span className="sm:text-xl">Recent Articles</span>
         </div>
         <div className="div01 section" id="chapter1">
-          {posts?.map((item: Article, index: number) => {
+          {posts?.map((item: Blog, index: number) => {
             if (index < 7 && index > 0) {
               return <CardHomePage key={index} item={item} />;
             }
@@ -51,7 +35,7 @@ const HomePage = async () => {
           })}
           <Link
             rel="preload"
-            href="/blogs"
+            href="/category/next.js"
             className="flex justify-center items-center xs:pb-6"
           >
             <span className="text-center text-xl sm:text-sm text-gray-700 dark:text-light hover:bg-[#075985] rounded-md hover:text-light border border-gray-600 px-20 py-1 w-full dark:border-light">

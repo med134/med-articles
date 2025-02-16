@@ -1,48 +1,20 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { editUserProfile } from "@/src/utils/actions";
-import {
-  BsDribbble,
-  BsGithub,
-  BsInstagram,
-  BsLinkedin,
-  BsYoutube,
-} from "react-icons/bs";
+import { updateProfileAction } from "@/src/utils/strapiSever";
+import { BsGithub, BsYoutube } from "react-icons/bs";
 import { FaRegUser } from "react-icons/fa6";
 import { FaRegEdit } from "react-icons/fa";
-import { useActionState } from "react";
 import imageCompression from "browser-image-compression";
 import { MdOutlineWorkOutline, MdOutlineLocalLibrary } from "react-icons/md";
 import { UserInfo } from "../Interfaces";
-import IsUpdate from "./IsUpdate";
 interface UserProps {
   user: UserInfo;
 }
 const UpdateUser = ({ user }: UserProps) => {
-  const [success, action, isPending] = useActionState(
-    editUserProfile,
-    undefined
-  );
-  const [dataUrl, setDataUrl] = useState(user?.imageUrl);
-  const [formData, setFormData] = useState({
-    name: user.name || "",
-    job: user.job || "",
-    homeAddress: user.homeAddress || "",
-    about: user.about || "",
-    youtubeUrl: user.youtubeUrl || " ",
-    githubUrl: user.githubUrl || " ",
-    instagramUrl: user.instagramUrl || " ",
-    linkedInUrl: user.linkedInUrl || "",
-    dribbleUrl: user.dribbleUrl || "",
-  });
+  const [dataUrl, setDataUrl] = useState(user?.avatar.url);
 
   //onchange function
-  const handelChange = (key: string, value: string) => {
-    setFormData((prv) => {
-      return { ...prv, [key]: value };
-    });
-  };
   const readURL = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const input = event.target;
     if (input.files && input.files[0]) {
@@ -71,12 +43,10 @@ const UpdateUser = ({ user }: UserProps) => {
   };
   return (
     <div className="w-full rounded-lg lg:rounded-l-lg lg:rounded-r-none shadow-2xl bg-white opacity-75 mx-6 lg:mx-0">
-      {success && (
-        <div className="fixed top-20 z-40">
-          <IsUpdate success={success} />
-        </div>
-      )}
-      <form action={action} className="p-4 md:p-2 text-center lg:text-left">
+      <form
+        action={updateProfileAction}
+        className="p-4 md:p-2 text-center lg:text-left"
+      >
         {/* Image for mobile view */}
         <div className="max-w-md mx-auto px-10 p-2 rounded-md flex flex-col justify-center items-center">
           <Image
@@ -101,9 +71,9 @@ const UpdateUser = ({ user }: UserProps) => {
         <div className="mx-auto w-4/5 pt-3 border-b-2 border-mainColor opacity-25" />
         {/* Job and Country */}
         <div className="w-full py-6 flex flex-col items-center mx-auto gap-2 max-w-lg p-4">
-          <input name="id" value={user._id} hidden readOnly />
+          <input name="id" value={user.id} hidden readOnly />
           <input name="email" value={user.email} hidden readOnly />
-          <input type="text" name="imageUrl" value={dataUrl} hidden readOnly />
+          <input type="text" name="avatar" value={dataUrl} hidden readOnly />
           <div className="relative w-full">
             <FaRegUser className="absolute left-3 rounded-full w-5 h-5 top-1/2 transform -translate-y-1/2 text-gray-500" />
             <input
@@ -111,8 +81,7 @@ const UpdateUser = ({ user }: UserProps) => {
               type="text"
               placeholder="new name"
               name="name"
-              value={formData.name}
-              onChange={(e) => handelChange(e.target.name, e.target.value)}
+              defaultValue={user.name || ""}
             />
           </div>
           <div className="relative w-full">
@@ -122,8 +91,7 @@ const UpdateUser = ({ user }: UserProps) => {
               type="text"
               placeholder="Your Job"
               name="job"
-              value={formData.job}
-              onChange={(e) => handelChange(e.target.name, e.target.value)}
+              defaultValue={user.job || ""}
             />
           </div>
           <div className="relative w-full">
@@ -132,9 +100,8 @@ const UpdateUser = ({ user }: UserProps) => {
               className="w-full border-2 rounded-lg font-mono bg-gray-100 placeholder:capitalize px-12 py-1.5 outline-mainColor"
               type="text"
               placeholder="Country"
-              name="homeAddress"
-              value={formData.homeAddress}
-              onChange={(e) => handelChange(e.target.name, e.target.value)}
+              name="address"
+              defaultValue={user.address || ""}
             />
           </div>
         </div>
@@ -151,8 +118,7 @@ const UpdateUser = ({ user }: UserProps) => {
             id="about"
             rows={5}
             maxLength={256}
-            value={formData.about}
-            onChange={(e) => handelChange(e.target.name, e.target.value)}
+            defaultValue={user.about || ""}
             placeholder="write somethings about you experience or skills to describe you self [Max 256 chars]"
             className="rounded-lg p-4 bg-gray-100 border-2 border-solid border-black/10 font-mono font-medium text-sm outline-mainColor"
           />
@@ -164,25 +130,12 @@ const UpdateUser = ({ user }: UserProps) => {
           </label>
           <div className="flex justify-evenly flex-wrap mx-auto gap-4 max-w-lg p-4">
             <div className="relative w-full">
-              <BsLinkedin className="absolute left-3 fill-slate-600 rounded-full w-5 h-5 top-1/2 transform -translate-y-1/2 text-gray-500" />
-              <input
-                type="url"
-                name="linkedInUrl"
-                required={false}
-                value={formData?.linkedInUrl}
-                onChange={(e) => handelChange(e.target.name, e.target.value)}
-                placeholder="linkedIn URL..."
-                className="w-full px-12 rounded-lg p-2 bg-gray-100 border-2 border-solid border-black/10 font-mono font-medium text-sm"
-              />
-            </div>
-            <div className="relative w-full">
               <BsGithub className="absolute left-3 rounded-full w-5 h-5 top-1/2 transform -translate-y-1/2 text-gray-500" />
               <input
                 type="url"
-                name="githubUrl"
+                name="github_link"
                 required={false}
-                value={formData?.githubUrl}
-                onChange={(e) => handelChange(e.target.name, e.target.value)}
+                defaultValue={user?.github_link || ""}
                 placeholder="github URL..."
                 className="w-full px-12 rounded-lg p-2 bg-gray-100 border-2 border-solid border-black/10 font-mono font-medium text-sm"
               />
@@ -191,35 +144,21 @@ const UpdateUser = ({ user }: UserProps) => {
               <BsYoutube className="absolute left-3 rounded-full w-5 h-5 top-1/2 transform -translate-y-1/2 text-gray-500" />
               <input
                 type="url"
-                name="youtubeUrl"
+                name="youtube_link"
                 required={false}
-                value={formData?.youtubeUrl}
-                onChange={(e) => handelChange(e.target.name, e.target.value)}
+                defaultValue={user?.youtube_link || ""}
                 placeholder="youtube channel URL..."
                 className="w-full px-12 rounded-lg p-2 bg-gray-100 border-2 border-solid border-black/10 font-mono font-medium text-sm"
               />
             </div>
             <div className="relative w-full">
-              <BsDribbble className="absolute left-3 rounded-full w-5 h-5 top-1/2 transform -translate-y-1/2 text-gray-500" />
+              <MdOutlineWorkOutline className="absolute left-3 rounded-full w-5 h-5 top-1/2 transform -translate-y-1/2 text-gray-500" />
               <input
                 type="url"
                 required={false}
-                name="dribbleUrl"
-                value={formData?.dribbleUrl}
-                onChange={(e) => handelChange(e.target.name, e.target.value)}
-                placeholder="dribble URL..."
-                className="w-full px-12 rounded-lg p-2 bg-gray-100 border-2 border-solid border-black/10 font-mono font-medium text-sm"
-              />
-            </div>
-            <div className="relative w-full">
-              <BsInstagram className="absolute left-3 rounded-full w-5 h-5 top-1/2 transform -translate-y-1/2 text-gray-500" />
-              <input
-                type="url"
-                required={false}
-                value={formData?.instagramUrl}
-                onChange={(e) => handelChange(e.target.name, e.target.value)}
-                name="instagramUrl"
-                placeholder="instagram URL..."
+                name="portfolio"
+                defaultValue={user?.portfolio || ""}
+                placeholder="portfolio URL..."
                 className="w-full px-12 rounded-lg p-2 bg-gray-100 border-2 border-solid border-black/10 font-mono font-medium text-sm"
               />
             </div>
@@ -227,13 +166,10 @@ const UpdateUser = ({ user }: UserProps) => {
         </div>
         <button
           type="submit"
-          disabled={isPending}
           className="rounded-lg flex p-3 w-full px-16 bg-cyan-700/20 border-2 border-solid border-green-500/20 transition-colors hover:bg-cyan-500/40 font-medium text-base leading-none items-center justify-center gap-2"
         >
           <FaRegEdit className="w-5 h-5" />
-          <span className="font-bold">
-            {isPending ? "updating..." : "Update"}
-          </span>
+          <span className="font-bold">update</span>
         </button>
       </form>
     </div>

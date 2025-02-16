@@ -2,18 +2,12 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import SideBarCategory from "./SideBarCategory";
-import { getArticleByCategories } from "@/src/utils/actions";
-import BlogImage from "@/public/images/postera.png";
 import { Blog } from "./Interfaces";
+import { getData } from "@/src/utils/strapiSever";
 
-const SidBar = async ({
-  postSlug,
-  categoryPost,
-}: {
-  postSlug: string;
-  categoryPost: string;
-}) => {
-  const dev = await getArticleByCategories(categoryPost);
+const SidBar = async ({ postSlug }: { postSlug: string }) => {
+  const dev = await getData();
+
   return (
     <div className="mt-3">
       <aside className="w-full rounded-lg border-2 py-2 border-mainColor mb-6 p-2 mt-3 dark:border-light">
@@ -30,10 +24,10 @@ const SidBar = async ({
           (item: Blog, index: number) =>
             index < 4 &&
             item.slug !== postSlug && (
-              <div key={item._id} className="flex justify-start items-center">
+              <div key={item.id} className="flex justify-start items-center">
                 <Image
                   className="object-contain w-36 h-36"
-                  src={item.image ? item.image.trimEnd() : BlogImage}
+                  src={item.image?.url.toString()}
                   alt={item.title}
                   width={200}
                   height={200}

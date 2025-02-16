@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { getUserByEmail } from "@/src/utils/actions";
+import { getUserByEmail } from "@/src/utils/strapiSever";
 import { AiFillAlert } from "react-icons/ai";
 import Link from "next/link";
 import { Metadata } from "next";

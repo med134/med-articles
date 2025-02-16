@@ -1,12 +1,12 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useActionState, useState } from "react";
+import React, { useState } from "react";
 import { UserInfo } from "../Interfaces";
 import Pagination from "../Pagination";
 import { RiDeleteBin5Line } from "react-icons/ri";
-import { deleteUser } from "@/src/utils/actions";
 import { FormatDate } from "../AllDataArrays";
+import UserModalDelete from "../UserModalDelete";
 
 interface UserProps {
   users: UserInfo[];
@@ -15,9 +15,19 @@ interface UserProps {
 
 const TableUsers = ({ users, isAdmin }: UserProps) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [success, action, isPending] = useActionState(deleteUser, undefined);
+  const [openModal, setOpenModal] = useState(false);
+
   const handleMovePages = (page: number) => {
     setCurrentPage(page);
+  };
+
+  const [userId, setUserId] = useState<number | undefined>(undefined);
+  const handelDelete = (id: number) => {
+    setUserId(id);
+    setOpenModal(!openModal);
+  };
+  const closeModal = () => {
+    setOpenModal(!openModal);
   };
   const perPage = 5;
   const indexOfLastBlog = currentPage * perPage;
@@ -27,11 +37,6 @@ const TableUsers = ({ users, isAdmin }: UserProps) => {
   return (
     <div className="w-full overflow-x-auto">
       <h3 className="py-3 font-semibold text-2xl md:text-xl">Admin & Users</h3>
-      {success && (
-        <p className="text-xl font-semibold bg-green-500 text-center text-light">
-          {success.error}
-        </p>
-      )}
       <table className="w-full">
         <thead>
           <tr className="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
@@ -42,21 +47,21 @@ const TableUsers = ({ users, isAdmin }: UserProps) => {
             {isAdmin && <th className="px-4 py-3 sm:text-sm">Action</th>}
           </tr>
         </thead>
-        <tbody className="bg-white">  
+        <tbody className="bg-white">
           {currentBlog?.map((user: UserInfo, index: number) => (
             <tr
-              key={user._id}
+              key={user.id}
               className={`text-gray-700 ${index === 0 ? "bg-gray-100" : ""}`}
             >
               <td className="px-4 py-3 border">
                 <Link
-                  href={`/dashboard/users/${user._id}`}
+                  href={`/dashboard/users/${user.id}`}
                   className="flex items-center text-sm"
                 >
                   <div className="relative w-8 h-8 mr-3 rounded-full md:block">
                     <Image
                       className="object-cover w-full h-full rounded-full"
-                      src={user.imageUrl}
+                      src={user?.avatar?.url}
                       alt="user image"
                       loading="lazy"
                       width={200}
@@ -74,7 +79,7 @@ const TableUsers = ({ users, isAdmin }: UserProps) => {
                 </Link>
               </td>
               <td className="px-4 py-3 text-ms font-semibold border">
-                {user?.homeAddress || "unknown"}
+                {user?.address || "unknown"}
               </td>
               <td className="px-4 py-3 text-xs border">
                 <span
@@ -93,16 +98,16 @@ const TableUsers = ({ users, isAdmin }: UserProps) => {
               </td>
               {isAdmin && (
                 <td className="px-4 py-3 text-sm border">
-                  <form action={action} className="">
-                    <input hidden name="id" id="id" value={user._id} readOnly />
-                    <button
-                      type="submit"
-                      className={`flex justify-around group px-2 py-2 items-center bg-red-500 rounded-md text-light`}
-                    >
-                      {isPending ? "Deleting..." : "Delete"}
-                      <RiDeleteBin5Line className="ml-2 hover:font-semibold" />
-                    </button>
-                  </form>
+                  <button
+                    onClick={() => handelDelete(user.id)}
+                    className={`flex justify-around group px-2 py-2 items-center bg-red-500 rounded-md text-light`}
+                  >
+                    Delete
+                    <RiDeleteBin5Line className="ml-2 hover:font-semibold" />
+                  </button>
+                  {openModal && (
+                    <UserModalDelete userId={userId} onClose={closeModal} />
+                  )}
                 </td>
               )}
             </tr>

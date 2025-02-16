@@ -20,14 +20,13 @@ const EditPending = ({ draftBlog }: ArticleProps) => {
           <tr className="font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-gray-600">
             <th className="px-4 py-3 md:text-sm">title</th>
             <th className="px-4 py-3 md:text-sm sm:hidden">writer</th>
-            <th className="px-4 py-3 md:text-sm">status</th>
             <th className="px-4 py-3 md:text-sm sm:hidden">Date publish</th>
             <th className="px-4 py-3 md:text-sm">Actions</th>
           </tr>
         </thead>
         <tbody className="bg-white">
           {draftBlog?.map((post: Blog) => (
-            <tr key={post._id} className="text-gray-700">
+            <tr key={post.id} className="text-gray-700">
               <td className="px-4 py-3 border">
                 <p className="font-semibold text-dark md:text-sm">
                   {post.title.slice(0, 40)}..
@@ -36,18 +35,7 @@ const EditPending = ({ draftBlog }: ArticleProps) => {
               <td className="px-4 py-3 text-sm font-semibold border sm:hidden">
                 {post.username}
               </td>
-              <td className="px-4 py-3 text-xs border">
-                <span
-                  className={`${
-                    post.status === "draft"
-                      ? "text-red-600 bg-red-100 px-4 py-1 font-semibold"
-                      : "px-4 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm"
-                  }`}
-                >
-                  {" "}
-                  {post?.status}
-                </span>
-              </td>
+
               <td className="px-4 py-3 text-sm border sm:hidden">
                 {FormatDate(post.createdAt)}
               </td>

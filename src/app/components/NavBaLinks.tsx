@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { FiX } from "react-icons/fi";
 import useThemeSwitcher from "./useThemeSwitcher";
-import med from "@/public/images/logo-med-removebg-preview.webp";
 import { usePathname } from "next/navigation";
+import med from "@/public/images/logo-med-removebg-preview.webp";
 import { RiMenu5Fill } from "react-icons/ri";
 import MainLink from "./MainLink";
 import logo from "@/public/images/logo.png";
@@ -105,7 +105,7 @@ ${mode === "light" ? "bg-dark text-light" : "bg-light text-dark"}
           </button>
         </div>
       </div>
-      <MainLink user={user} />
+      <MainLink />
       <button
         name="theme-button"
         aria-label="change-theme"
@@ -171,7 +171,7 @@ bg-dark/90 dark:bg-light/75 rounded-lg backdrop-blur-md py-8
                 title="templates"
                 className="templates"
               />
-              {user ? (
+              {/*   {user ? (
                 <CustomMobileLink
                   key="dashboard"
                   href="/dashboard"
@@ -185,7 +185,7 @@ bg-dark/90 dark:bg-light/75 rounded-lg backdrop-blur-md py-8
                   title="Login"
                   className=""
                 />
-              )}
+              )} */}
             </div>
             {user && (
               <form action={handelLogOut}>

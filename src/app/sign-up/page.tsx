@@ -3,18 +3,15 @@ import React, { useActionState } from "react";
 import Image from "next/image";
 import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
-import {
-  handelLoginGoogle,
-  handelLoginGithub,
-  addUser,
-} from "@/src/utils/actions";
+import { handelLoginGoogle, handelLoginGithub } from "@/src/utils/actions";
 import { CreateButton } from "../components/SearchButton";
 import { parseWithZod } from "@conform-to/zod";
 import { createAccountSchema } from "@/src/utils/ZodSchema";
 import { useForm } from "@conform-to/react";
+import { createUser } from "@/src/utils/strapiSever";
 
 const Page = () => {
-  const [lastResult, action] = useActionState(addUser, undefined);
+  const [lastResult, action] = useActionState(createUser, undefined);
   const [form, fields] = useForm({
     lastResult,
     onValidate({ formData }) {
@@ -71,9 +68,7 @@ const Page = () => {
                   maxLength={40}
                   required
                 />
-                <p className="text-red-600 text-sm">
-                  {fields.name.errors}
-                </p>
+                <p className="text-red-600 text-sm">{fields.name.errors}</p>
                 <input
                   className="w-full px-8 dark:bg-dark py-3 mt-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
                   type="email"

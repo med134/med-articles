@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  getAllCategories,
-  searchFunction,
-} from "@/src/utils/actions";
+import { searchFunction } from "@/src/utils/strapiSever";
 import SearchPage from "../components/SearchPage";
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
@@ -12,14 +9,10 @@ const page = async (props: { searchParams: SearchParams }) => {
     ? searchParams.query[0]
     : searchParams.query || "";
   const searchingBlogs = (await searchFunction(query)) || [];
-  const category = await getAllCategories();
+  console.log(searchingBlogs);
   return (
     <div className="bg-light dark:bg-dark pt-36 text-center w-[100%]">
-      <SearchPage
-        firstSearch={searchingBlogs}
-        queryOne={query}
-        cat={category}
-      />
+      <SearchPage firstSearch={searchingBlogs} queryOne={query} />
     </div>
   );
 };

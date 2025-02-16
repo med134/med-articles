@@ -1,27 +1,11 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import BlogImage from "@/public/images/postera.png";
 import { FormatDate } from "./AllDataArrays";
+import { Blog } from "./Interfaces";
 
-interface Article {
-  _id: string;
-  title: string;
-  category: string;
-  description: string;
-  image: string;
-  slug: string;
-  job: string;
-  status: string;
-  username: string;
-  tags: string[];
-  userId: string;
-  email: string;
-  userImage: string;
-  createdAt: Date;
-}
 interface BlogProps {
-  item: Article;
+  item: Blog;
 }
 
 const CardHomePage: React.FC<BlogProps> = ({ item }) => {
@@ -70,7 +54,7 @@ const CardHomePage: React.FC<BlogProps> = ({ item }) => {
             className="flex items-center justify-start py-3"
           >
             <Image
-              src={item?.userImage || "https://i.ibb.co/mSjZwpw/download.png"}
+              src={"https://i.ibb.co/mSjZwpw/download.png"}
               alt="userImage"
               className="w-8 h-8 rounded-full"
               width={24}
@@ -95,7 +79,7 @@ const CardHomePage: React.FC<BlogProps> = ({ item }) => {
         </div>
         <div className="">
           <Image
-            src={item.image ? item.image : BlogImage}
+            src={item.image.url}
             alt={item.title}
             width={300}
             height={300}

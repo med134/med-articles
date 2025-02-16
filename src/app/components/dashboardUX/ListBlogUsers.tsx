@@ -52,7 +52,7 @@ const ListBlogUsers = ({ posts, isAdmin }: ArticleProps) => {
             </thead>
             <tbody className="bg-white">
               {currentBlog?.map((post: Blog) => (
-                <tr key={post._id} className="text-gray-700">
+                <tr key={post.id} className="text-gray-700">
                   <td className="px-4 py-3 border">
                     <p className="font-semibold text-dark md:text-sm">
                       {post.title.slice(0, 40)}..
@@ -64,13 +64,13 @@ const ListBlogUsers = ({ posts, isAdmin }: ArticleProps) => {
                   <td className="px-4 py-3 text-xs border">
                     <span
                       className={`${
-                        post.status === "draft"
-                          ? "text-red-600 bg-red-100 px-4 py-1 font-semibold"
-                          : "px-4 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm"
+                        post.isPublish
+                          ? "text-green-700 bg-green-100 px-4 py-1 font-semibold"
+                          : "px-4 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-sm"
                       }`}
                     >
                       {" "}
-                      {post?.status}
+                      {post?.isPublish ? "publish" : "draft"}
                     </span>
                   </td>
                   <td className="px-4 py-3 text-sm border sm:hidden">
@@ -86,7 +86,7 @@ const ListBlogUsers = ({ posts, isAdmin }: ArticleProps) => {
                     {isAdmin && (
                       <button
                         className="flex justify-center items-center"
-                        onClick={() => handelDelete(post._id)}
+                        onClick={() => handelDelete(post.id)}
                       >
                         <RiDeleteBin5Line className="ml-1 w-5 h-5 hover:fill-red-600" />
                       </button>

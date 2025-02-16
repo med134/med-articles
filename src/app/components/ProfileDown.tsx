@@ -30,7 +30,7 @@ const ProfileDown = ({ user }: Props) => {
           height={50}
           loading="lazy"
           src={
-            user?.imageUrl ||
+            user?.avatar?.url ||
             "https://res.cloudinary.com/djcnq7nmj/image/upload/v1730411682/profile_qjehzj.png"
           }
           quality={50}
@@ -50,7 +50,7 @@ const ProfileDown = ({ user }: Props) => {
             <div className="py-1 rounded-md shadow-xs">
               <ul className="block py-2 z-[1000] min-w-full w-max rounded-lg max-h-96 overflow-auto dark:text-light">
                 <Link
-                  href={`/dashboard/users/${user?._id}`}
+                  href={`/dashboard/users/${user?.documentId}`}
                   className="py-2.5 px-5 flex items-center hover:bg-gray-100 text-[#333] text-sm cursor-pointer  dark:text-light"
                 >
                   <svg
@@ -84,7 +84,7 @@ const ProfileDown = ({ user }: Props) => {
                   Dashboard
                 </Link>
                 <Link
-                  href={`/dashboard/users/settings/${user?._id}`}
+                  href={`/dashboard/users/settings/${user?.documentId}`}
                   className="py-2.5 px-5 flex items-center hover:bg-gray-100 text-[#333] text-sm cursor-pointer  dark:text-light"
                 >
                   <IoSettingsOutline className="fill-dark w-6 h-6 mr-3" />

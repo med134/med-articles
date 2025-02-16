@@ -288,7 +288,7 @@ export const getProjectsMini = async (slug: string) => {
   return miniProject.find((project) => project.slug === slug);
 };
 
-export const FormatDate =  (dateString: Date) => {
+export const FormatDate = (dateString: Date) => {
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "long",
@@ -300,3 +300,41 @@ export const FormatDate =  (dateString: Date) => {
   );
   return formattedDate;
 };
+
+export const categories = [
+  {
+    label: "All Category",
+    value: "all",
+    icon: "https://res.cloudinary.com/djcnq7nmj/image/upload/v1738880209/image_d34h1z.png",
+  },
+  {
+    label: "Next.js",
+    value: "next.js",
+    icon: "https://res.cloudinary.com/djcnq7nmj/image/upload/v1738880209/image-processing20210621-24504-19dvjjp_s4e7ax.webp",
+  },
+  {
+    label: "React.js",
+    value: "react.js",
+    icon: "https://res.cloudinary.com/djcnq7nmj/image/upload/v1738880209/science_o52hmt.webp",
+  },
+  {
+    label: "Solution",
+    value: "solution",
+    icon: "https://res.cloudinary.com/djcnq7nmj/image/upload/v1738880209/solution_wu00j6.webp",
+  },
+  {
+    label: "Tools",
+    value: "tools",
+    icon: "https://res.cloudinary.com/djcnq7nmj/image/upload/v1738880435/image_1_jgttqb.png",
+  },
+  {
+    label: "Career",
+    value: "career",
+    icon: "https://res.cloudinary.com/djcnq7nmj/image/upload/v1738880209/motivation_fklooz.webp",
+  },
+  {
+    label: "Productivity",
+    value: "productivity",
+    icon: "https://res.cloudinary.com/djcnq7nmj/image/upload/v1738880209/bar-chart_xy1tdl.webp",
+  },
+];

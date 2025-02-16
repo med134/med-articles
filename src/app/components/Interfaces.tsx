@@ -10,27 +10,32 @@ export interface Category {
 }
 
 export interface UserInfo {
-  _id: string;
+  id: number;
   name: string;
   email: string;
-  imageUrl: string;
+  avatar: {
+    url: string;
+  };
   job: string;
-  homeAddress: string;
+  address: string;
   about: string;
-  youtubeUrl: string;
-  githubUrl: string;
-  twitterUrl: string;
-  isAdmin: string;
-  instagramUrl: string;
-  dribbleUrl: string;
-  linkedInUrl: string;
+  password: string;
+  isAdmin: boolean;
   createdAt: Date;
+  youtube_link: string;
+  github_link: string;
+  youtub_link: string;
+  portfolio: string;
+  linkedin_link: string;
+  instagram_link: string;
 }
 export interface Blog {
-  _id: string;
+  id: string;
   title: string;
   tags: string;
-  image: string;
+  image: {
+    url: string;
+  };
   description: string;
   slug: string;
   category: string;
@@ -41,6 +46,7 @@ export interface Blog {
   userId: string;
   email: string;
   userImage: string;
+  isPublish: boolean;
   createdAt: Date;
 }
 export interface Template {

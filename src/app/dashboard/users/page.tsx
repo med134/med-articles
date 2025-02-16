@@ -1,7 +1,8 @@
-import { checkAdmin, getAllUsers } from "@/src/utils/actions";
+import { checkAdmin } from "@/src/utils/actions";
 import React from "react";
 import ListUsers from "../../components/dashboardUX/ListUsers";
 import { Metadata } from "next";
+import { getAllUsers } from "@/src/utils/strapiSever";
 
 export const metadata: Metadata = {
   title: "medCode | Users & Admin",

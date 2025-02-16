@@ -3,27 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { FaRegCalendarAlt } from "react-icons/fa";
-import imageBlog from "@/public/images/postera.png";
 import dynamic from "next/dynamic";
 import { FormatDate } from "./AllDataArrays";
+import { Blog } from "./Interfaces";
 const Pagination = dynamic(() => import("./Pagination"), { ssr: false });
 
-interface Article {
-  _id: string;
-  title: string;
-  category: string;
-  description: string;
-  image: string;
-  slug: string;
-  job: string;
-  status: string;
-  username: string;
-  userId: string;
-  userImage: string;
-  createdAt: Date;
-}
 interface CategoryParams {
-  post: Article[];
+  post: Blog[];
 }
 
 const ListAllBlogs: React.FC<CategoryParams> = ({ post }) => {
@@ -40,9 +26,9 @@ const ListAllBlogs: React.FC<CategoryParams> = ({ post }) => {
   return (
     <div className="">
       <div className="grid justify-center grid-cols-3 gap-6 mt-8 py-8 md:block bg-light px-16 sm:px-3 dark:bg-dark">
-        {currentBlog?.map((item) => (
+        {currentBlog?.map((item: Blog) => (
           <div
-            key={item._id}
+            key={item.id}
             className=" shadow-lg dark:shadow-white rounded-md lg:block md:mb-6 lg:w-full sm:w-full dark:bg-dark dark:border-light"
           >
             <div className="hover:no-underline focus:no-underline dark:bg-gray-900">
@@ -50,7 +36,7 @@ const ListAllBlogs: React.FC<CategoryParams> = ({ post }) => {
                 width={800}
                 height={500}
                 className="object-fill w-full rounded h-44 dark:bg-gray-500 md:object-fill"
-                src={item.image ? item.image.trimEnd() : imageBlog}
+                src={item.image.url}
                 alt={item.title}
                 loading="lazy"
               />

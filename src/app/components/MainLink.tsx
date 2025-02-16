@@ -2,10 +2,8 @@ import Image from "next/image";
 import React from "react";
 import { CustomLink } from "./CustomLinks";
 import med from "@/public/images/logo-med-removebg-preview.webp";
-import ProfileDown from "./ProfileDown";
 import { Limelight } from "next/font/google";
 import Link from "next/link";
-import { UserInfo } from "./Interfaces";
 
 const limelight = Limelight({
   subsets: ["latin"],
@@ -13,10 +11,8 @@ const limelight = Limelight({
   display: "swap",
 });
 
-interface Props {
-  user: UserInfo;
-}
-const MainLink = ({ user }: Props) => {
+
+const MainLink = () => {
   return (
     <div
       className={`w-full px-24 flex justify-between items-center font-semibold xl:px-6 lg:hidden`}
@@ -58,7 +54,7 @@ const MainLink = ({ user }: Props) => {
           title="About Us"
           className="mx-4 uppercase dark:text-light"
         />
-        {user ? (
+      {/*   {user ? (
           <>
             <CustomLink
               key="dashboard"
@@ -75,7 +71,7 @@ const MainLink = ({ user }: Props) => {
             title="Create Post"
             className="mx-4 uppercase dark:text-light"
           />
-        )}
+        )} */}
       </div>
     </div>
   );

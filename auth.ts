@@ -2,10 +2,10 @@ import NextAuth from "next-auth";
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 import User from "@/src/modalMongodb/User";
-import bcrypt from "bcryptjs";
 import Credentials from "next-auth/providers/credentials";
 import { authConfig } from "@/auth.config";
-import { connect } from "./src/utils/ConnectDB";
+import { getAllUsers } from "./src/utils/strapiSever";
+import { UserInfo } from "./src/app/components/Interfaces";
 
 interface Credentials {
   email: string;
@@ -18,17 +18,17 @@ interface User {
 }
 
 const login = async (credentials: Credentials): Promise<User> => {
+  const users = await getAllUsers();
   try {
-    connect();
-    const user = await User.findOne({ email: credentials.email });
+    const user = users.find(
+      (user: UserInfo) => user.email === credentials.email
+    );
 
     if (!user) throw new Error("Wrong credentials!");
 
-    const isPasswordCorrect = await bcrypt.compare(
-      credentials.password,
-      user.password
+    const isPasswordCorrect = users.find(
+      (user: UserInfo) => user.password === credentials.password
     );
-
     if (!isPasswordCorrect) throw new Error("Wrong credentials!");
 
     return user;

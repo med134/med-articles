@@ -2,15 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { CustomLink } from "./CustomLinks";
 import med from "@/public/images/logo-med-removebg-preview.webp";
-import { Limelight } from "next/font/google";
 import Link from "next/link";
-
-const limelight = Limelight({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-
 
 const MainLink = () => {
   return (
@@ -29,14 +21,12 @@ const MainLink = () => {
           height={100}
           loading="lazy"
         />
-        <span
-          className={`${limelight.className} text-3xl ml-2 text-dark dark:text-light lg:hidden`}
-        >
+        <span className={`text-3xl ml-2 text-dark dark:text-light lg:hidden`}>
           medcode
         </span>
       </Link>
       <div className="flex items-center justify-evenly xl:ml-6 bg-transparent z-50">
-      <CustomLink
+        <CustomLink
           key="templates"
           href="/templates"
           title="templates"
@@ -54,7 +44,7 @@ const MainLink = () => {
           title="About Us"
           className="mx-4 uppercase dark:text-light"
         />
-      {/*   {user ? (
+        {/*   {user ? (
           <>
             <CustomLink
               key="dashboard"

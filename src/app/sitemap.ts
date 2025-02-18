@@ -2,12 +2,11 @@ import type { MetadataRoute } from "next";
 
 import routes from "@/src/utils/data/routes.json";
 import { miniProject } from "./components/AllDataArrays";
-import { Blog, UserInfo } from "./components/Interfaces";
-import { getAllUsers, getData } from "../utils/strapiSever";
+import { Blog } from "./components/Interfaces";
+import { getData } from "../utils/strapiSever";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const blogs = await getData();
-  const users = await getAllUsers();
   const baseUrl = "https://medcode.dev";
   const staticUrls = routes.map((route) => {
     return {
@@ -27,12 +26,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     };
   });
 
-  const allProfile = users.map((cat: UserInfo) => {
+  /*   const allProfile = users.map((cat: UserInfo) => {
     return {
       url: `${baseUrl}/dashboard/users/${cat.id}`,
       lastModified: new Date().toISOString(),
     };
-  });
+  }); */
   const allProjects = miniProject.map((pro) => {
     return {
       url: `${baseUrl}/projects/${pro.slug}`,
@@ -40,5 +39,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     };
   });
 
-  return [...staticUrls, ...AllBlogs, ...allProfile, ...allProjects];
+  return [...staticUrls, ...AllBlogs, ...allProjects];
 }

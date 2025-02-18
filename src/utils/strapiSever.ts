@@ -6,24 +6,35 @@ import bcrypt from "bcryptjs";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
-const baseUrl = `https://www.medcode.dev`;
-export const getPostBySlug = async (slug: string) => {
-  const response = await fetch(`/api/articles/${slug}`);
-  const posts = await response.json();
-  return posts;
-};
-
+const baseUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 export const getData = async () => {
-  const response = await fetch(`${baseUrl}/api/articles?populate=%2A`);
+  const response = await fetch(`${baseUrl}/api/articles?populate=%2A`, {
+    headers: {
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`,
+    },
+  });
   const posts = await response.json();
   return posts.data.sort(
     (a: { createdAt: Date }, b: { createdAt: Date }) =>
       new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   );
 };
+export const getPostBySlug = async (slug: string) => {
+  const response = await fetch(`${baseUrl}/api/articles/${slug}`, {
+    headers: {
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`,
+    },
+  });
+  const posts = await response.json();
+  return posts;
+};
 
 export const getArticleByCategories = async (category: string) => {
-  const response = await fetch(`${baseUrl}/api/articles?populate=%2A`);
+  const response = await fetch(`${baseUrl}/api/articles?populate=%2A`, {
+    headers: {
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`,
+    },
+  });
   const posts = await response.json();
   const articles = posts.data.filter(
     (item: Blog) => item.category === category
@@ -32,8 +43,7 @@ export const getArticleByCategories = async (category: string) => {
 };
 
 export const searchFunction = async (query: string) => {
-  const response = await fetch(`${baseUrl}/api/articles?populate=%2A`);
-  const posts = await response.json();
+  const posts = await getData();
   try {
     const filteredPosts = posts.data?.filter(
       (post: { title: string; description: string }) => {

@@ -9,10 +9,6 @@ const nextConfig: NextConfig = {
         hostname: "i.ibb.co",
       },
       {
-        protocol: "http",
-        hostname: "localhost",
-      },
-      {
         protocol: "https",
         hostname: "res.cloudinary.com",
       },
@@ -45,6 +41,10 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "media.dev.to",
+      },
+      {
+        protocol: "https",
+        hostname: "magical-chicken-bcaa7cc743.media.strapiapp.com",
       },
     ],
     minimumCacheTTL: 1500000,

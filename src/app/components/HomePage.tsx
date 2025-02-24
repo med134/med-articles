@@ -14,6 +14,7 @@ const Cat = dynamic(() => import("@/src/app/components/MainSide"), {
 
 const HomePage = async () => {
   const posts = await getData();
+  console.log(posts)
   return (
     <div
       style={{

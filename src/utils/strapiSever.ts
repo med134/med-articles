@@ -20,7 +20,7 @@ export const getData = async () => {
   );
 };
 export const getPostBySlug = async (slug: string) => {
-  const response = await fetch(`${baseUrl}/api/articles/${slug}`, {
+  const response = await fetch(`${baseUrl}/api/articles/${slug}?populate=%2A`, {
     headers: {
       Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`,
     },

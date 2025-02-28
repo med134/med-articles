@@ -7,7 +7,50 @@ import remarkGfm from "remark-gfm";
 import { CodeBlock } from "../../components/CopyButton";
 import { getPostBySlug } from "@/src/utils/strapiSever";
 import SidBar from "../../components/SidBar";
+import ShareButton from "../../components/ShareButton";
 
+export async function generateMetadata({ params }) {
+  const slug = (await params).slug;
+  const post = await getPostBySlug(slug);
+  const publishedAt = new Date(post.data.createdAt).toISOString();
+  const modifiedAt = new Date(
+    post?.data.updatedAt || post?.data.createdAt
+  ).toISOString();
+  return {
+    title: post.data.title,
+    description: post.data.description,
+    publishedTime: publishedAt,
+    modifiedTime: modifiedAt,
+    robots: {
+      index: true,
+      follow: true,
+    },
+    alternates: {
+      canonical: `/blogs/${slug}`,
+      languages: {
+        "en-US": `en-US/blogs/${slug}`,
+      },
+      types: {
+        "application/rss+xml": "https://www.medcode.dev/rss",
+      },
+    },
+    openGraph: {
+      title: post.data.title,
+      description: post.data.description,
+      publishedTime: publishedAt,
+      modifiedTime: modifiedAt,
+      url: `https://www.medcode.dev/blogs/${slug}`,
+      images: [
+        {
+          url: post.data.image.formats.medium.url,
+          alt: post.data.title,
+          width: "400",
+          height: "300",
+        },
+      ],
+    },
+  };
+}
 const BlogPage = async ({ params }) => {
   const slug = (await params).slug;
   const item = await getPostBySlug(slug);
@@ -89,6 +132,7 @@ const BlogPage = async ({ params }) => {
             {item.data.content}
           </ReactMarkdown>
         </div>
+        <ShareButton url={item.data.slug} />
       </div>
       <div className="myLeftSide xl:w-72 col-span-2 sm:w-full xs:w-full sm:p-2 lg:h-[650px] sm:mb-8">
         <SidBar postSlug={item.data.slug} />

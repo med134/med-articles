@@ -64,7 +64,7 @@ export default function RootLayout({
         <GoogleAnalytics GA_MEASUREMENT_ID="G-J4KQVRLWEN" />
       </Suspense>
       <body className={`antialiased`}>
-        <NavBar />
+        <NavBar/>
         {children}
         <NextTopLoader zIndex={99} showSpinner={false} />
         <Footer />

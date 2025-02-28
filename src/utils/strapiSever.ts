@@ -36,6 +36,9 @@ export const getArticleByCategories = async (category: string) => {
     },
   });
   const posts = await response.json();
+  if (category === "all") {
+    return posts.data;
+  }
   const articles = posts.data.filter(
     (item: Blog) => item.category === category
   );
@@ -44,17 +47,14 @@ export const getArticleByCategories = async (category: string) => {
 
 export const searchFunction = async (query: string) => {
   const posts = await getData();
+
   try {
-    const filteredPosts = posts.data?.filter(
+    const filteredPosts = posts.filter(
       (post: { title: string; description: string }) => {
         const regex = new RegExp(`${query}`, "gi");
         return post.title.match(regex) || post.description.match(regex);
       }
     );
-    if (!filteredPosts.length) {
-      console.log("No posts found with the given query");
-      return [];
-    }
     return filteredPosts;
   } catch (err) {
     console.error("Error during search operation:", err);

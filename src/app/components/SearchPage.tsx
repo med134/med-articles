@@ -19,6 +19,8 @@ const SearchPage: React.FC<SearchPageProps> = ({ firstSearch, queryOne }) => {
   const [posts, setPosts] = useState(firstSearch);
   const [loading, setLoading] = useState(false);
 
+  const baseUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL;
+
   //input onChange handler
   const onChangeHandle = (searchQuery: string) => {
     setQuery(searchQuery);
@@ -38,13 +40,13 @@ const SearchPage: React.FC<SearchPageProps> = ({ firstSearch, queryOne }) => {
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://localhost:1337/api/articles?populate=%2A")
+    fetch(`${baseUrl}/api/articles?populate=%2A`)
       .then((res) => res.json())
       .then((posts) => {
         setPosts(posts.data);
         setLoading(false);
       });
-  }, []);
+  }, [selectedCategories]);
 
   return (
     <div className="grid grid-cols-6 gap-6 xl:gap-2 lg:flex lg:flex-col-reverse dark:bg-dark sm:p-2 w-[100%]">

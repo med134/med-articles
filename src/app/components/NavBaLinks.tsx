@@ -105,7 +105,7 @@ ${mode === "light" ? "bg-dark text-light" : "bg-light text-dark"}
           </button>
         </div>
       </div>
-      <MainLink />
+      <MainLink user={user} />
       <button
         name="theme-button"
         aria-label="change-theme"
@@ -165,12 +165,7 @@ bg-dark/90 dark:bg-light/75 rounded-lg backdrop-blur-md py-8
                 title="Projects"
                 className="projects"
               />
-              <CustomMobileLink
-                key="templates"
-                href="/templates"
-                title="templates"
-                className="templates"
-              />
+
               {/*   {user ? (
                 <CustomMobileLink
                   key="dashboard"

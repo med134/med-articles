@@ -8,10 +8,7 @@ import { Chivo } from "next/font/google";
 import { FormatDate } from "./AllDataArrays";
 import { getData } from "@/src/utils/strapiSever";
 
-const chivo = Chivo({
-  variable: "--font-chivo",
-  subsets: ["latin"],
-});
+
 const FirstView = async () => {
   const post = await getData();
   return (
@@ -50,7 +47,7 @@ const FirstView = async () => {
                   </h1>
                 </Link>
                 <p
-                  className={`${chivo.variable} mt-2 font-semibold text-gray-800 text-xl text-gray-850 py-4 xs:text-sm xs:mt-1 xs:py-2 dark:text-light`}
+                  className={`mt-2 font-semibold text-gray-800 text-xl text-gray-850 py-4 xs:text-sm xs:mt-1 xs:py-2 dark:text-light`}
                 >
                   {item?.description.slice(0, 130)}...
                 </p>

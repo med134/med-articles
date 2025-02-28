@@ -45,23 +45,6 @@ dark:from-red-800 dark:to-purple-900 dark:text-light"
             {post.title}
           </Link>
           <div className="flex justify-between posts-center">
-            <Link
-              href={`/dashboard/users/${post?.userId}`}
-              className="flex posts-center justify-center py-3"
-            >
-              <Image
-                src={post?.userImage || "https://i.ibb.co/mSjZwpw/download.png"}
-                alt="userImage"
-                className="w-8 h-8 rounded-full"
-                width={24}
-                height={24}
-                loading="lazy"
-                quality={30}
-              />
-              <span className="text-xs font-semibold text-gray-800 ml-2 dark:text-light">
-                {post?.username}
-              </span>
-            </Link>
             <div className="flex justify-start posts-center py-2 dark:text-light">
               <FaRegCalendarAlt className="w-3 h-3 text-gray-800 dark:text-light" />
               <span className="ml-2 text-xs font-semibold dark:text-light">

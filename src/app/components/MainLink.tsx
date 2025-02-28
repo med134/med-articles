@@ -63,7 +63,7 @@ const MainLink = ({ user }: Props) => {
           <CustomLink
             key="login"
             href="/login"
-            title="Create Post"
+            title="Login"
             className="mx-4 uppercase dark:text-light"
           />
         )}

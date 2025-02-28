@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import GoogleAnalytics from "./components/jsx componenets/GoogleAnalytics";
 import CookieBanner from "./components/CookieBanner";
 import NavBar from "./components/NavBar";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.medcode.dev"),
@@ -66,6 +67,7 @@ export default function RootLayout({
       <body className={`antialiased`}>
         <NavBar/>
         {children}
+        <SpeedInsights />
         <NextTopLoader zIndex={99} showSpinner={false} />
         <Footer />
         <CookieBanner />

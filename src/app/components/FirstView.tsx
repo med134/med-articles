@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import icon from "@/public/images/development-amico.webp";
 import { Blog } from "./Interfaces";
-import { Chivo } from "next/font/google";
 import { FormatDate } from "./AllDataArrays";
 import { getData } from "@/src/utils/strapiSever";
 

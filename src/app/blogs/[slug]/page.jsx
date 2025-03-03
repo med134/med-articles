@@ -8,7 +8,7 @@ import { CodeBlock } from "../../components/CopyButton";
 import { getPostBySlug } from "@/src/utils/strapiSever";
 import SidBar from "../../components/SidBar";
 import ShareButton from "../../components/ShareButton";
-
+import Comments from "../../components/Comments";
 export async function generateMetadata({ params }) {
   const slug = (await params).slug;
   const post = await getPostBySlug(slug);
@@ -51,6 +51,13 @@ export async function generateMetadata({ params }) {
     },
   };
 }
+const getComments = async ({ id }) => {
+  const response = await fetch(
+    `https://magical-chicken-bcaa7cc743.strapiapp.com/api/messages/${id}`
+  );
+  const comments = await response.json();
+  return comments;
+};
 const BlogPage = async ({ params }) => {
   const slug = (await params).slug;
   const item = await getPostBySlug(slug);
@@ -132,6 +139,8 @@ const BlogPage = async ({ params }) => {
             {item.data.content}
           </ReactMarkdown>
         </div>
+        <Comments postId={item.data.id} />
+
         <ShareButton url={item.data.slug} />
       </div>
       <div className="myLeftSide xl:w-72 col-span-2 sm:w-full xs:w-full sm:p-2 lg:h-[650px] sm:mb-8">

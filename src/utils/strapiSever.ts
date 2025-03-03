@@ -88,6 +88,12 @@ export const getUserByEmail = async (email: string) => {
   const user = users.data.find((user: UserInfo) => user.email === email);
   return user;
 };
+export const getComments = async ({ id }: { id: number }) => {
+  const response = await fetch(`${baseUrl}/api/messages/${id}`);
+  const comments = await response.json();
+  return comments.data;
+};
+
 export const createUser = async (prevState: unknown, formData: FormData) => {
   const name = formData.get("name") as string;
   const email = formData.get("email") as string;
@@ -173,4 +179,26 @@ export async function updateProfileAction(formData: FormData) {
     console.log(error);
   }
   revalidatePath("/dashboard/settings");
+}
+
+export async function createComment(formData: FormData) {
+  const { articleId, username, imageUser, comment } =
+    Object.fromEntries(formData);
+  try {
+    await fetch(`${baseUrl}/api/messages`, {
+      method: "POST",
+
+      body: JSON.stringify({
+        data: {
+          articleId: articleId,
+          username: username,
+          imageUser: imageUser,
+          comment: comment,
+        },
+      }),
+    });
+  } catch (error) {
+    console.log(error);
+  }
+  revalidatePath("/blogs");
 }

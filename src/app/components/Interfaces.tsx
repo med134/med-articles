@@ -66,10 +66,12 @@ export interface Template {
 }
 
 export interface Comment {
-  _id: string;
+  id: number;
   comment: string;
-  blogId: string;
-  imageUser: string;
+  articleId: string;
+  imageUser: {
+    url: string;
+  };
   username: string;
   createdAt: Date;
 }

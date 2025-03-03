@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/blogs/[slug]/page.jsx", "src/app/components/MarKdownEditor.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/blogs/[slug]/page.jsx", "src/app/components/MarKdownEditor.tsx", "src/app/components/AllComments.tsx"],
   "exclude": ["node_modules"]
 }

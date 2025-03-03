@@ -1,10 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-import {
-  FacebookShareButton,
-  LinkedinShareButton,
-} from "react-share";
+import { FacebookShareButton, LinkedinShareButton } from "react-share";
 
 import {
   FaFacebookSquare,
@@ -16,7 +13,7 @@ import {
 const ShareButton = ({ text, url }: { text: string; url: string }) => {
   const [copied, setCopied] = useState(false);
   const handleCopy = () => {
-    navigator.clipboard.writeText(url).then(() => {
+    navigator.clipboard.writeText(location.href).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
     });

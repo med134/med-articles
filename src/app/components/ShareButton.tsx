@@ -1,16 +1,20 @@
 "use client";
 import React, { useState } from "react";
 
-import { FacebookShareButton, LinkedinShareButton } from "react-share";
-
 import {
-  FaFacebookSquare,
-  FaLinkedin,
-  FaClipboardCheck,
-  FaRegClipboard,
-} from "react-icons/fa";
+  FacebookIcon,
+  FacebookShareButton,
+  LinkedinIcon,
+  LinkedinShareButton,
+  TwitterIcon,
+  TwitterShareButton,
+  PinterestShareButton,
+  PinterestIcon,
+} from "react-share";
 
-const ShareButton = ({ text, url }: { text: string; url: string }) => {
+import { FaClipboardCheck, FaRegClipboard } from "react-icons/fa";
+
+const ShareButton = ({ url, imageUrl }: { url: string; imageUrl: string }) => {
   const [copied, setCopied] = useState(false);
   const handleCopy = () => {
     navigator.clipboard.writeText(location.href).then(() => {
@@ -18,6 +22,7 @@ const ShareButton = ({ text, url }: { text: string; url: string }) => {
       setTimeout(() => setCopied(false), 1500);
     });
   };
+  console.log(url);
 
   return (
     <div>
@@ -25,16 +30,31 @@ const ShareButton = ({ text, url }: { text: string; url: string }) => {
         <div className="flex flex-col items-center justify-center bg-gray-100 py-2 ">
           <h1 className="text-2xl font-bold mb-4">Share this content</h1>
           <div className="flex space-x-4 py-3">
-            <FacebookShareButton url={url}>
-              <button className="p-2 bg-blue-700 text-white rounded-full hover:bg-blue-800 transition">
-                <FaFacebookSquare size={24} />
-              </button>
+            <FacebookShareButton
+              url={`https://medcode.dev/blogs/${url}`}
+              className="Demo__some-network__share-button"
+            >
+              <FacebookIcon className="h-10 w-10" round />
             </FacebookShareButton>
-            <LinkedinShareButton url={url} summary={text}>
-              <button className="p-2 bg-blue-700 text-white rounded-full hover:bg-blue-800 transition">
-                <FaLinkedin size={24} />
-              </button>
+            <TwitterShareButton
+              url={`https://medcode.dev/blogs/${url}`}
+              className="Demo__some-network__share-button"
+            >
+              <TwitterIcon className="h-10 w-10" round />
+            </TwitterShareButton>
+            <LinkedinShareButton
+              url={`https://medcode.dev/blogs/${url}`}
+              className="Demo__some-network__share-button"
+            >
+              <LinkedinIcon className="h-10 w-10" round />
             </LinkedinShareButton>
+            <PinterestShareButton
+              url={`https://medcode.dev/blogs/${url}`}
+              media={imageUrl}
+              className="Demo__some-network__share-button"
+            >
+              <PinterestIcon className="h-10 w-10" round />
+            </PinterestShareButton>
           </div>
         </div>
 

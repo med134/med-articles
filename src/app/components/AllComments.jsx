@@ -6,7 +6,6 @@ const AllComments = async ({ postId }) => {
   console.log(comments);
   return (
     <div className="mt-4">
-      comments
       {comments?.map((item) => (
         <div key={item.id}>
           <p>{item.comment}</p>

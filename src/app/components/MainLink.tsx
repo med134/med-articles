@@ -50,13 +50,19 @@ const MainLink = ({ user }: Props) => {
           title="About Us"
           className="mx-4 uppercase dark:text-light"
         />
+        <CustomLink
+          key="Contact Us"
+          href="/contact-us"
+          title="Contact Us"
+          className="mx-4 uppercase dark:text-light"
+        />
         {user ? (
           <>
             <div
               onClick={async () => {
                 handelLogOut();
               }}
-              className={` relative group cursor-pointer dark:text-light`}
+              className={` relative group cursor-pointer dark:text-light ml-2`}
             >
               LOGOUT{" "}
               <span

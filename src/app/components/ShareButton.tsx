@@ -22,7 +22,6 @@ const ShareButton = ({ url, imageUrl }: { url: string; imageUrl: string }) => {
       setTimeout(() => setCopied(false), 1500);
     });
   };
-  console.log(url);
 
   return (
     <div>

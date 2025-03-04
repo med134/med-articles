@@ -89,9 +89,11 @@ export const getUserByEmail = async (email: string) => {
   return user;
 };
 export const getComments = async ({ id }: { id: number }) => {
-  const response = await fetch(`${baseUrl}/api/messages/${id}`);
+  const response = await fetch(
+    `https://magical-chicken-bcaa7cc743.strapiapp.com/api/messages/${id}`
+  );
   const comments = await response.json();
-  return comments.data;
+  return comments;
 };
 
 export const createUser = async (prevState: unknown, formData: FormData) => {

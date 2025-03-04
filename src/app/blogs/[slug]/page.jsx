@@ -9,7 +9,7 @@ import { getPostBySlug } from "@/src/utils/strapiSever";
 import SidBar from "../../components/SidBar";
 import ShareButton from "../../components/ShareButton";
 import Comments from "../../components/Comments";
-import AllComments from "../../components/AllComments";
+
 export async function generateMetadata({ params }) {
   const slug = (await params).slug;
   const post = await getPostBySlug(slug);
@@ -63,6 +63,8 @@ const BlogPage = async ({ params }) => {
   const slug = (await params).slug;
   const item = await getPostBySlug(slug);
   const { image } = item?.data;
+  const itemComment = await getComments(item.data.id);
+  console.log(itemComment);
 
   return (
     <section
@@ -141,7 +143,9 @@ const BlogPage = async ({ params }) => {
           </ReactMarkdown>
         </div>
         <Comments postId={item.data.id} />
-        <AllComments postId={item.data.id} />
+        <div>
+          <h3 className="font-bold mt-4">Comments</h3>
+        </div>
         <ShareButton url={item.data.slug} imageUrl={image.url} />
       </div>
       <div className="myLeftSide xl:w-72 col-span-2 sm:w-full xs:w-full sm:p-2 lg:h-[650px] sm:mb-8">

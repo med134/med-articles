@@ -303,11 +303,6 @@ export const FormatDate = (dateString: Date) => {
 
 export const categories = [
   {
-    label: "All Category",
-    value: "all",
-    icon: "https://res.cloudinary.com/djcnq7nmj/image/upload/v1738880209/image_d34h1z.png",
-  },
-  {
     label: "Next.js",
     value: "next.js",
     icon: "https://res.cloudinary.com/djcnq7nmj/image/upload/v1738880209/image-processing20210621-24504-19dvjjp_s4e7ax.webp",

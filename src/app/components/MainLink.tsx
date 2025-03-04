@@ -56,14 +56,14 @@ const MainLink = ({ user }: Props) => {
               onClick={async () => {
                 handelLogOut();
               }}
-              className={` relative group cursor-pointer`}
+              className={` relative group cursor-pointer dark:text-light`}
             >
               LOGOUT{" "}
               <span
                 className={`
         h-[1px] inline-block
         absolute left-0 -bottom-0.5
-        group-hover:w-full transition-[width] ease duration-300 bg-dark
+        group-hover:w-full transition-[width] ease duration-300 bg-dark dark:text-light
         dark:bg-light`}
               >
                 &nbsp;

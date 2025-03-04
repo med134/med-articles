@@ -17,6 +17,10 @@ export const authConfig = {
       }
       return true;
     },
+    async redirect() {
+      // Redirect to home page after successful login
+      return "/";
+    },
   },
   providers: [], // Add providers with an empty array for now
 } satisfies NextAuthConfig;

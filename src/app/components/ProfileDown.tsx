@@ -2,12 +2,8 @@
 import React from "react";
 import Image from "next/image";
 import { useState } from "react";
-import { handelLogOut } from "@/src/utils/actions";
-import Link from "next/link";
-import { IoSettingsOutline } from "react-icons/io5";
 import { UserInfo } from "./Interfaces";
-import { AnimatePresence } from "framer-motion";
-import * as motion from "motion/react-client";
+/* import * as motion from "motion/react-client"; */
 
 interface Props {
   user: UserInfo;
@@ -19,7 +15,7 @@ const ProfileDown = ({ user }: Props) => {
   };
 
   return (
-    <div className={`${!user ? "hidden" : "relative inline-block z-50"} `}>
+    <div className={`${!user ? "hidden" : "ml-4 relative inline-block z-50"} `}>
       <button
         type="button"
         className="flex items-center text-sm border-2 border-transparent z-50 rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out"
@@ -38,7 +34,7 @@ const ProfileDown = ({ user }: Props) => {
           className="w-10 h-10 rounded-[50%] cursor-pointer"
         />
       </button>
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {isDropdownOpen && (
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -49,10 +45,7 @@ const ProfileDown = ({ user }: Props) => {
           >
             <div className="py-1 rounded-md shadow-xs">
               <ul className="block py-2 z-[1000] min-w-full w-max rounded-lg max-h-96 overflow-auto dark:text-light">
-                <Link
-                  href={`/dashboard/users/${user?.id}`}
-                  className="py-2.5 px-5 flex items-center hover:bg-gray-100 text-[#333] text-sm cursor-pointer  dark:text-light"
-                >
+                <div className="py-2.5 px-5 flex items-center hover:bg-gray-100 text-[#333] text-sm cursor-pointer  dark:text-light">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor"
@@ -65,9 +58,8 @@ const ProfileDown = ({ user }: Props) => {
                     />
                   </svg>
                   View profile
-                </Link>
-                <Link
-                  href="/dashboard"
+                </div>
+                <div
                   className="py-2.5 px-5 flex items-center hover:bg-gray-100 text-[#333] text-sm cursor-pointer  dark:text-light"
                 >
                   <svg
@@ -82,7 +74,7 @@ const ProfileDown = ({ user }: Props) => {
                     />
                   </svg>
                   Dashboard
-                </Link>
+                </div>
                 <Link
                   href={`/dashboard/users/settings/${user?.id}`}
                   className="py-2.5 px-5 flex items-center hover:bg-gray-100 text-[#333] text-sm cursor-pointer  dark:text-light"
@@ -113,7 +105,7 @@ const ProfileDown = ({ user }: Props) => {
             </div>
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
     </div>
   );
 };

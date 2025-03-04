@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Phudu } from "next/font/google";
 import ProfileDown from "./ProfileDown";
 import { UserInfo } from "./Interfaces";
+import { handelLogOut } from "@/src/utils/actions";
 interface Props {
   user: UserInfo;
 }
@@ -51,12 +52,24 @@ const MainLink = ({ user }: Props) => {
         />
         {user ? (
           <>
-            <CustomLink
-              key="dashboard"
-              href="/dashboard"
-              title="Dashboard"
-              className="mx-4 uppercase dark:text-light"
-            />
+            <div
+              onClick={async () => {
+                handelLogOut();
+              }}
+              className={` relative group cursor-pointer`}
+            >
+              LOGOUT{" "}
+              <span
+                className={`
+        h-[1px] inline-block
+        absolute left-0 -bottom-0.5
+        group-hover:w-full transition-[width] ease duration-300 bg-dark
+        dark:bg-light`}
+              >
+                &nbsp;
+              </span>
+            </div>
+
             <ProfileDown user={user} />
           </>
         ) : (
